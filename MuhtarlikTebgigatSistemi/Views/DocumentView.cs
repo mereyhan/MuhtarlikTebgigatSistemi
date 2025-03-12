@@ -1,15 +1,10 @@
 ﻿using System.Runtime.InteropServices;
+using static System.Windows.Forms.VisualStyles.VisualStyleElement.StartPanel;
 
 namespace MuhtarlikTebgigatSistemi.Views
 {
     public partial class DocumentView : Form, IDocumentView
     {
-        // Native metotları kullanarak taşıma işlemi yapılır
-        [DllImport("user32.dll")]
-        public static extern int SendMessage(IntPtr hWnd, int Msg, int wParam, int lParam);
-        [DllImport("user32.dll")]
-        public static extern bool ReleaseCapture();
-
         // Fields
         private string message;
         private bool isSuccessful;
@@ -21,34 +16,65 @@ namespace MuhtarlikTebgigatSistemi.Views
             InitializeComponent();
             AssociateAndRaiseViewEvents();
             tabControl1.TabPages.Remove(TabPageDocDetail);
+            btnClose.Click += delegate { this.Close(); };
 
-            // formBorderPanel üzerine olay eklenir
-            formBorderPanel.MouseDown += formBorderPanel_MouseDown;
-        }
-
-        private void formBorderPanel_MouseDown(object? sender, MouseEventArgs e)
-        {
-            if (e.Button == MouseButtons.Left)
-            {
-                ReleaseCapture(); // Fare kontrolünü bırakır
-                SendMessage(this.Handle, 0xA1, 0x2, 0); // Formun taşıma mesajını işler
-
-            }
+            // formBorderPanel.MouseDown += formBorderPanel_MouseDown;
         }
 
         private void AssociateAndRaiseViewEvents()
         {
+            // Search document
             btnSearch.Click += delegate { SearchEvent?.Invoke(this, EventArgs.Empty); };
             txtSearch.KeyDown += (s, e) => { if (e.KeyCode == Keys.Enter) SearchEvent?.Invoke(this, EventArgs.Empty); };
-
-            /* 
-            btnSearch.Click += (s, e) => SearchEvent?.Invoke(s, e);
-            btnAdd.Click += (s, e) => AddEvent?.Invoke(s, e);
-            btnUpdate.Click += (s, e) => UpdateEvent?.Invoke(s, e);
-            btnDelete.Click += (s, e) => DeleteEvent?.Invoke(s, e);
-            btnSave.Click += (s, e) => SaveEvent?.Invoke(s, e);
-            btnCancel.Click += (s, e) => CancelEvent?.Invoke(s, e);
-            */
+            // Add new document
+            btnAdd.Click += delegate
+            {
+                AddEvent?.Invoke(this, EventArgs.Empty);
+                tabControl1.TabPages.Remove(TabPageDocList);
+                tabControl1.TabPages.Add(TabPageDocDetail);
+                TabPageDocDetail.Text = "Add new document";
+            };
+            // Update selected document
+            btnUpdate.Click += delegate
+            {
+                UpdateEvent?.Invoke(this, EventArgs.Empty);
+                tabControl1.TabPages.Remove(TabPageDocList);
+                tabControl1.TabPages.Add(TabPageDocDetail);
+                TabPageDocDetail.Text = "Update document";
+            };
+            // Delete selected document
+            btnDelete.Click += delegate
+            {
+                DeleteEvent?.Invoke(this, EventArgs.Empty);
+                var result = MessageBox.Show("Are you sure you want to delete the selected pet?", "Warning",
+                    MessageBoxButtons.YesNo, MessageBoxIcon.Warning);
+                if (result == DialogResult.Yes) {
+                    DeleteEvent?.Invoke(this, EventArgs.Empty);
+                    MessageBox.Show(Message);
+                }
+            };
+            // Save document
+            btnSave.Click += delegate
+            {
+                SaveEvent?.Invoke(this, EventArgs.Empty);
+                if (IsSuccessful)
+                {
+                    tabControl1.TabPages.Remove(TabPageDocDetail);
+                    tabControl1.TabPages.Add(TabPageDocList);
+                }
+                MessageBox.Show(Message);
+            };
+            // Cancel action
+            btnCancel.Click += delegate
+            {
+                CancelEvent?.Invoke(this, EventArgs.Empty);
+                if (IsSuccessful)
+                {
+                    tabControl1.TabPages.Remove(TabPageDocDetail);
+                    tabControl1.TabPages.Add(TabPageDocList);
+                }
+                MessageBox.Show(Message);
+            };
         }
 
         // Properties
@@ -75,6 +101,43 @@ namespace MuhtarlikTebgigatSistemi.Views
             dataGridView.DataSource = documentList;
         }
 
+        //Singleton pattern (Open a single form instance)
+        private static DocumentView instance;
+        public static DocumentView GetInstace(Form parentContainer)
+        {
+            if (instance == null || instance.IsDisposed)
+            {
+                instance = new DocumentView();
+                instance.MdiParent = parentContainer;
+                instance.FormBorderStyle = FormBorderStyle.None;
+                instance.Dock = DockStyle.Fill;
+            }
+            else
+            {
+                if (instance.WindowState == FormWindowState.Minimized)
+                    instance.WindowState = FormWindowState.Normal;
+                instance.BringToFront();
+            }
+            return instance;
+        }
+
+        /* Manuel Form Border Events [Closed]
+        // Native metotları kullanarak taşıma işlemi yapılır
+        [DllImport("user32.dll")]
+        public static extern int SendMessage(IntPtr hWnd, int Msg, int wParam, int lParam);
+        [DllImport("user32.dll")]
+        public static extern bool ReleaseCapture();
+
+        private void formBorderPanel_MouseDown(object? sender, MouseEventArgs e)
+        {
+            if (e.Button == MouseButtons.Left)
+            {
+                ReleaseCapture(); // Fare kontrolünü bırakır
+                SendMessage(this.Handle, 0xA1, 0x2, 0); // Formun taşıma mesajını işler
+
+            }
+        }
+
         private void btnClose_Click(object sender, EventArgs e)
         {
             Close();
@@ -90,25 +153,6 @@ namespace MuhtarlikTebgigatSistemi.Views
             if (this.WindowState == FormWindowState.Normal) this.WindowState = FormWindowState.Maximized; // Formu büyüt
             else this.WindowState = FormWindowState.Normal; // Orijinal boyuta döndür
         }
-
-        private void documentDetail_Click(object sender, EventArgs e)
-        {
-
-        }
-
-        private void label1_Click(object sender, EventArgs e)
-        {
-
-        }
-
-        private void documentList_Click(object sender, EventArgs e)
-        {
-
-        }
-
-        private void formBorderPanel_Paint(object sender, PaintEventArgs e)
-        {
-
-        }
+        */
     }
 }

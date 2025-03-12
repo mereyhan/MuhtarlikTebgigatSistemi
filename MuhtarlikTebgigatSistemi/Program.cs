@@ -1,4 +1,10 @@
+using System;
+using System.Windows.Forms;
+using MuhtarlikTebgigatSistemi.Model;
+using MuhtarlikTebgigatSistemi.Presenters;
+using MuhtarlikTebgigatSistemi._Repository;
 using MuhtarlikTebgigatSistemi.Views;
+using System.Configuration;
 
 namespace MuhtarlikTebgigatSistemi
 {
@@ -10,10 +16,17 @@ namespace MuhtarlikTebgigatSistemi
         [STAThread]
         static void Main()
         {
-            // To customize application configuration such as set high DPI settings or default font,
-            // see https://aka.ms/applicationconfiguration.
             ApplicationConfiguration.Initialize();
-            Application.Run(new DocumentView());
+            Application.EnableVisualStyles();
+            Application.SetCompatibleTextRenderingDefault(false);
+
+            // NameSpace, Properties, Settings, General, Settings.settings, SqlConnectionString
+            string sqlConnectionString = ConfigurationManager.ConnectionStrings["SqlConnection"].ConnectionString;
+            
+            IMainView view = new MainView();
+            new MainPresenter(view, sqlConnectionString);
+
+            Application.Run((Form)view);
         }
     }
 }

@@ -1,10 +1,11 @@
-﻿using System;
+﻿using MuhtarlikTebgigatSistemi.Model;
+using MuhtarlikTebgigatSistemi.Views;
+using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Reflection.Metadata;
 using System.Text;
 using System.Threading.Tasks;
-using MuhtarlikTebgigatSistemi.Views;
-using MuhtarlikTebgigatSistemi.Model;
 
 namespace MuhtarlikTebgigatSistemi.Presenters
 {
@@ -54,10 +55,61 @@ namespace MuhtarlikTebgigatSistemi.Presenters
             else documentList = repository.GetAll();
             documentsBindingSource.DataSource = documentList;
         }
-        private void CancelAction(object? sender, EventArgs e) { throw new NotImplementedException(); }
-        private void SaveDocument(object? sender, EventArgs e) { throw new NotImplementedException(); }
-        private void DeleteSelectedDocument(object? sender, EventArgs e) { throw new NotImplementedException(); }
-        private void UpdateSelectedDocument(object? sender, EventArgs e) { throw new NotImplementedException(); }
-        private void AddNewDocument(object? sender, EventArgs e) { throw new NotImplementedException(); }
+        private void AddNewDocument(object? sender, EventArgs e) { view.IsEdit = false; }
+        private void UpdateSelectedDocument(object? sender, EventArgs e)
+        {
+            var document = (DocumentModel)documentsBindingSource.Current;
+            view.DocumentID = document.Id.ToString();
+            view.DocumentName = document.Name;
+            view.DocumentType = document.Type;
+            view.DocumentColor = document.Color;
+            view.IsEdit = true;
+        }
+        private void DeleteSelectedDocument(object? sender, EventArgs e)
+        {
+            try
+            {
+                var document = (DocumentModel)documentsBindingSource.Current;
+                repository.Delete(document.Id);
+                view.IsSuccessful = true;
+                view.Message = "Document deleted successfully";
+                LoadAllDocumentList();
+            }
+            catch (Exception ex)
+            {
+                view.IsSuccessful = false;
+                view.Message = "An error occurred, could not delete document";
+            }
+        }
+        private void SaveDocument(object? sender, EventArgs e)
+        {
+            var model = new DocumentModel();
+            model.Id = int.Parse(view.DocumentID);
+            model.Name = view.DocumentName;
+            model.Type = view.DocumentType;
+            model.Color = view.DocumentColor;
+            try
+            {
+                new Common.ModelDataValidation().Validate(model);
+                if(view.IsEdit) repository.Update(model);
+                else repository.Add(model);
+                view.IsSuccessful = true;
+                LoadAllDocumentList();
+                CleanviewFields();
+            }
+            catch (Exception ex)
+            {
+                view.IsSuccessful = false;
+                view.Message = ex.Message;
+            }
+        }
+        private void CleanviewFields()
+        {
+            view.DocumentID = "0";
+            view.DocumentName = "";
+            view.DocumentType = "";
+            view.DocumentColor = "";
+        }
+        private void CancelAction(object? sender, EventArgs e) { CleanviewFields(); }
     }
 }

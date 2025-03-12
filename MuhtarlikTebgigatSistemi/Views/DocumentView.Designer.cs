@@ -28,14 +28,11 @@
         /// </summary>
         private void InitializeComponent()
         {
-            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(DocumentView));
             label1 = new Label();
             formBorderPanel = new Panel();
-            btnMinimize = new Button();
-            btnRestore = new Button();
             btnClose = new Button();
             tabControl1 = new TabControl();
-            documentList = new TabPage();
+            TabPageDocList = new TabPage();
             btnDelete = new Button();
             btnUpdate = new Button();
             btnAdd = new Button();
@@ -56,7 +53,7 @@
             documentID = new Label();
             formBorderPanel.SuspendLayout();
             tabControl1.SuspendLayout();
-            documentList.SuspendLayout();
+            TabPageDocList.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)dataGridView).BeginInit();
             TabPageDocDetail.SuspendLayout();
             SuspendLayout();
@@ -66,18 +63,15 @@
             label1.AutoSize = true;
             label1.Font = new Font("Segoe UI", 15F);
             label1.ForeColor = Color.White;
-            label1.Location = new Point(0, 0);
+            label1.Location = new Point(47, 1);
             label1.Name = "label1";
             label1.Size = new Size(131, 28);
             label1.TabIndex = 0;
             label1.Text = "DOCUMENTS";
-            label1.Click += label1_Click;
             // 
             // formBorderPanel
             // 
             formBorderPanel.BackColor = Color.Maroon;
-            formBorderPanel.Controls.Add(btnMinimize);
-            formBorderPanel.Controls.Add(btnRestore);
             formBorderPanel.Controls.Add(btnClose);
             formBorderPanel.Controls.Add(label1);
             formBorderPanel.Dock = DockStyle.Top;
@@ -85,53 +79,27 @@
             formBorderPanel.Name = "formBorderPanel";
             formBorderPanel.Size = new Size(686, 37);
             formBorderPanel.TabIndex = 1;
-            formBorderPanel.Paint += formBorderPanel_Paint;
-            // 
-            // btnMinimize
-            // 
-            btnMinimize.BackgroundImage = (Image)resources.GetObject("btnMinimize.BackgroundImage");
-            btnMinimize.BackgroundImageLayout = ImageLayout.Center;
-            btnMinimize.Dock = DockStyle.Right;
-            btnMinimize.FlatAppearance.BorderSize = 0;
-            btnMinimize.FlatStyle = FlatStyle.Flat;
-            btnMinimize.Location = new Point(575, 0);
-            btnMinimize.Name = "btnMinimize";
-            btnMinimize.Size = new Size(37, 37);
-            btnMinimize.TabIndex = 3;
-            btnMinimize.UseVisualStyleBackColor = true;
-            btnMinimize.Click += btnMinimize_Click;
-            // 
-            // btnRestore
-            // 
-            btnRestore.BackgroundImage = (Image)resources.GetObject("btnRestore.BackgroundImage");
-            btnRestore.BackgroundImageLayout = ImageLayout.Center;
-            btnRestore.Dock = DockStyle.Right;
-            btnRestore.FlatAppearance.BorderSize = 0;
-            btnRestore.FlatStyle = FlatStyle.Flat;
-            btnRestore.Location = new Point(612, 0);
-            btnRestore.Name = "btnRestore";
-            btnRestore.Size = new Size(37, 37);
-            btnRestore.TabIndex = 2;
-            btnRestore.UseVisualStyleBackColor = true;
-            btnRestore.Click += btnRestore_Click;
             // 
             // btnClose
             // 
-            btnClose.BackgroundImage = (Image)resources.GetObject("btnClose.BackgroundImage");
-            btnClose.BackgroundImageLayout = ImageLayout.Center;
-            btnClose.Dock = DockStyle.Right;
+            btnClose.BackColor = Color.Transparent;
+            btnClose.Dock = DockStyle.Left;
             btnClose.FlatAppearance.BorderSize = 0;
+            btnClose.FlatAppearance.MouseOverBackColor = Color.Firebrick;
             btnClose.FlatStyle = FlatStyle.Flat;
-            btnClose.Location = new Point(649, 0);
+            btnClose.Font = new Font("Microsoft Sans Serif", 12F, FontStyle.Regular, GraphicsUnit.Point, 0);
+            btnClose.ForeColor = SystemColors.ButtonHighlight;
+            btnClose.Location = new Point(0, 0);
             btnClose.Name = "btnClose";
             btnClose.Size = new Size(37, 37);
-            btnClose.TabIndex = 1;
-            btnClose.UseVisualStyleBackColor = true;
-            btnClose.Click += btnClose_Click;
+            btnClose.TabIndex = 7;
+            btnClose.Text = "<";
+            btnClose.UseCompatibleTextRendering = true;
+            btnClose.UseVisualStyleBackColor = false;
             // 
             // tabControl1
             // 
-            tabControl1.Controls.Add(documentList);
+            tabControl1.Controls.Add(TabPageDocList);
             tabControl1.Controls.Add(TabPageDocDetail);
             tabControl1.Dock = DockStyle.Fill;
             tabControl1.Location = new Point(0, 37);
@@ -140,27 +108,27 @@
             tabControl1.Size = new Size(686, 443);
             tabControl1.TabIndex = 2;
             // 
-            // documentList
+            // TabPageDocList
             // 
-            documentList.BackgroundImageLayout = ImageLayout.Zoom;
-            documentList.Controls.Add(btnDelete);
-            documentList.Controls.Add(btnUpdate);
-            documentList.Controls.Add(btnAdd);
-            documentList.Controls.Add(dataGridView);
-            documentList.Controls.Add(btnSearch);
-            documentList.Controls.Add(txtSearch);
-            documentList.Controls.Add(label2);
-            documentList.Location = new Point(4, 25);
-            documentList.Name = "documentList";
-            documentList.Padding = new Padding(3);
-            documentList.Size = new Size(678, 414);
-            documentList.TabIndex = 0;
-            documentList.Text = "Document List";
-            documentList.UseVisualStyleBackColor = true;
-            documentList.Click += documentList_Click;
+            TabPageDocList.BackgroundImageLayout = ImageLayout.Zoom;
+            TabPageDocList.Controls.Add(btnDelete);
+            TabPageDocList.Controls.Add(btnUpdate);
+            TabPageDocList.Controls.Add(btnAdd);
+            TabPageDocList.Controls.Add(dataGridView);
+            TabPageDocList.Controls.Add(btnSearch);
+            TabPageDocList.Controls.Add(txtSearch);
+            TabPageDocList.Controls.Add(label2);
+            TabPageDocList.Location = new Point(4, 25);
+            TabPageDocList.Name = "TabPageDocList";
+            TabPageDocList.Padding = new Padding(3);
+            TabPageDocList.Size = new Size(678, 414);
+            TabPageDocList.TabIndex = 0;
+            TabPageDocList.Text = "Document List";
+            TabPageDocList.UseVisualStyleBackColor = true;
             // 
             // btnDelete
             // 
+            btnDelete.Anchor = AnchorStyles.Top | AnchorStyles.Right;
             btnDelete.Location = new Point(608, 126);
             btnDelete.Name = "btnDelete";
             btnDelete.Size = new Size(64, 25);
@@ -170,6 +138,7 @@
             // 
             // btnUpdate
             // 
+            btnUpdate.Anchor = AnchorStyles.Top | AnchorStyles.Right;
             btnUpdate.Location = new Point(608, 95);
             btnUpdate.Name = "btnUpdate";
             btnUpdate.Size = new Size(64, 25);
@@ -179,6 +148,7 @@
             // 
             // btnAdd
             // 
+            btnAdd.Anchor = AnchorStyles.Top | AnchorStyles.Right;
             btnAdd.Location = new Point(608, 64);
             btnAdd.Name = "btnAdd";
             btnAdd.Size = new Size(64, 25);
@@ -188,6 +158,8 @@
             // 
             // dataGridView
             // 
+            dataGridView.Anchor = AnchorStyles.Top | AnchorStyles.Bottom | AnchorStyles.Left | AnchorStyles.Right;
+            dataGridView.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.Fill;
             dataGridView.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             dataGridView.Location = new Point(8, 64);
             dataGridView.Name = "dataGridView";
@@ -196,6 +168,7 @@
             // 
             // btnSearch
             // 
+            btnSearch.Anchor = AnchorStyles.Top | AnchorStyles.Right;
             btnSearch.Location = new Point(538, 33);
             btnSearch.Name = "btnSearch";
             btnSearch.Size = new Size(64, 25);
@@ -205,6 +178,7 @@
             // 
             // txtSearch
             // 
+            txtSearch.Anchor = AnchorStyles.Top | AnchorStyles.Left | AnchorStyles.Right;
             txtSearch.Location = new Point(8, 34);
             txtSearch.Name = "txtSearch";
             txtSearch.Size = new Size(526, 21);
@@ -232,14 +206,13 @@
             TabPageDocDetail.Controls.Add(documentType);
             TabPageDocDetail.Controls.Add(documentName);
             TabPageDocDetail.Controls.Add(documentID);
-            TabPageDocDetail.Location = new Point(4, 24);
+            TabPageDocDetail.Location = new Point(4, 25);
             TabPageDocDetail.Name = "TabPageDocDetail";
             TabPageDocDetail.Padding = new Padding(3);
-            TabPageDocDetail.Size = new Size(678, 415);
+            TabPageDocDetail.Size = new Size(678, 414);
             TabPageDocDetail.TabIndex = 1;
             TabPageDocDetail.Text = "Document Detail";
             TabPageDocDetail.UseVisualStyleBackColor = true;
-            TabPageDocDetail.Click += documentDetail_Click;
             // 
             // btnCancel
             // 
@@ -284,8 +257,10 @@
             // 
             txtDocId.Location = new Point(35, 60);
             txtDocId.Name = "txtDocId";
+            txtDocId.ReadOnly = true;
             txtDocId.Size = new Size(139, 21);
             txtDocId.TabIndex = 4;
+            txtDocId.Text = "0";
             // 
             // documentColor
             // 
@@ -331,19 +306,19 @@
             // 
             AutoScaleDimensions = new SizeF(6F, 16F);
             AutoScaleMode = AutoScaleMode.Font;
+            BackColor = Color.White;
             ClientSize = new Size(686, 480);
             Controls.Add(tabControl1);
             Controls.Add(formBorderPanel);
             Font = new Font("Arial Narrow", 9F, FontStyle.Regular, GraphicsUnit.Point, 0);
-            FormBorderStyle = FormBorderStyle.None;
             Name = "DocumentView";
             ShowIcon = false;
             Text = "DocumentView";
             formBorderPanel.ResumeLayout(false);
             formBorderPanel.PerformLayout();
             tabControl1.ResumeLayout(false);
-            documentList.ResumeLayout(false);
-            documentList.PerformLayout();
+            TabPageDocList.ResumeLayout(false);
+            TabPageDocList.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)dataGridView).EndInit();
             TabPageDocDetail.ResumeLayout(false);
             TabPageDocDetail.PerformLayout();
@@ -355,7 +330,7 @@
         private Label label1;
         private Panel formBorderPanel;
         private TabControl tabControl1;
-        private TabPage documentList;
+        private TabPage TabPageDocList;
         private TabPage TabPageDocDetail;
         private Button btnDelete;
         private Button btnUpdate;
@@ -375,7 +350,5 @@
         private Label documentID;
         private Button btnCancel;
         private Button btnClose;
-        private Button btnMinimize;
-        private Button btnRestore;
     }
 }
