@@ -28,62 +28,344 @@
         /// </summary>
         private void InitializeComponent()
         {
-            panel1 = new Panel();
+            panelSideMenu = new Panel();
+            panelSystemSubMenu = new Panel();
+            button6 = new Button();
+            button7 = new Button();
+            btnSystem = new Button();
+            panelEditSubMenu = new Panel();
+            button8 = new Button();
+            button5 = new Button();
+            button3 = new Button();
+            button4 = new Button();
+            btnEdit = new Button();
+            panelDocumentsSubMenu = new Panel();
+            button2 = new Button();
+            button1 = new Button();
             btnDocuments = new Button();
-            panel2 = new Panel();
-            panel1.SuspendLayout();
+            panelLogo = new Panel();
+            panelBottom = new Panel();
+            panelSideMenu.SuspendLayout();
+            panelSystemSubMenu.SuspendLayout();
+            panelEditSubMenu.SuspendLayout();
+            panelDocumentsSubMenu.SuspendLayout();
             SuspendLayout();
             // 
-            // panel1
+            // panelSideMenu
             // 
-            panel1.BackColor = SystemColors.ControlDarkDark;
-            panel1.Controls.Add(btnDocuments);
-            panel1.Controls.Add(panel2);
-            panel1.Dock = DockStyle.Left;
-            panel1.Location = new Point(0, 0);
-            panel1.Name = "panel1";
-            panel1.Size = new Size(143, 466);
-            panel1.TabIndex = 0;
+            panelSideMenu.AutoScroll = true;
+            panelSideMenu.BackColor = Color.Maroon;
+            panelSideMenu.Controls.Add(panelSystemSubMenu);
+            panelSideMenu.Controls.Add(btnSystem);
+            panelSideMenu.Controls.Add(panelEditSubMenu);
+            panelSideMenu.Controls.Add(btnEdit);
+            panelSideMenu.Controls.Add(panelDocumentsSubMenu);
+            panelSideMenu.Controls.Add(btnDocuments);
+            panelSideMenu.Controls.Add(panelLogo);
+            panelSideMenu.Dock = DockStyle.Left;
+            panelSideMenu.Location = new Point(0, 0);
+            panelSideMenu.Name = "panelSideMenu";
+            panelSideMenu.Size = new Size(250, 561);
+            panelSideMenu.TabIndex = 0;
+            // 
+            // panelSystemSubMenu
+            // 
+            panelSystemSubMenu.BackColor = Color.Transparent;
+            panelSystemSubMenu.Controls.Add(button6);
+            panelSystemSubMenu.Controls.Add(button7);
+            panelSystemSubMenu.Dock = DockStyle.Top;
+            panelSystemSubMenu.Location = new Point(0, 485);
+            panelSystemSubMenu.Name = "panelSystemSubMenu";
+            panelSystemSubMenu.Size = new Size(233, 85);
+            panelSystemSubMenu.TabIndex = 5;
+            // 
+            // button6
+            // 
+            button6.BackColor = Color.Maroon;
+            button6.Dock = DockStyle.Top;
+            button6.FlatAppearance.BorderColor = Color.Maroon;
+            button6.FlatAppearance.BorderSize = 0;
+            button6.FlatStyle = FlatStyle.Flat;
+            button6.ForeColor = SystemColors.Control;
+            button6.ImageAlign = ContentAlignment.MiddleLeft;
+            button6.Location = new Point(0, 40);
+            button6.Name = "button6";
+            button6.Padding = new Padding(35, 0, 0, 0);
+            button6.Size = new Size(233, 40);
+            button6.TabIndex = 1;
+            button6.Text = "button6";
+            button6.TextAlign = ContentAlignment.MiddleLeft;
+            button6.UseVisualStyleBackColor = false;
+            button6.Click += button6_Click;
+            // 
+            // button7
+            // 
+            button7.BackColor = Color.Maroon;
+            button7.Dock = DockStyle.Top;
+            button7.FlatAppearance.BorderColor = Color.Maroon;
+            button7.FlatAppearance.BorderSize = 0;
+            button7.FlatStyle = FlatStyle.Flat;
+            button7.ForeColor = SystemColors.Control;
+            button7.ImageAlign = ContentAlignment.MiddleLeft;
+            button7.Location = new Point(0, 0);
+            button7.Name = "button7";
+            button7.Padding = new Padding(35, 0, 0, 0);
+            button7.Size = new Size(233, 40);
+            button7.TabIndex = 0;
+            button7.Text = "button7";
+            button7.TextAlign = ContentAlignment.MiddleLeft;
+            button7.UseVisualStyleBackColor = false;
+            button7.Click += button7_Click;
+            // 
+            // btnSystem
+            // 
+            btnSystem.Dock = DockStyle.Top;
+            btnSystem.FlatAppearance.BorderSize = 0;
+            btnSystem.FlatAppearance.MouseOverBackColor = Color.Red;
+            btnSystem.FlatStyle = FlatStyle.Flat;
+            btnSystem.Font = new Font("Arial", 12F);
+            btnSystem.ForeColor = SystemColors.Control;
+            btnSystem.ImageAlign = ContentAlignment.MiddleLeft;
+            btnSystem.Location = new Point(0, 440);
+            btnSystem.Name = "btnSystem";
+            btnSystem.Padding = new Padding(10, 0, 0, 0);
+            btnSystem.Size = new Size(233, 45);
+            btnSystem.TabIndex = 4;
+            btnSystem.Text = "Sistem Bilgileri";
+            btnSystem.TextAlign = ContentAlignment.MiddleLeft;
+            btnSystem.UseVisualStyleBackColor = true;
+            btnSystem.Click += btnSystem_Click;
+            // 
+            // panelEditSubMenu
+            // 
+            panelEditSubMenu.BackColor = Color.Transparent;
+            panelEditSubMenu.Controls.Add(button8);
+            panelEditSubMenu.Controls.Add(button5);
+            panelEditSubMenu.Controls.Add(button3);
+            panelEditSubMenu.Controls.Add(button4);
+            panelEditSubMenu.Dock = DockStyle.Top;
+            panelEditSubMenu.Location = new Point(0, 275);
+            panelEditSubMenu.Name = "panelEditSubMenu";
+            panelEditSubMenu.Size = new Size(233, 165);
+            panelEditSubMenu.TabIndex = 3;
+            // 
+            // button8
+            // 
+            button8.BackColor = Color.Maroon;
+            button8.Dock = DockStyle.Top;
+            button8.FlatAppearance.BorderColor = Color.Maroon;
+            button8.FlatAppearance.BorderSize = 0;
+            button8.FlatStyle = FlatStyle.Flat;
+            button8.ForeColor = SystemColors.Control;
+            button8.ImageAlign = ContentAlignment.MiddleLeft;
+            button8.Location = new Point(0, 120);
+            button8.Name = "button8";
+            button8.Padding = new Padding(35, 0, 0, 0);
+            button8.Size = new Size(233, 40);
+            button8.TabIndex = 3;
+            button8.Text = "button8";
+            button8.TextAlign = ContentAlignment.MiddleLeft;
+            button8.UseVisualStyleBackColor = false;
+            button8.Click += button8_Click;
+            // 
+            // button5
+            // 
+            button5.BackColor = Color.Maroon;
+            button5.Dock = DockStyle.Top;
+            button5.FlatAppearance.BorderColor = Color.Maroon;
+            button5.FlatAppearance.BorderSize = 0;
+            button5.FlatStyle = FlatStyle.Flat;
+            button5.ForeColor = SystemColors.Control;
+            button5.ImageAlign = ContentAlignment.MiddleLeft;
+            button5.Location = new Point(0, 80);
+            button5.Name = "button5";
+            button5.Padding = new Padding(35, 0, 0, 0);
+            button5.Size = new Size(233, 40);
+            button5.TabIndex = 2;
+            button5.Text = "button5";
+            button5.TextAlign = ContentAlignment.MiddleLeft;
+            button5.UseVisualStyleBackColor = false;
+            button5.Click += button5_Click;
+            // 
+            // button3
+            // 
+            button3.BackColor = Color.Maroon;
+            button3.Dock = DockStyle.Top;
+            button3.FlatAppearance.BorderColor = Color.Maroon;
+            button3.FlatAppearance.BorderSize = 0;
+            button3.FlatStyle = FlatStyle.Flat;
+            button3.ForeColor = SystemColors.Control;
+            button3.ImageAlign = ContentAlignment.MiddleLeft;
+            button3.Location = new Point(0, 40);
+            button3.Name = "button3";
+            button3.Padding = new Padding(35, 0, 0, 0);
+            button3.Size = new Size(233, 40);
+            button3.TabIndex = 1;
+            button3.Text = "button3";
+            button3.TextAlign = ContentAlignment.MiddleLeft;
+            button3.UseVisualStyleBackColor = false;
+            button3.Click += button3_Click;
+            // 
+            // button4
+            // 
+            button4.BackColor = Color.Maroon;
+            button4.Dock = DockStyle.Top;
+            button4.FlatAppearance.BorderColor = Color.Maroon;
+            button4.FlatAppearance.BorderSize = 0;
+            button4.FlatStyle = FlatStyle.Flat;
+            button4.ForeColor = SystemColors.Control;
+            button4.ImageAlign = ContentAlignment.MiddleLeft;
+            button4.Location = new Point(0, 0);
+            button4.Name = "button4";
+            button4.Padding = new Padding(35, 0, 0, 0);
+            button4.Size = new Size(233, 40);
+            button4.TabIndex = 0;
+            button4.Text = "button4";
+            button4.TextAlign = ContentAlignment.MiddleLeft;
+            button4.UseVisualStyleBackColor = false;
+            button4.Click += button4_Click;
+            // 
+            // btnEdit
+            // 
+            btnEdit.Dock = DockStyle.Top;
+            btnEdit.FlatAppearance.BorderSize = 0;
+            btnEdit.FlatAppearance.MouseOverBackColor = Color.Red;
+            btnEdit.FlatStyle = FlatStyle.Flat;
+            btnEdit.Font = new Font("Arial", 12F);
+            btnEdit.ForeColor = SystemColors.Control;
+            btnEdit.ImageAlign = ContentAlignment.MiddleLeft;
+            btnEdit.Location = new Point(0, 230);
+            btnEdit.Name = "btnEdit";
+            btnEdit.Padding = new Padding(10, 0, 0, 0);
+            btnEdit.Size = new Size(233, 45);
+            btnEdit.TabIndex = 2;
+            btnEdit.Text = "Evrakları Düzenle";
+            btnEdit.TextAlign = ContentAlignment.MiddleLeft;
+            btnEdit.UseVisualStyleBackColor = true;
+            btnEdit.Click += btnEdit_Click;
+            // 
+            // panelDocumentsSubMenu
+            // 
+            panelDocumentsSubMenu.BackColor = Color.Transparent;
+            panelDocumentsSubMenu.Controls.Add(button2);
+            panelDocumentsSubMenu.Controls.Add(button1);
+            panelDocumentsSubMenu.Dock = DockStyle.Top;
+            panelDocumentsSubMenu.Location = new Point(0, 145);
+            panelDocumentsSubMenu.Name = "panelDocumentsSubMenu";
+            panelDocumentsSubMenu.Size = new Size(233, 85);
+            panelDocumentsSubMenu.TabIndex = 1;
+            // 
+            // button2
+            // 
+            button2.BackColor = Color.Maroon;
+            button2.Dock = DockStyle.Top;
+            button2.FlatAppearance.BorderColor = Color.Maroon;
+            button2.FlatAppearance.BorderSize = 0;
+            button2.FlatStyle = FlatStyle.Flat;
+            button2.ForeColor = SystemColors.Control;
+            button2.ImageAlign = ContentAlignment.MiddleLeft;
+            button2.Location = new Point(0, 40);
+            button2.Name = "button2";
+            button2.Padding = new Padding(35, 0, 0, 0);
+            button2.Size = new Size(233, 40);
+            button2.TabIndex = 1;
+            button2.Text = "button2";
+            button2.TextAlign = ContentAlignment.MiddleLeft;
+            button2.UseVisualStyleBackColor = false;
+            button2.Click += button2_Click;
+            // 
+            // button1
+            // 
+            button1.BackColor = Color.Maroon;
+            button1.Dock = DockStyle.Top;
+            button1.FlatAppearance.BorderColor = Color.Maroon;
+            button1.FlatAppearance.BorderSize = 0;
+            button1.FlatStyle = FlatStyle.Flat;
+            button1.ForeColor = SystemColors.Control;
+            button1.ImageAlign = ContentAlignment.MiddleLeft;
+            button1.Location = new Point(0, 0);
+            button1.Name = "button1";
+            button1.Padding = new Padding(35, 0, 0, 0);
+            button1.Size = new Size(233, 40);
+            button1.TabIndex = 0;
+            button1.Text = "button1";
+            button1.TextAlign = ContentAlignment.MiddleLeft;
+            button1.UseVisualStyleBackColor = false;
+            button1.Click += button1_Click;
             // 
             // btnDocuments
             // 
             btnDocuments.Dock = DockStyle.Top;
             btnDocuments.FlatAppearance.BorderSize = 0;
+            btnDocuments.FlatAppearance.MouseOverBackColor = Color.Red;
             btnDocuments.FlatStyle = FlatStyle.Flat;
             btnDocuments.Font = new Font("Arial", 12F);
             btnDocuments.ForeColor = SystemColors.Control;
-            btnDocuments.Location = new Point(0, 50);
+            btnDocuments.ImageAlign = ContentAlignment.MiddleLeft;
+            btnDocuments.Location = new Point(0, 100);
             btnDocuments.Name = "btnDocuments";
-            btnDocuments.Size = new Size(143, 40);
+            btnDocuments.Padding = new Padding(10, 0, 0, 0);
+            btnDocuments.Size = new Size(233, 45);
             btnDocuments.TabIndex = 0;
-            btnDocuments.Text = "Documents";
+            btnDocuments.Text = "Evrak Sorgula";
+            btnDocuments.TextAlign = ContentAlignment.MiddleLeft;
             btnDocuments.UseVisualStyleBackColor = true;
+            btnDocuments.Click += btnDocuments_Click;
             // 
-            // panel2
+            // panelLogo
             // 
-            panel2.Dock = DockStyle.Top;
-            panel2.Location = new Point(0, 0);
-            panel2.Name = "panel2";
-            panel2.Size = new Size(143, 50);
-            panel2.TabIndex = 0;
+            panelLogo.Dock = DockStyle.Top;
+            panelLogo.Location = new Point(0, 0);
+            panelLogo.Name = "panelLogo";
+            panelLogo.Size = new Size(233, 100);
+            panelLogo.TabIndex = 0;
+            // 
+            // panelBottom
+            // 
+            panelBottom.BackColor = Color.Maroon;
+            panelBottom.Dock = DockStyle.Bottom;
+            panelBottom.Location = new Point(250, 511);
+            panelBottom.Name = "panelBottom";
+            panelBottom.Size = new Size(684, 50);
+            panelBottom.TabIndex = 2;
             // 
             // MainView
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
-            ClientSize = new Size(888, 466);
-            Controls.Add(panel1);
+            BackColor = SystemColors.Control;
+            ClientSize = new Size(934, 561);
+            Controls.Add(panelBottom);
+            Controls.Add(panelSideMenu);
             IsMdiContainer = true;
+            MinimumSize = new Size(950, 600);
             Name = "MainView";
             Text = "MainView";
-            panel1.ResumeLayout(false);
+            panelSideMenu.ResumeLayout(false);
+            panelSystemSubMenu.ResumeLayout(false);
+            panelEditSubMenu.ResumeLayout(false);
+            panelDocumentsSubMenu.ResumeLayout(false);
             ResumeLayout(false);
         }
 
         #endregion
 
-        private Panel panel1;
+        private Panel panelSideMenu;
         private Button btnDocuments;
-        private Panel panel2;
+        private Panel panelLogo;
+        private Panel panelDocumentsSubMenu;
+        private Button button2;
+        private Button button1;
+        private Panel panelSystemSubMenu;
+        private Button button6;
+        private Button button7;
+        private Button btnSystem;
+        private Panel panelEditSubMenu;
+        private Button button3;
+        private Button button4;
+        private Button btnEdit;
+        private Button button8;
+        private Button button5;
+        private Panel panelBottom;
     }
 }
