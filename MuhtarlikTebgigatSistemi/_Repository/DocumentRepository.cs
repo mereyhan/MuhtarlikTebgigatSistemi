@@ -26,7 +26,7 @@ namespace MuhtarlikTebgigatSistemi._Repository
             {
                 connection.Open();
                 command.Connection = connection;
-                command.CommandText = "Insert into Pet values (@name, @type, @color)";
+                command.CommandText = "Insert into Document values (@name, @type, @color)";
                 command.Parameters.Add("@name", SqlDbType.NVarChar).Value = documentModel.Name;
                 command.Parameters.Add("@type", SqlDbType.NVarChar).Value = documentModel.Type;
                 command.Parameters.Add("@color", SqlDbType.NVarChar).Value = documentModel.Color;
@@ -40,7 +40,7 @@ namespace MuhtarlikTebgigatSistemi._Repository
             {
                 connection.Open();
                 command.Connection = connection;
-                command.CommandText = "Insert into Pet where Pet_Id=@id";
+                command.CommandText = "delete from Document where Document_Id = @id";
                 command.Parameters.Add("@id", SqlDbType.Int).Value = id;
                 command.ExecuteNonQuery();
             }
@@ -52,9 +52,9 @@ namespace MuhtarlikTebgigatSistemi._Repository
             {
                 connection.Open();
                 command.Connection = connection;
-                command.CommandText = @"update Pet 
-                                        set Pet_Name=@name,Pet_Type= @type,Pet_Colour= @colour 
-                                        where Pet_Id=@id";
+                command.CommandText = @"update Document 
+                                        set Document_Name = @name, Document_Type = @type, Document_Color = @color 
+                                        where Document_Id = @id";
                 command.Parameters.Add("@name", SqlDbType.NVarChar).Value = documentModel.Name;
                 command.Parameters.Add("@type", SqlDbType.NVarChar).Value = documentModel.Type;
                 command.Parameters.Add("@color", SqlDbType.NVarChar).Value = documentModel.Color;

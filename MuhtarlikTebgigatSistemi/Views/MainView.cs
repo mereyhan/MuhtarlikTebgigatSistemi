@@ -57,11 +57,6 @@ namespace MuhtarlikTebgigatSistemi.Views
             // ...
             hideSubMenu();
         }
-        private void button2_Click(object sender, EventArgs e)
-        {
-            // ...
-            hideSubMenu();
-        }
 #endregion
 
         private void btnEdit_Click(object sender, EventArgs e)

@@ -26,7 +26,7 @@ namespace MuhtarlikTebgigatSistemi.Views
         event EventHandler UpdateEvent;
         event EventHandler DeleteEvent;
         event EventHandler SaveEvent;
-        event EventHandler CancelEvent;
+        event EventHandler  CancelEvent;
 
         // Methods
         void SetDocumentListBindingSource(BindingSource documentList);

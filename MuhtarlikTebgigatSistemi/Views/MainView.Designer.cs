@@ -40,11 +40,10 @@
             button4 = new Button();
             btnEdit = new Button();
             panelDocumentsSubMenu = new Panel();
-            button2 = new Button();
             button1 = new Button();
             btnDocuments = new Button();
             panelLogo = new Panel();
-            panelBottom = new Panel();
+            panelKilim = new Panel();
             panelSideMenu.SuspendLayout();
             panelSystemSubMenu.SuspendLayout();
             panelEditSubMenu.SuspendLayout();
@@ -74,9 +73,9 @@
             panelSystemSubMenu.Controls.Add(button6);
             panelSystemSubMenu.Controls.Add(button7);
             panelSystemSubMenu.Dock = DockStyle.Top;
-            panelSystemSubMenu.Location = new Point(0, 485);
+            panelSystemSubMenu.Location = new Point(0, 445);
             panelSystemSubMenu.Name = "panelSystemSubMenu";
-            panelSystemSubMenu.Size = new Size(233, 85);
+            panelSystemSubMenu.Size = new Size(250, 85);
             panelSystemSubMenu.TabIndex = 5;
             // 
             // button6
@@ -91,9 +90,9 @@
             button6.Location = new Point(0, 40);
             button6.Name = "button6";
             button6.Padding = new Padding(35, 0, 0, 0);
-            button6.Size = new Size(233, 40);
+            button6.Size = new Size(250, 40);
             button6.TabIndex = 1;
-            button6.Text = "button6";
+            button6.Text = "İstatistikler";
             button6.TextAlign = ContentAlignment.MiddleLeft;
             button6.UseVisualStyleBackColor = false;
             button6.Click += button6_Click;
@@ -110,9 +109,9 @@
             button7.Location = new Point(0, 0);
             button7.Name = "button7";
             button7.Padding = new Padding(35, 0, 0, 0);
-            button7.Size = new Size(233, 40);
+            button7.Size = new Size(250, 40);
             button7.TabIndex = 0;
-            button7.Text = "button7";
+            button7.Text = "Tabloyu Düzenle";
             button7.TextAlign = ContentAlignment.MiddleLeft;
             button7.UseVisualStyleBackColor = false;
             button7.Click += button7_Click;
@@ -126,10 +125,10 @@
             btnSystem.Font = new Font("Arial", 12F);
             btnSystem.ForeColor = SystemColors.Control;
             btnSystem.ImageAlign = ContentAlignment.MiddleLeft;
-            btnSystem.Location = new Point(0, 440);
+            btnSystem.Location = new Point(0, 400);
             btnSystem.Name = "btnSystem";
             btnSystem.Padding = new Padding(10, 0, 0, 0);
-            btnSystem.Size = new Size(233, 45);
+            btnSystem.Size = new Size(250, 45);
             btnSystem.TabIndex = 4;
             btnSystem.Text = "Sistem Bilgileri";
             btnSystem.TextAlign = ContentAlignment.MiddleLeft;
@@ -144,9 +143,9 @@
             panelEditSubMenu.Controls.Add(button3);
             panelEditSubMenu.Controls.Add(button4);
             panelEditSubMenu.Dock = DockStyle.Top;
-            panelEditSubMenu.Location = new Point(0, 275);
+            panelEditSubMenu.Location = new Point(0, 235);
             panelEditSubMenu.Name = "panelEditSubMenu";
-            panelEditSubMenu.Size = new Size(233, 165);
+            panelEditSubMenu.Size = new Size(250, 165);
             panelEditSubMenu.TabIndex = 3;
             // 
             // button8
@@ -161,9 +160,9 @@
             button8.Location = new Point(0, 120);
             button8.Name = "button8";
             button8.Padding = new Padding(35, 0, 0, 0);
-            button8.Size = new Size(233, 40);
+            button8.Size = new Size(250, 40);
             button8.TabIndex = 3;
-            button8.Text = "button8";
+            button8.Text = "Firma Bilgileri";
             button8.TextAlign = ContentAlignment.MiddleLeft;
             button8.UseVisualStyleBackColor = false;
             button8.Click += button8_Click;
@@ -180,9 +179,9 @@
             button5.Location = new Point(0, 80);
             button5.Name = "button5";
             button5.Padding = new Padding(35, 0, 0, 0);
-            button5.Size = new Size(233, 40);
+            button5.Size = new Size(250, 40);
             button5.TabIndex = 2;
-            button5.Text = "button5";
+            button5.Text = "Kullanıcı Bilgileri";
             button5.TextAlign = ContentAlignment.MiddleLeft;
             button5.UseVisualStyleBackColor = false;
             button5.Click += button5_Click;
@@ -199,9 +198,9 @@
             button3.Location = new Point(0, 40);
             button3.Name = "button3";
             button3.Padding = new Padding(35, 0, 0, 0);
-            button3.Size = new Size(233, 40);
+            button3.Size = new Size(250, 40);
             button3.TabIndex = 1;
-            button3.Text = "button3";
+            button3.Text = "Evrak Türü Bilgileri";
             button3.TextAlign = ContentAlignment.MiddleLeft;
             button3.UseVisualStyleBackColor = false;
             button3.Click += button3_Click;
@@ -218,9 +217,9 @@
             button4.Location = new Point(0, 0);
             button4.Name = "button4";
             button4.Padding = new Padding(35, 0, 0, 0);
-            button4.Size = new Size(233, 40);
+            button4.Size = new Size(250, 40);
             button4.TabIndex = 0;
-            button4.Text = "button4";
+            button4.Text = "Sokak Bilgileri";
             button4.TextAlign = ContentAlignment.MiddleLeft;
             button4.UseVisualStyleBackColor = false;
             button4.Click += button4_Click;
@@ -234,10 +233,10 @@
             btnEdit.Font = new Font("Arial", 12F);
             btnEdit.ForeColor = SystemColors.Control;
             btnEdit.ImageAlign = ContentAlignment.MiddleLeft;
-            btnEdit.Location = new Point(0, 230);
+            btnEdit.Location = new Point(0, 190);
             btnEdit.Name = "btnEdit";
             btnEdit.Padding = new Padding(10, 0, 0, 0);
-            btnEdit.Size = new Size(233, 45);
+            btnEdit.Size = new Size(250, 45);
             btnEdit.TabIndex = 2;
             btnEdit.Text = "Evrakları Düzenle";
             btnEdit.TextAlign = ContentAlignment.MiddleLeft;
@@ -247,32 +246,12 @@
             // panelDocumentsSubMenu
             // 
             panelDocumentsSubMenu.BackColor = Color.Transparent;
-            panelDocumentsSubMenu.Controls.Add(button2);
             panelDocumentsSubMenu.Controls.Add(button1);
             panelDocumentsSubMenu.Dock = DockStyle.Top;
             panelDocumentsSubMenu.Location = new Point(0, 145);
             panelDocumentsSubMenu.Name = "panelDocumentsSubMenu";
-            panelDocumentsSubMenu.Size = new Size(233, 85);
+            panelDocumentsSubMenu.Size = new Size(250, 45);
             panelDocumentsSubMenu.TabIndex = 1;
-            // 
-            // button2
-            // 
-            button2.BackColor = Color.Maroon;
-            button2.Dock = DockStyle.Top;
-            button2.FlatAppearance.BorderColor = Color.Maroon;
-            button2.FlatAppearance.BorderSize = 0;
-            button2.FlatStyle = FlatStyle.Flat;
-            button2.ForeColor = SystemColors.Control;
-            button2.ImageAlign = ContentAlignment.MiddleLeft;
-            button2.Location = new Point(0, 40);
-            button2.Name = "button2";
-            button2.Padding = new Padding(35, 0, 0, 0);
-            button2.Size = new Size(233, 40);
-            button2.TabIndex = 1;
-            button2.Text = "button2";
-            button2.TextAlign = ContentAlignment.MiddleLeft;
-            button2.UseVisualStyleBackColor = false;
-            button2.Click += button2_Click;
             // 
             // button1
             // 
@@ -286,9 +265,9 @@
             button1.Location = new Point(0, 0);
             button1.Name = "button1";
             button1.Padding = new Padding(35, 0, 0, 0);
-            button1.Size = new Size(233, 40);
+            button1.Size = new Size(250, 40);
             button1.TabIndex = 0;
-            button1.Text = "button1";
+            button1.Text = "Geçmiş Evrak Sorgula";
             button1.TextAlign = ContentAlignment.MiddleLeft;
             button1.UseVisualStyleBackColor = false;
             button1.Click += button1_Click;
@@ -305,7 +284,7 @@
             btnDocuments.Location = new Point(0, 100);
             btnDocuments.Name = "btnDocuments";
             btnDocuments.Padding = new Padding(10, 0, 0, 0);
-            btnDocuments.Size = new Size(233, 45);
+            btnDocuments.Size = new Size(250, 45);
             btnDocuments.TabIndex = 0;
             btnDocuments.Text = "Evrak Sorgula";
             btnDocuments.TextAlign = ContentAlignment.MiddleLeft;
@@ -317,17 +296,17 @@
             panelLogo.Dock = DockStyle.Top;
             panelLogo.Location = new Point(0, 0);
             panelLogo.Name = "panelLogo";
-            panelLogo.Size = new Size(233, 100);
+            panelLogo.Size = new Size(250, 100);
             panelLogo.TabIndex = 0;
             // 
-            // panelBottom
+            // panelKilim
             // 
-            panelBottom.BackColor = Color.Maroon;
-            panelBottom.Dock = DockStyle.Bottom;
-            panelBottom.Location = new Point(250, 511);
-            panelBottom.Name = "panelBottom";
-            panelBottom.Size = new Size(684, 50);
-            panelBottom.TabIndex = 2;
+            panelKilim.BackColor = Color.Maroon;
+            panelKilim.Dock = DockStyle.Bottom;
+            panelKilim.Location = new Point(250, 551);
+            panelKilim.Name = "panelKilim";
+            panelKilim.Size = new Size(684, 10);
+            panelKilim.TabIndex = 2;
             // 
             // MainView
             // 
@@ -335,7 +314,7 @@
             AutoScaleMode = AutoScaleMode.Font;
             BackColor = SystemColors.Control;
             ClientSize = new Size(934, 561);
-            Controls.Add(panelBottom);
+            Controls.Add(panelKilim);
             Controls.Add(panelSideMenu);
             IsMdiContainer = true;
             MinimumSize = new Size(950, 600);
@@ -354,7 +333,6 @@
         private Button btnDocuments;
         private Panel panelLogo;
         private Panel panelDocumentsSubMenu;
-        private Button button2;
         private Button button1;
         private Panel panelSystemSubMenu;
         private Button button6;
@@ -366,6 +344,6 @@
         private Button btnEdit;
         private Button button8;
         private Button button5;
-        private Panel panelBottom;
+        private Panel panelKilim;
     }
 }

@@ -46,7 +46,7 @@ namespace MuhtarlikTebgigatSistemi.Views
             btnDelete.Click += delegate
             {
                 DeleteEvent?.Invoke(this, EventArgs.Empty);
-                var result = MessageBox.Show("Are you sure you want to delete the selected pet?", "Warning",
+                var result = MessageBox.Show("Are you sure you want to delete the selected document?", "Warning",
                     MessageBoxButtons.YesNo, MessageBoxIcon.Warning);
                 if (result == DialogResult.Yes) {
                     DeleteEvent?.Invoke(this, EventArgs.Empty);
@@ -68,12 +68,8 @@ namespace MuhtarlikTebgigatSistemi.Views
             btnCancel.Click += delegate
             {
                 CancelEvent?.Invoke(this, EventArgs.Empty);
-                if (IsSuccessful)
-                {
-                    tabControl1.TabPages.Remove(TabPageDocDetail);
-                    tabControl1.TabPages.Add(TabPageDocList);
-                }
-                MessageBox.Show(Message);
+                tabControl1.TabPages.Remove(TabPageDocDetail);
+                tabControl1.TabPages.Add(TabPageDocList);
             };
         }
 

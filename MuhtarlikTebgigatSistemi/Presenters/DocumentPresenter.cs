@@ -78,7 +78,9 @@ namespace MuhtarlikTebgigatSistemi.Presenters
             catch (Exception ex)
             {
                 view.IsSuccessful = false;
-                view.Message = "An error occurred, could not delete document";
+                view.Message = $"An error occurred: {ex.Message}";
+                Console.WriteLine($"Error details: {ex}");
+
             }
         }
         private void SaveDocument(object? sender, EventArgs e)
@@ -95,7 +97,7 @@ namespace MuhtarlikTebgigatSistemi.Presenters
                 else repository.Add(model);
                 view.IsSuccessful = true;
                 LoadAllDocumentList();
-                CleanviewFields();
+                CleanViewFields();
             }
             catch (Exception ex)
             {
@@ -103,13 +105,16 @@ namespace MuhtarlikTebgigatSistemi.Presenters
                 view.Message = ex.Message;
             }
         }
-        private void CleanviewFields()
+        private void CleanViewFields()
         {
             view.DocumentID = "0";
             view.DocumentName = "";
             view.DocumentType = "";
             view.DocumentColor = "";
         }
-        private void CancelAction(object? sender, EventArgs e) { CleanviewFields(); }
+        private void CancelAction(object? sender, EventArgs e)
+        {
+            CleanViewFields();
+        }
     }
 }
