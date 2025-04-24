@@ -1,11 +1,11 @@
 ﻿using MuhtarlikTebgigatSistemi.Model;
 using System;
 using System.Collections.Generic;
+using System.Data;
+using System.Data.SQLite;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using Microsoft.Data.SqlClient;
-using System.Data;
 
 namespace MuhtarlikTebgigatSistemi._Repository
 {
@@ -21,57 +21,56 @@ namespace MuhtarlikTebgigatSistemi._Repository
         // Methods
         public void Add(DocumentModel documentModel)
         {
-            using (var connection = new SqlConnection(connectionString))
-            using (var command = new SqlCommand())
+            using (var connection = new SQLiteConnection(connectionString))
+            using (var command = new SQLiteCommand())
             {
                 connection.Open();
                 command.Connection = connection;
-                command.CommandText = "Insert into Document values (@name, @type, @color)";
-                command.Parameters.Add("@name", SqlDbType.NVarChar).Value = documentModel.Name;
-                command.Parameters.Add("@type", SqlDbType.NVarChar).Value = documentModel.Type;
-                command.Parameters.Add("@color", SqlDbType.NVarChar).Value = documentModel.Color;
+                command.CommandText = "INSERT INTO Document (Document_Name, Document_Type, Document_Color) VALUES (@name, @type, @color)";
+                command.Parameters.AddWithValue("@name", documentModel.Name);
+                command.Parameters.AddWithValue("@type", documentModel.Type);
+                command.Parameters.AddWithValue("@color", documentModel.Color);
                 command.ExecuteNonQuery();
             }
         }
         public void Delete(int id)
         {
-            using (var connection = new SqlConnection(connectionString))
-            using (var command = new SqlCommand())
+            using (var connection = new SQLiteConnection(connectionString))
+            using (var command = new SQLiteCommand())
             {
                 connection.Open();
                 command.Connection = connection;
-                command.CommandText = "delete from Document where Document_Id = @id";
-                command.Parameters.Add("@id", SqlDbType.Int).Value = id;
+                command.CommandText = "DELETE FROM Document WHERE Document_Id = @id";
+                command.Parameters.AddWithValue("@id", id);
                 command.ExecuteNonQuery();
             }
         }
         public void Update(DocumentModel documentModel)
         {
-            using (var connection = new SqlConnection(connectionString))
-            using (var command = new SqlCommand())
+            using (var connection = new SQLiteConnection(connectionString))
+            using (var command = new SQLiteCommand())
             {
                 connection.Open();
                 command.Connection = connection;
-                command.CommandText = @"update Document 
-                                        set Document_Name = @name, Document_Type = @type, Document_Color = @color 
-                                        where Document_Id = @id";
-                command.Parameters.Add("@name", SqlDbType.NVarChar).Value = documentModel.Name;
-                command.Parameters.Add("@type", SqlDbType.NVarChar).Value = documentModel.Type;
-                command.Parameters.Add("@color", SqlDbType.NVarChar).Value = documentModel.Color;
-                command.Parameters.Add("@id", SqlDbType.Int).Value = documentModel.Id;
+                command.CommandText = @"UPDATE Document 
+                                        SET Document_Name = @name, Document_Type = @type, Document_Color = @color 
+                                        WHERE Document_Id = @id";
+                command.Parameters.AddWithValue("@name", documentModel.Name);
+                command.Parameters.AddWithValue("@type", documentModel.Type);
+                command.Parameters.AddWithValue("@color", documentModel.Color);
+                command.Parameters.AddWithValue("@id", documentModel.Id);
                 command.ExecuteNonQuery();
             }
         }
-
         public IEnumerable<DocumentModel> GetAll()
         {
             var documentList = new List<DocumentModel>();
-            using (var connection = new SqlConnection(connectionString))
-            using (var command = new SqlCommand())
+            using (var connection = new SQLiteConnection(connectionString))
+            using (var command = new SQLiteCommand())
             {
                 connection.Open();
                 command.Connection = connection;
-                command.CommandText = "Select *from Document order by Document_Id desc";
+                command.CommandText = "SELECT * FROM Document ORDER BY Document_Id DESC";
                 using (var reader = command.ExecuteReader())
                 {
                     while (reader.Read())
@@ -90,23 +89,22 @@ namespace MuhtarlikTebgigatSistemi._Repository
 
             return documentList;
         }
-
         public IEnumerable<DocumentModel> GetByValue(string searchValue)
         {
             var documentList = new List<DocumentModel>();
             int documentId = int.TryParse(searchValue, out _) ? int.Parse(searchValue) : 0;
             string documentName = searchValue;
 
-            using (var connection = new SqlConnection(connectionString))
-            using (var command = new SqlCommand())
+            using (var connection = new SQLiteConnection(connectionString))
+            using (var command = new SQLiteCommand())
             {
                 connection.Open();
                 command.Connection = connection;
-                command.CommandText = @"Select *from Document 
-                                        where Document_Id=@id or Document_Name like @name+'%'
-                                        order by Document_Id desc";
-                command.Parameters.Add("@id", SqlDbType.Int).Value = documentId;
-                command.Parameters.Add("@name", SqlDbType.NVarChar).Value = documentName;
+                command.CommandText = @"SELECT * FROM Document 
+                                        WHERE Document_Id = @id OR Document_Name LIKE @name || '%'
+                                        ORDER BY Document_Id DESC";
+                command.Parameters.AddWithValue("@id", documentId);
+                command.Parameters.AddWithValue("@name", documentName);
 
                 using (var reader = command.ExecuteReader())
                 {
