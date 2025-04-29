@@ -9,7 +9,7 @@ using System.Threading.Tasks;
 
 namespace MuhtarlikTebgigatSistemi._Repository
 {
-    public class DocumentRepository : BaseRepository, IDocumentRepository
+    public class DocumentRepository : BaseRepository, IRepository<DocumentModel>
     {
 
         // Constructor
@@ -26,10 +26,17 @@ namespace MuhtarlikTebgigatSistemi._Repository
             {
                 connection.Open();
                 command.Connection = connection;
-                command.CommandText = "INSERT INTO Document (Document_Name, Document_Type, Document_Color) VALUES (@name, @type, @color)";
-                command.Parameters.AddWithValue("@name", documentModel.Name);
+                command.CommandText = @"INSERT INTO Document (DocumentType_Name, Person_Name, Company_Name, Street_Name, Building_Apt, Registration_Date, Delivery_Date, Delivered_By)
+                                        VALUES (@type, @personName, @companyName, @streetName, @apt, @registrationDate, @deliveryDate, @deliveredBy)";
+
                 command.Parameters.AddWithValue("@type", documentModel.Type);
-                command.Parameters.AddWithValue("@color", documentModel.Color);
+                command.Parameters.AddWithValue("@personName", documentModel.PersonName);
+                command.Parameters.AddWithValue("@companyName", documentModel.CompanyName);
+                command.Parameters.AddWithValue("@streetName", documentModel.StreetName);
+                command.Parameters.AddWithValue("@apt", documentModel.BuildingApt);
+                command.Parameters.AddWithValue("@registrationDate", documentModel.RegistrationDate.ToString("yyyy-MM-dd"));
+                command.Parameters.AddWithValue("@deliveryDate", documentModel.DeliveryDate.ToString("yyyy-MM-dd"));
+                command.Parameters.AddWithValue("@deliveredBy", documentModel.DeliveredBy);
                 command.ExecuteNonQuery();
             }
         }
@@ -53,11 +60,9 @@ namespace MuhtarlikTebgigatSistemi._Repository
                 connection.Open();
                 command.Connection = connection;
                 command.CommandText = @"UPDATE Document 
-                                        SET Document_Name = @name, Document_Type = @type, Document_Color = @color 
+                                        SET DocumentType_Name = @type, Document_Type = @type, 
                                         WHERE Document_Id = @id";
-                command.Parameters.AddWithValue("@name", documentModel.Name);
                 command.Parameters.AddWithValue("@type", documentModel.Type);
-                command.Parameters.AddWithValue("@color", documentModel.Color);
                 command.Parameters.AddWithValue("@id", documentModel.Id);
                 command.ExecuteNonQuery();
             }
@@ -78,9 +83,7 @@ namespace MuhtarlikTebgigatSistemi._Repository
                         var documentModel = new DocumentModel
                         {
                             Id = reader.GetInt32(0),
-                            Name = reader.GetString(1),
-                            Type = reader.GetString(2),
-                            Color = reader.GetString(3)
+                            Type = reader.GetString(1)
                         };
                         documentList.Add(documentModel);
                     }
@@ -113,9 +116,7 @@ namespace MuhtarlikTebgigatSistemi._Repository
                         var documentModel = new DocumentModel
                         {
                             Id = reader.GetInt32(0),
-                            Name = reader.GetString(1),
-                            Type = reader.GetString(2),
-                            Color = reader.GetString(3)
+                            Type = reader.GetString(1)
                         };
                         documentList.Add(documentModel);
                     }

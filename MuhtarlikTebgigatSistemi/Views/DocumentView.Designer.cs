@@ -41,15 +41,23 @@
             txtSearch = new TextBox();
             label2 = new Label();
             TabPageDocDetail = new TabPage();
+            label8 = new Label();
+            txtApt = new TextBox();
+            label7 = new Label();
+            label6 = new Label();
+            label5 = new Label();
+            label4 = new Label();
+            label3 = new Label();
+            txtDeliveredBy = new TextBox();
+            txtRegDate = new TextBox();
+            txtStreetName = new TextBox();
+            txtCompanyName = new TextBox();
+            txtPersonName = new TextBox();
             btnCancel = new Button();
             btnSave = new Button();
-            txtDocColor = new TextBox();
             txtDocType = new TextBox();
-            txtDocName = new TextBox();
             txtDocId = new TextBox();
-            documentColor = new Label();
             documentType = new Label();
-            documentName = new Label();
             documentID = new Label();
             formBorderPanel.SuspendLayout();
             tabControl1.SuspendLayout();
@@ -196,15 +204,23 @@
             // 
             // TabPageDocDetail
             // 
+            TabPageDocDetail.Controls.Add(label8);
+            TabPageDocDetail.Controls.Add(txtApt);
+            TabPageDocDetail.Controls.Add(label7);
+            TabPageDocDetail.Controls.Add(label6);
+            TabPageDocDetail.Controls.Add(label5);
+            TabPageDocDetail.Controls.Add(label4);
+            TabPageDocDetail.Controls.Add(label3);
+            TabPageDocDetail.Controls.Add(txtDeliveredBy);
+            TabPageDocDetail.Controls.Add(txtRegDate);
+            TabPageDocDetail.Controls.Add(txtStreetName);
+            TabPageDocDetail.Controls.Add(txtCompanyName);
+            TabPageDocDetail.Controls.Add(txtPersonName);
             TabPageDocDetail.Controls.Add(btnCancel);
             TabPageDocDetail.Controls.Add(btnSave);
-            TabPageDocDetail.Controls.Add(txtDocColor);
             TabPageDocDetail.Controls.Add(txtDocType);
-            TabPageDocDetail.Controls.Add(txtDocName);
             TabPageDocDetail.Controls.Add(txtDocId);
-            TabPageDocDetail.Controls.Add(documentColor);
             TabPageDocDetail.Controls.Add(documentType);
-            TabPageDocDetail.Controls.Add(documentName);
             TabPageDocDetail.Controls.Add(documentID);
             TabPageDocDetail.Location = new Point(4, 25);
             TabPageDocDetail.Name = "TabPageDocDetail";
@@ -214,9 +230,111 @@
             TabPageDocDetail.Text = "Document Detail";
             TabPageDocDetail.UseVisualStyleBackColor = true;
             // 
+            // label8
+            // 
+            label8.AutoSize = true;
+            label8.Font = new Font("Segoe UI", 12F);
+            label8.Location = new Point(43, 196);
+            label8.Name = "label8";
+            label8.Size = new Size(85, 21);
+            label8.TabIndex = 22;
+            label8.Text = "Kayıt Tarihi";
+            // 
+            // txtApt
+            // 
+            txtApt.Location = new Point(167, 169);
+            txtApt.Name = "txtApt";
+            txtApt.Size = new Size(139, 21);
+            txtApt.TabIndex = 21;
+            // 
+            // label7
+            // 
+            label7.AutoSize = true;
+            label7.Font = new Font("Segoe UI", 12F);
+            label7.Location = new Point(43, 223);
+            label7.Name = "label7";
+            label7.Size = new Size(99, 21);
+            label7.TabIndex = 20;
+            label7.Text = "Teslim Edilen";
+            // 
+            // label6
+            // 
+            label6.AutoSize = true;
+            label6.Font = new Font("Segoe UI", 12F);
+            label6.Location = new Point(43, 169);
+            label6.Name = "label6";
+            label6.Size = new Size(40, 21);
+            label6.TabIndex = 19;
+            label6.Text = "Bina";
+            // 
+            // label5
+            // 
+            label5.AutoSize = true;
+            label5.Font = new Font("Segoe UI", 12F);
+            label5.Location = new Point(43, 142);
+            label5.Name = "label5";
+            label5.Size = new Size(52, 21);
+            label5.TabIndex = 18;
+            label5.Text = "Sokak";
+            // 
+            // label4
+            // 
+            label4.AutoSize = true;
+            label4.Font = new Font("Segoe UI", 12F);
+            label4.Location = new Point(43, 115);
+            label4.Name = "label4";
+            label4.Size = new Size(50, 21);
+            label4.TabIndex = 17;
+            label4.Text = "Firma";
+            // 
+            // label3
+            // 
+            label3.AutoSize = true;
+            label3.Font = new Font("Segoe UI", 12F);
+            label3.Location = new Point(43, 88);
+            label3.Name = "label3";
+            label3.Size = new Size(39, 21);
+            label3.TabIndex = 16;
+            label3.Text = "İsim";
+            // 
+            // txtDeliveredBy
+            // 
+            txtDeliveredBy.Location = new Point(167, 223);
+            txtDeliveredBy.Name = "txtDeliveredBy";
+            txtDeliveredBy.Size = new Size(139, 21);
+            txtDeliveredBy.TabIndex = 14;
+            // 
+            // txtRegDate
+            // 
+            txtRegDate.Location = new Point(167, 196);
+            txtRegDate.Name = "txtRegDate";
+            txtRegDate.Size = new Size(139, 21);
+            txtRegDate.TabIndex = 13;
+            // 
+            // txtStreetName
+            // 
+            txtStreetName.Location = new Point(167, 142);
+            txtStreetName.Name = "txtStreetName";
+            txtStreetName.Size = new Size(139, 21);
+            txtStreetName.TabIndex = 12;
+            // 
+            // txtCompanyName
+            // 
+            txtCompanyName.Location = new Point(167, 115);
+            txtCompanyName.Name = "txtCompanyName";
+            txtCompanyName.Size = new Size(139, 21);
+            txtCompanyName.TabIndex = 11;
+            // 
+            // txtPersonName
+            // 
+            txtPersonName.Location = new Point(167, 88);
+            txtPersonName.Name = "txtPersonName";
+            txtPersonName.Size = new Size(139, 21);
+            txtPersonName.TabIndex = 10;
+            // 
             // btnCancel
             // 
-            btnCancel.Location = new Point(190, 214);
+            btnCancel.Location = new Point(181, 289);
             btnCancel.Name = "btnCancel";
             btnCancel.Size = new Size(64, 25);
             btnCancel.TabIndex = 9;
@@ -225,82 +343,48 @@
             // 
             // btnSave
             // 
-            btnSave.Location = new Point(109, 214);
+            btnSave.Location = new Point(78, 289);
             btnSave.Name = "btnSave";
             btnSave.Size = new Size(64, 25);
             btnSave.TabIndex = 8;
             btnSave.Text = "Save";
             btnSave.UseVisualStyleBackColor = true;
             // 
-            // txtDocColor
-            // 
-            txtDocColor.Location = new Point(35, 173);
-            txtDocColor.Name = "txtDocColor";
-            txtDocColor.Size = new Size(294, 21);
-            txtDocColor.TabIndex = 7;
-            // 
             // txtDocType
             // 
-            txtDocType.Location = new Point(190, 116);
+            txtDocType.Location = new Point(167, 61);
             txtDocType.Name = "txtDocType";
             txtDocType.Size = new Size(139, 21);
             txtDocType.TabIndex = 6;
             // 
-            // txtDocName
-            // 
-            txtDocName.Location = new Point(35, 116);
-            txtDocName.Name = "txtDocName";
-            txtDocName.Size = new Size(139, 21);
-            txtDocName.TabIndex = 5;
-            // 
             // txtDocId
             // 
-            txtDocId.Location = new Point(35, 60);
+            txtDocId.Location = new Point(167, 34);
             txtDocId.Name = "txtDocId";
             txtDocId.ReadOnly = true;
             txtDocId.Size = new Size(139, 21);
             txtDocId.TabIndex = 4;
             txtDocId.Text = "0";
             // 
-            // documentColor
-            // 
-            documentColor.AutoSize = true;
-            documentColor.Font = new Font("Segoe UI", 12F);
-            documentColor.Location = new Point(35, 147);
-            documentColor.Name = "documentColor";
-            documentColor.Size = new Size(124, 21);
-            documentColor.TabIndex = 3;
-            documentColor.Text = "Document Color";
-            // 
             // documentType
             // 
             documentType.AutoSize = true;
             documentType.Font = new Font("Segoe UI", 12F);
-            documentType.Location = new Point(190, 91);
+            documentType.Location = new Point(43, 61);
             documentType.Name = "documentType";
-            documentType.Size = new Size(118, 21);
+            documentType.Size = new Size(84, 21);
             documentType.TabIndex = 2;
-            documentType.Text = "Document Type";
-            // 
-            // documentName
-            // 
-            documentName.AutoSize = true;
-            documentName.Font = new Font("Segoe UI", 12F);
-            documentName.Location = new Point(35, 91);
-            documentName.Name = "documentName";
-            documentName.Size = new Size(128, 21);
-            documentName.TabIndex = 1;
-            documentName.Text = "Document Name";
+            documentType.Text = "Evrak Türü";
             // 
             // documentID
             // 
             documentID.AutoSize = true;
             documentID.Font = new Font("Segoe UI", 12F);
-            documentID.Location = new Point(35, 34);
+            documentID.Location = new Point(43, 34);
             documentID.Name = "documentID";
-            documentID.Size = new Size(101, 21);
+            documentID.Size = new Size(73, 21);
             documentID.TabIndex = 0;
-            documentID.Text = "Document ID";
+            documentID.Text = "Evrak No";
             // 
             // DocumentView
             // 
@@ -340,15 +424,23 @@
         private TextBox txtSearch;
         private Label label2;
         private Button btnSave;
-        private TextBox txtDocColor;
         private TextBox txtDocType;
-        private TextBox txtDocName;
         private TextBox txtDocId;
-        private Label documentColor;
         private Label documentType;
-        private Label documentName;
         private Label documentID;
         private Button btnCancel;
         private Button btnClose;
+        private Label label5;
+        private Label label4;
+        private Label label3;
+        private TextBox txtDeliveredBy;
+        private TextBox txtRegDate;
+        private TextBox txtStreetName;
+        private TextBox txtCompanyName;
+        private TextBox txtPersonName;
+        private Label label7;
+        private Label label6;
+        private Label label8;
+        private TextBox txtApt;
     }
 }

@@ -60,9 +60,13 @@ namespace MuhtarlikTebgigatSistemi.Presenters
         {
             var document = (DocumentModel)documentsBindingSource.Current;
             view.DocumentID = document.Id.ToString();
-            view.DocumentName = document.Name;
             view.DocumentType = document.Type;
-            view.DocumentColor = document.Color;
+            view.PersonName = document.PersonName;
+            view.CompanyName = document.CompanyName;
+            view.StreetName = document.StreetName;
+            view.BuildingApt = document.BuildingApt;
+            view.RegistrationDate = document.RegistrationDate.ToString("yyyy-MM-dd");
+            view.DeliveredBy = document.DeliveredBy;
             view.IsEdit = true;
         }
         private void DeleteSelectedDocument(object? sender, EventArgs e)
@@ -87,9 +91,13 @@ namespace MuhtarlikTebgigatSistemi.Presenters
         {
             var model = new DocumentModel();
             model.Id = int.Parse(view.DocumentID);
-            model.Name = view.DocumentName;
             model.Type = view.DocumentType;
-            model.Color = view.DocumentColor;
+            model.PersonName = view.PersonName;
+            model.CompanyName = view.CompanyName;
+            model.StreetName = view.StreetName;
+            model.BuildingApt = view.BuildingApt;
+            model.DeliveryDate = DateTime.Parse(view.RegistrationDate);
+            model.DeliveredBy = view.DeliveredBy;
             try
             {
                 new Common.ModelDataValidation().Validate(model);
@@ -108,9 +116,13 @@ namespace MuhtarlikTebgigatSistemi.Presenters
         private void CleanViewFields()
         {
             view.DocumentID = "0";
-            view.DocumentName = "";
             view.DocumentType = "";
-            view.DocumentColor = "";
+            view.PersonName = "";
+            view.CompanyName = "";
+            view.StreetName = "";
+            view.BuildingApt = "";
+            view.RegistrationDate = "";
+            view.DeliveredBy = "";
         }
         private void CancelAction(object? sender, EventArgs e)
         {

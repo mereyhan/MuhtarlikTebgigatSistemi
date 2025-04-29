@@ -10,16 +10,11 @@ using System.Windows.Forms;
 
 namespace MuhtarlikTebgigatSistemi.Views
 {
-    public partial class MainView : Form, IMainView
+    public partial class CompanyView : Form
     {
-        public MainView()
+        public CompanyView()
         {
             InitializeComponent();
-            btnDocuments.Click += delegate { ShowDocumentView?.Invoke(this, EventArgs.Empty); };
-
         }
-        public event EventHandler ShowDocumentView;
-        public event EventHandler ShowOwnerView;
-        public event EventHandler ShowAdminView;
     }
 }

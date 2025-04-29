@@ -10,9 +10,13 @@ namespace MuhtarlikTebgigatSistemi.Views
     {
         // Properties - Fields
         string DocumentID { get; set; }
-        string DocumentName { get; set; }
         string DocumentType { get; set; }
-        string DocumentColor { get; set; }
+        string PersonName { get; set; }
+        string CompanyName { get; set; }
+        string StreetName { get; set; }
+        string BuildingApt { get; set; }
+        string RegistrationDate { get; set; }
+        string DeliveredBy { get; set; }
 
         // Properties - Validations
         string SearchValue { get; set; }
@@ -26,7 +30,7 @@ namespace MuhtarlikTebgigatSistemi.Views
         event EventHandler UpdateEvent;
         event EventHandler DeleteEvent;
         event EventHandler SaveEvent;
-        event EventHandler  CancelEvent;
+        event EventHandler CancelEvent;
 
         // Methods
         void SetDocumentListBindingSource(BindingSource documentList);

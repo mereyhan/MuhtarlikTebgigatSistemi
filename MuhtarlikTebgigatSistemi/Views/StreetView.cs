@@ -10,16 +10,11 @@ using System.Windows.Forms;
 
 namespace MuhtarlikTebgigatSistemi.Views
 {
-    public partial class MainView : Form, IMainView
+    public partial class StreetView : Form
     {
-        public MainView()
+        public StreetView()
         {
             InitializeComponent();
-            btnDocuments.Click += delegate { ShowDocumentView?.Invoke(this, EventArgs.Empty); };
-
         }
-        public event EventHandler ShowDocumentView;
-        public event EventHandler ShowOwnerView;
-        public event EventHandler ShowAdminView;
     }
 }

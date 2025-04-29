@@ -48,7 +48,8 @@ namespace MuhtarlikTebgigatSistemi.Views
                 DeleteEvent?.Invoke(this, EventArgs.Empty);
                 var result = MessageBox.Show("Are you sure you want to delete the selected document?", "Warning",
                     MessageBoxButtons.YesNo, MessageBoxIcon.Warning);
-                if (result == DialogResult.Yes) {
+                if (result == DialogResult.Yes)
+                {
                     DeleteEvent?.Invoke(this, EventArgs.Empty);
                     MessageBox.Show(Message);
                 }
@@ -75,9 +76,14 @@ namespace MuhtarlikTebgigatSistemi.Views
 
         // Properties
         public string DocumentID { get => txtDocId.Text; set => txtDocId.Text = value; }
-        public string DocumentName { get => txtDocName.Text; set => txtDocName.Text = value; }
         public string DocumentType { get => txtDocType.Text; set => txtDocType.Text = value; }
-        public string DocumentColor { get => txtDocColor.Text; set => txtDocColor.Text = value; }
+        public string PersonName { get => txtPersonName.Text; set => txtPersonName.Text = value; }
+        public string CompanyName { get => txtCompanyName.Text; set => txtCompanyName.Text = value; }
+        public string StreetName { get => txtStreetName.Text; set => txtStreetName.Text = value; }
+        public string RegistrationDate { get => txtRegDate.Text; set => txtRegDate.Text = value; }
+        public string DeliveredBy { get => txtDeliveredBy.Text; set => txtDeliveredBy.Text = value; }
+        public string BuildingApt { get => txtApt.Text; set => txtApt.Text = value; }
+
         public string SearchValue { get => txtSearch.Text; set => txtSearch.Text = value; }
         public bool IsEdit { get => isEdit; set => isEdit = value; }
         public bool IsSuccessful { get => isSuccessful; set => isSuccessful = value; }
@@ -116,39 +122,5 @@ namespace MuhtarlikTebgigatSistemi.Views
             }
             return instance;
         }
-
-        /* Manuel Form Border Events [Closed]
-        // Native metotları kullanarak taşıma işlemi yapılır
-        [DllImport("user32.dll")]
-        public static extern int SendMessage(IntPtr hWnd, int Msg, int wParam, int lParam);
-        [DllImport("user32.dll")]
-        public static extern bool ReleaseCapture();
-
-        private void formBorderPanel_MouseDown(object? sender, MouseEventArgs e)
-        {
-            if (e.Button == MouseButtons.Left)
-            {
-                ReleaseCapture(); // Fare kontrolünü bırakır
-                SendMessage(this.Handle, 0xA1, 0x2, 0); // Formun taşıma mesajını işler
-
-            }
-        }
-
-        private void btnClose_Click(object sender, EventArgs e)
-        {
-            Close();
-        }
-
-        private void btnMinimize_Click(object sender, EventArgs e)
-        {
-            this.WindowState = FormWindowState.Minimized;
-        }
-
-        private void btnRestore_Click(object sender, EventArgs e)
-        {
-            if (this.WindowState == FormWindowState.Normal) this.WindowState = FormWindowState.Maximized; // Formu büyüt
-            else this.WindowState = FormWindowState.Normal; // Orijinal boyuta döndür
-        }
-        */
     }
 }
