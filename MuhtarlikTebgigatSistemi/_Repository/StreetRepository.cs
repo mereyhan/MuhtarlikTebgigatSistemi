@@ -16,7 +16,18 @@ namespace MuhtarlikTebgigatSistemi._Repository
         }
         public void Add(StreetModel entity)
         {
-            throw new NotImplementedException();
+            using (var connection = new SQLiteConnection(connectionString))
+            using (var command = new SQLiteCommand())
+            {
+                connection.Open();
+                command.Connection = connection;
+                command.CommandText = @"INSERT INTO Street (Street_Name, Create_Date, Update_Date)
+                                        VALUES (@streetName, @createDate, @updateDate)";
+                command.Parameters.AddWithValue("@streetName", entity.Street);
+                command.Parameters.AddWithValue("@createDate", DateTime.Now);
+                command.Parameters.AddWithValue("@updateDate", DateTime.Now);
+                command.ExecuteNonQuery();
+            }
         }
         public void Delete(int id)
         {
@@ -27,6 +38,23 @@ namespace MuhtarlikTebgigatSistemi._Repository
                 command.Connection = connection;
                 command.CommandText = "DELETE FROM Street WHERE Street_Id = @id";
                 command.Parameters.AddWithValue("@id", id);
+                command.ExecuteNonQuery();
+            }
+        }
+        public void Update(StreetModel entity)
+        {
+            using (var connection = new SQLiteConnection(connectionString))
+            using (var command = new SQLiteCommand())
+            {
+                connection.Open();
+                command.Connection = connection;
+                command.CommandText = @"UPDATE Street 
+                                        SET Street_Name = @streetName, 
+                                            Update_Date = @updateDate
+                                        WHERE Street_Id = @id";
+                command.Parameters.AddWithValue("@streetName", entity.Street);
+                command.Parameters.AddWithValue("@updateDate", DateTime.Now);
+                command.Parameters.AddWithValue("@id", entity.Id);
                 command.ExecuteNonQuery();
             }
         }
@@ -59,11 +87,34 @@ namespace MuhtarlikTebgigatSistemi._Repository
         }
         public IEnumerable<StreetModel> GetByValue(string searchValue)
         {
-            throw new NotImplementedException();
-        }
-        public void Update(StreetModel entity)
-        {
-            throw new NotImplementedException();
+            var streetList = new List<StreetModel>();
+            using (var connection = new SQLiteConnection(connectionString))
+            using (var command = new SQLiteCommand())
+            {
+                connection.Open();
+                command.Connection = connection;
+                command.CommandText = 
+                    "SELECT * FROM Street " +
+                    "WHERE CAST(Street_Id AS TEXT) = @searchValue " +
+                    "OR LOWER(Street_Name) LIKE '%' || LOWER(@searchValue) || '%' " +
+                    "ORDER BY Street_Id DESC";
+                command.Parameters.AddWithValue("@searchValue", "%" + searchValue + "%");
+                using (var reader = command.ExecuteReader())
+                {
+                    while (reader.Read())
+                    {
+                        var streetModel = new StreetModel
+                        {
+                            Id = reader.GetInt32(0),
+                            Street = reader.GetString(1),
+                            CreateDate = reader.GetDateTime(2),
+                            UpdateDate = reader.GetDateTime(3)
+                        };
+                        streetList.Add(streetModel);
+                    }
+                }
+            }
+            return streetList;
         }
     }
 }

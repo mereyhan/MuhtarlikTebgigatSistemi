@@ -17,7 +17,18 @@ namespace MuhtarlikTebgigatSistemi._Repository
 
         public void Add(DocTypeModel entity)
         {
-            throw new NotImplementedException();
+            using (var connection = new SQLiteConnection(connectionString))
+            using (var command = new SQLiteCommand())
+            {
+                connection.Open();
+                command.Connection = connection;
+                command.CommandText = @"INSERT INTO DocumentType (DocumentType_Name, Create_Date, Update_Date)
+                                        VALUES (@type, @createDate, @updateDate)";
+                command.Parameters.AddWithValue("@type", entity.Type);
+                command.Parameters.AddWithValue("@createDate", DateTime.Now);
+                command.Parameters.AddWithValue("@updateDate", DateTime.Now);
+                command.ExecuteNonQuery();
+            }
         }
         public void Delete(int id)
         {
@@ -28,6 +39,23 @@ namespace MuhtarlikTebgigatSistemi._Repository
                 command.Connection = connection;
                 command.CommandText = "DELETE FROM DocumentType WHERE DocumentType_Id = @id";
                 command.Parameters.AddWithValue("@id", id);
+                command.ExecuteNonQuery();
+            }
+        }
+        public void Update(DocTypeModel entity)
+        {
+            using (var connection = new SQLiteConnection(connectionString))
+            using (var command = new SQLiteCommand())
+            {
+                connection.Open();
+                command.Connection = connection;
+                command.CommandText = @"UPDATE DocumentType 
+                                        SET DocumentType_Name = @type, 
+                                            Update_Date = @updateDate
+                                        WHERE DocumentType_Id = @id";
+                command.Parameters.AddWithValue("@type", entity.Type);
+                command.Parameters.AddWithValue("@updateDate", DateTime.Now);
+                command.Parameters.AddWithValue("@id", entity.Id);
                 command.ExecuteNonQuery();
             }
         }
@@ -60,11 +88,35 @@ namespace MuhtarlikTebgigatSistemi._Repository
         }
         public IEnumerable<DocTypeModel> GetByValue(string searchValue)
         {
-            throw new NotImplementedException();
+            var doctypeList = new List<DocTypeModel>();
+            using (var connection = new SQLiteConnection(connectionString))
+            using (var command = new SQLiteCommand())
+            {
+                connection.Open();
+                command.Connection = connection;
+                command.CommandText = 
+                    "SELECT * FROM DocumentType " +
+                    "WHERE CAST(DocumentType_Id AS TEXT) = @searchValue " +
+                    "OR LOWER(DocumentType_Name) LIKE '%' || LOWER(@searchValue) || '%' " +
+                    "ORDER BY DocumentType_Id DESC";
+                command.Parameters.AddWithValue("@searchValue", "%" + searchValue + "%");
+                using (var reader = command.ExecuteReader())
+                {
+                    while (reader.Read())
+                    {
+                        var doctypeModel = new DocTypeModel
+                        {
+                            Id = reader.GetInt32(0),
+                            Type = reader.GetString(1),
+                            CreateDate = reader.GetDateTime(2),
+                            UpdateDate = reader.GetDateTime(3)
+                        };
+                        doctypeList.Add(doctypeModel);
+                    }
+                }
+            }
+            return doctypeList;
         }
-        public void Update(DocTypeModel entity)
-        {
-            throw new NotImplementedException();
-        }
+        
     }
 }
