@@ -1,8 +1,4 @@
-﻿using MuhtarlikTebgigatSistemi.Views.Interfaces;
-using System.Runtime.InteropServices;
-using static System.Windows.Forms.VisualStyles.VisualStyleElement.StartPanel;
-
-namespace MuhtarlikTebgigatSistemi.Views
+﻿namespace MuhtarlikTebgigatSistemi.Views
 {
     public partial class DocumentView : Form, IDocumentView
     {
@@ -52,7 +48,7 @@ namespace MuhtarlikTebgigatSistemi.Views
                 if (result == DialogResult.Yes)
                 {
                     DeleteEvent?.Invoke(this, EventArgs.Empty);
-                    MessageBox.Show(Message);
+                    if (!string.IsNullOrWhiteSpace(Message)) { MessageBox.Show(Message); }
                 }
             };
             // Save document
@@ -64,7 +60,7 @@ namespace MuhtarlikTebgigatSistemi.Views
                     tabControl1.TabPages.Remove(TabPageDocDetail);
                     tabControl1.TabPages.Add(TabPageDocList);
                 }
-                MessageBox.Show(Message);
+                if (!string.IsNullOrWhiteSpace(Message)) { MessageBox.Show(Message); }
             };
             // Cancel action
             btnCancel.Click += delegate

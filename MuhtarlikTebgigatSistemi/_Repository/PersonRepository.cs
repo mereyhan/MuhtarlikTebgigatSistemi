@@ -1,10 +1,5 @@
 ﻿using MuhtarlikTebgigatSistemi.Model;
-using System;
-using System.Collections.Generic;
 using System.Data.SQLite;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace MuhtarlikTebgigatSistemi._Repository
 {
@@ -22,7 +17,7 @@ namespace MuhtarlikTebgigatSistemi._Repository
             {
                 connection.Open();
                 command.Connection = connection;
-                command.CommandText = @"INSERT INTO Person (Person_Name, Street_Name, Building_Apt, Company_Name, Phone_Number, Email, Register_Date, Update_Date)
+                command.CommandText = @"INSERT INTO Person (Person_Name, Street_Name, Building_Apt, Company_Name, Phone, Email, Register_Date, Update_Date)
                                         VALUES (@personName, @streetName, @apt, @companyName, @phoneNumber, @email, @registerDate, @updateDate)";
                 command.Parameters.AddWithValue("@personName", entity.PersonName);
                 command.Parameters.AddWithValue("@streetName", entity.StreetName);
@@ -59,7 +54,7 @@ namespace MuhtarlikTebgigatSistemi._Repository
                                             Street_Name = @streetName, 
                                             Building_Apt = @apt, 
                                             Company_Name = @companyName, 
-                                            Phone_Number = @phoneNumber, 
+                                            Phone = @phoneNumber, 
                                             Email = @email, 
                                             Update_Date = @updateDate
                                         WHERE Person_Id = @id";
@@ -120,7 +115,7 @@ namespace MuhtarlikTebgigatSistemi._Repository
                     "OR LOWER(Person_Name) LIKE '%' || LOWER(@searchValue) || '%' " +
                     "OR LOWER(Company_Name) LIKE '%' || LOWER(@searchValue) || '%' " +
                     "OR LOWER(Street_Name) LIKE '%' || LOWER(@searchValue) || '%' " +
-                    "OR LOWER(Phone_Number) LIKE '%' || LOWER(@searchValue) || '%' " +
+                    "OR LOWER(Phone) LIKE '%' || LOWER(@searchValue) || '%' " +
                     "OR LOWER(Email) LIKE '%' || LOWER(@searchValue) || '%' " +
                     "ORDER BY Person_Id DESC;";
                 command.Parameters.AddWithValue("@searchValue", "%" + searchValue + "%");

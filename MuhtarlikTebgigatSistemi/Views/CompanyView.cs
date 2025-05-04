@@ -1,13 +1,4 @@
 ﻿using MuhtarlikTebgigatSistemi.Views.Interfaces;
-using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
-using System.Drawing;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using System.Windows.Forms;
 
 namespace MuhtarlikTebgigatSistemi.Views
 {
@@ -55,7 +46,7 @@ namespace MuhtarlikTebgigatSistemi.Views
                 if (result == DialogResult.Yes)
                 {
                     DeleteEvent?.Invoke(this, EventArgs.Empty);
-                    MessageBox.Show(Message);
+                    if (!string.IsNullOrWhiteSpace(Message)) { MessageBox.Show(Message); }
                 }
             };
             // Save document
@@ -67,7 +58,7 @@ namespace MuhtarlikTebgigatSistemi.Views
                     tabControl1.TabPages.Remove(TabPageCompanyDetail);
                     tabControl1.TabPages.Add(TabPageCompanyList);
                 }
-                MessageBox.Show(Message);
+                if (!string.IsNullOrWhiteSpace(Message)) { MessageBox.Show(Message); }
             };
             // Cancel action
             btnCancel.Click += delegate

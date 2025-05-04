@@ -1,10 +1,5 @@
 ﻿using MuhtarlikTebgigatSistemi.Model;
 using MuhtarlikTebgigatSistemi.Views.Interfaces;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace MuhtarlikTebgigatSistemi.Presenters
 {
@@ -93,20 +88,37 @@ namespace MuhtarlikTebgigatSistemi.Presenters
         private void SaveDocument(object? sender, EventArgs e)
         {
             var model = new PersonModel();
-            model.Id = int.Parse(view.PersonID);
             model.PersonName = view.PersonName;
             model.StreetName = view.StreetName;
             model.BuildingApt = view.BuildingApt;
             model.CompanyName = view.CompanyName;
             model.PhoneNumber = view.PhoneNumber;
             model.Email = view.Email;
-            model.RegisterDate = DateTime.Now;
-            model.UpdateDate = DateTime.Parse(view.UpdateDate);
+            model.UpdateDate = DateTime.Now;
             try
             {
                 new Common.ModelDataValidation().Validate(model);
-                if (view.IsEdit) repository.Update(model);
-                else repository.Add(model);
+
+                if (view.IsEdit)
+                {
+                    if (int.TryParse(view.PersonID, out int id))
+                    {
+                        model.Id = id;
+                        repository.Update(model);
+                    }
+                    else
+                    {
+                        view.IsSuccessful = false;
+                        view.Message = "Invalid Street ID for update.";
+                        return;
+                    }
+                }
+                else
+                {
+                    model.RegisterDate = DateTime.Now;
+                    repository.Add(model);
+                }
+
                 view.IsSuccessful = true;
                 LoadAllDocumentList();
                 CleanViewFields();
@@ -114,7 +126,7 @@ namespace MuhtarlikTebgigatSistemi.Presenters
             catch (Exception ex)
             {
                 view.IsSuccessful = false;
-                view.Message = ex.Message;
+                view.Message = $"Error: {ex.Message}";
             }
         }
         private void CleanViewFields()

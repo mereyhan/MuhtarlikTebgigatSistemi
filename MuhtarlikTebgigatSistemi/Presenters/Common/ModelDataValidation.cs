@@ -1,9 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel.DataAnnotations;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using System.ComponentModel.DataAnnotations;
 
 namespace MuhtarlikTebgigatSistemi.Presenters.Common
 {
@@ -18,7 +13,7 @@ namespace MuhtarlikTebgigatSistemi.Presenters.Common
             if (!isValid)
             {
                 foreach (var result in reults)
-                    errorMessage += $"- {result.ErrorMessage}\n";
+                    errorMessage += $"{result.ErrorMessage}\n";
 
                 throw new Exception(errorMessage);
             }

@@ -1,10 +1,5 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using System.ComponentModel;
 using System.ComponentModel.DataAnnotations;
-using System.ComponentModel;
 
 namespace MuhtarlikTebgigatSistemi.Model
 {
@@ -26,7 +21,7 @@ namespace MuhtarlikTebgigatSistemi.Model
         public int Id { get => id; set => id = value; }
 
         [DisplayName("Evrak Türü")]
-        [Required(ErrorMessage = "Evak türü zorunludur.")]
+        [Required(ErrorMessage = "Evrak türü zorunludur.")]
         [StringLength(50, MinimumLength = 3, ErrorMessage = "Evrak türü 3 ile 50 karakter uzunluğunda olmalıdır.")]
         public string Type { get => type; set => type = value; }
 

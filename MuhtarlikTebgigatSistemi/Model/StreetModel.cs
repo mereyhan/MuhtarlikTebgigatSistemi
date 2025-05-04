@@ -1,10 +1,5 @@
-﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel;
+﻿using System.ComponentModel;
 using System.ComponentModel.DataAnnotations;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace MuhtarlikTebgigatSistemi.Model
 {
@@ -15,19 +10,19 @@ namespace MuhtarlikTebgigatSistemi.Model
         private DateTime registerDate;
         private DateTime updateDate;
 
-        [DisplayName("Tür Numarası")]
+        [DisplayName("Sokak No")]
         public int Id { get => id; set => id = value; }
 
-        [DisplayName("Evrak Türü")]
-        [Required(ErrorMessage = "Evak türü zorunludur.")]
+        [DisplayName("Sokak")]
+        [Required(ErrorMessage = "Sokak İsmi zorunludur.")]
         [StringLength(50, MinimumLength = 3, ErrorMessage = "Evrak türü 3 ile 50 karakter uzunluğunda olmalıdır.")]
         public string Street { get => street; set => street = value; }
 
-        [DisplayName("Oluşturma Tarihi")]
+        [DisplayName("Kayıt Tarihi")]
         [DataType(DataType.Date)]
         public DateTime RegisterDate { get => registerDate; set => registerDate = value; }
 
-        [DisplayName("Kayıt Tarihi")]
+        [DisplayName("Güncelleme Tarihi")]
         [DataType(DataType.Date)]
         public DateTime UpdateDate { get => updateDate; set => updateDate = value; }
     }

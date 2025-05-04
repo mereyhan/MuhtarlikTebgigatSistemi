@@ -1,10 +1,5 @@
 ﻿using MuhtarlikTebgigatSistemi.Model;
-using System;
-using System.Collections.Generic;
 using System.Data.SQLite;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace MuhtarlikTebgigatSistemi._Repository
 {
@@ -22,10 +17,10 @@ namespace MuhtarlikTebgigatSistemi._Repository
             {
                 connection.Open();
                 command.Connection = connection;
-                command.CommandText = @"INSERT INTO DocumentType (DocumentType_Name, Create_Date, Update_Date)
-                                        VALUES (@type, @createDate, @updateDate)";
+                command.CommandText = @"INSERT INTO DocumentType (DocumentType_Name, Register_Date, Update_Date)
+                                        VALUES (@type, @registerDate, @updateDate)";
                 command.Parameters.AddWithValue("@type", entity.Type);
-                command.Parameters.AddWithValue("@createDate", DateTime.Now);
+                command.Parameters.AddWithValue("@registerDate", DateTime.Now);
                 command.Parameters.AddWithValue("@updateDate", DateTime.Now);
                 command.ExecuteNonQuery();
             }

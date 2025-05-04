@@ -47,10 +47,10 @@
             txtRegisterDate = new TextBox();
             btnCancel = new Button();
             btnSave = new Button();
-            txtSteetName = new TextBox();
+            txtStreetName = new TextBox();
             txtStreetId = new TextBox();
-            documentType = new Label();
-            documentID = new Label();
+            lbl2 = new Label();
+            lbl1 = new Label();
             formBorderPanel.SuspendLayout();
             tabControl1.SuspendLayout();
             TabPageStreetList.SuspendLayout();
@@ -211,10 +211,10 @@
             TabPageStreetDetail.Controls.Add(txtRegisterDate);
             TabPageStreetDetail.Controls.Add(btnCancel);
             TabPageStreetDetail.Controls.Add(btnSave);
-            TabPageStreetDetail.Controls.Add(txtSteetName);
+            TabPageStreetDetail.Controls.Add(txtStreetName);
             TabPageStreetDetail.Controls.Add(txtStreetId);
-            TabPageStreetDetail.Controls.Add(documentType);
-            TabPageStreetDetail.Controls.Add(documentID);
+            TabPageStreetDetail.Controls.Add(lbl2);
+            TabPageStreetDetail.Controls.Add(lbl1);
             TabPageStreetDetail.Location = new Point(4, 24);
             TabPageStreetDetail.Name = "TabPageStreetDetail";
             TabPageStreetDetail.Padding = new Padding(3);
@@ -281,13 +281,13 @@
             btnSave.Text = "Save";
             btnSave.UseVisualStyleBackColor = true;
             // 
-            // txtSteetName
+            // txtStreetName
             // 
-            txtSteetName.Location = new Point(382, 80);
-            txtSteetName.Margin = new Padding(4, 3, 4, 3);
-            txtSteetName.Name = "txtSteetName";
-            txtSteetName.Size = new Size(162, 21);
-            txtSteetName.TabIndex = 28;
+            txtStreetName.Location = new Point(382, 80);
+            txtStreetName.Margin = new Padding(4, 3, 4, 3);
+            txtStreetName.Name = "txtStreetName";
+            txtStreetName.Size = new Size(162, 21);
+            txtStreetName.TabIndex = 28;
             // 
             // txtStreetId
             // 
@@ -299,27 +299,27 @@
             txtStreetId.TabIndex = 27;
             txtStreetId.Text = "0";
             // 
-            // documentType
+            // lbl2
             // 
-            documentType.AutoSize = true;
-            documentType.Font = new Font("Segoe UI", 12F);
-            documentType.Location = new Point(237, 80);
-            documentType.Margin = new Padding(4, 0, 4, 0);
-            documentType.Name = "documentType";
-            documentType.Size = new Size(79, 21);
-            documentType.TabIndex = 26;
-            documentType.Text = "Sokak Adı";
+            lbl2.AutoSize = true;
+            lbl2.Font = new Font("Segoe UI", 12F);
+            lbl2.Location = new Point(237, 80);
+            lbl2.Margin = new Padding(4, 0, 4, 0);
+            lbl2.Name = "lbl2";
+            lbl2.Size = new Size(79, 21);
+            lbl2.TabIndex = 26;
+            lbl2.Text = "Sokak Adı";
             // 
-            // documentID
+            // lbl1
             // 
-            documentID.AutoSize = true;
-            documentID.Font = new Font("Segoe UI", 12F);
-            documentID.Location = new Point(237, 55);
-            documentID.Margin = new Padding(4, 0, 4, 0);
-            documentID.Name = "documentID";
-            documentID.Size = new Size(77, 21);
-            documentID.TabIndex = 25;
-            documentID.Text = "Sokak No";
+            lbl1.AutoSize = true;
+            lbl1.Font = new Font("Segoe UI", 12F);
+            lbl1.Location = new Point(237, 55);
+            lbl1.Margin = new Padding(4, 0, 4, 0);
+            lbl1.Name = "lbl1";
+            lbl1.Size = new Size(77, 21);
+            lbl1.TabIndex = 25;
+            lbl1.Text = "Sokak No";
             // 
             // StreetView
             // 
@@ -375,8 +375,7 @@
         private Button btnCancel;
         private Button btnSave;
         private TextBox txtStreetId;
-        private Label documentID;
-        private TextBox txtSteetName;
-        private Label documentType;
+        private Label lbl1;
+        private Label lbl2;
     }
 }

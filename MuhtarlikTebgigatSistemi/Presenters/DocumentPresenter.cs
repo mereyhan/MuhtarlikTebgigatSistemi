@@ -1,12 +1,5 @@
-﻿using MuhtarlikTebgigatSistemi._Repository;
-using MuhtarlikTebgigatSistemi.Model;
+﻿using MuhtarlikTebgigatSistemi.Model;
 using MuhtarlikTebgigatSistemi.Views;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Reflection.Metadata;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace MuhtarlikTebgigatSistemi.Presenters
 {
@@ -91,19 +84,37 @@ namespace MuhtarlikTebgigatSistemi.Presenters
         private void SaveDocument(object? sender, EventArgs e)
         {
             var model = new DocumentModel();
-            model.Id = int.Parse(view.DocumentID);
             model.Type = view.DocumentType;
             model.PersonName = view.PersonName;
             model.CompanyName = view.CompanyName;
             model.StreetName = view.StreetName;
             model.BuildingApt = view.BuildingApt;
-            model.DeliveryDate = DateTime.Parse(view.RegistrationDate);
+            model.DeliveryDate = DateTime.Now;
             model.DeliveredBy = view.DeliveredBy;
             try
             {
                 new Common.ModelDataValidation().Validate(model);
-                if (view.IsEdit) repository.Update(model);
-                else repository.Add(model);
+
+                if (view.IsEdit)
+                {
+                    if (int.TryParse(view.DocumentID, out int id))
+                    {
+                        model.Id = id;
+                        repository.Update(model);
+                    }
+                    else
+                    {
+                        view.IsSuccessful = false;
+                        view.Message = "Invalid Street ID for update.";
+                        return;
+                    }
+                }
+                else
+                {
+                    model.RegistrationDate = DateTime.Now;
+                    repository.Add(model);
+                }
+
                 view.IsSuccessful = true;
                 LoadAllDocumentList();
                 CleanViewFields();
@@ -111,7 +122,7 @@ namespace MuhtarlikTebgigatSistemi.Presenters
             catch (Exception ex)
             {
                 view.IsSuccessful = false;
-                view.Message = ex.Message;
+                view.Message = $"Error: {ex.Message}";
             }
         }
         private void CleanViewFields()

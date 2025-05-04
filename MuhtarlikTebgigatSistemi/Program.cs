@@ -1,11 +1,7 @@
-using System;
-using System.Windows.Forms;
-using MuhtarlikTebgigatSistemi.Model;
 using MuhtarlikTebgigatSistemi.Presenters;
-using MuhtarlikTebgigatSistemi._Repository;
 using MuhtarlikTebgigatSistemi.Views;
-using System.Configuration;
 using MuhtarlikTebgigatSistemi.Views.Interfaces;
+using System.Configuration;
 
 namespace MuhtarlikTebgigatSistemi
 {

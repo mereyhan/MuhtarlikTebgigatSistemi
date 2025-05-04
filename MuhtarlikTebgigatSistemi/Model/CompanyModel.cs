@@ -1,10 +1,5 @@
-﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel;
+﻿using System.ComponentModel;
 using System.ComponentModel.DataAnnotations;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace MuhtarlikTebgigatSistemi.Model
 {
@@ -20,7 +15,7 @@ namespace MuhtarlikTebgigatSistemi.Model
         private DateTime registerDate;
         private DateTime updateDate;
 
-        [DisplayName("Kişi Numarası")]
+        [DisplayName("Firma Numarası")]
         public int Id { get => id; set => id = value; }
 
         [DisplayName("Firma")]
@@ -39,7 +34,7 @@ namespace MuhtarlikTebgigatSistemi.Model
         [StringLength(100, ErrorMessage = "Evrak sahibinin ismi 100 karakteri geçemez.")]
         public string PersonName { get => personName; set => personName = value; }
 
-        [DisplayName("GSM")]
+        [DisplayName("Telefon")]
         [StringLength(100, ErrorMessage = "Firma adı 100 karakteri geçemez.")]
         public string PhoneNumber { get => phoneNumber; set => phoneNumber = value; }
 
