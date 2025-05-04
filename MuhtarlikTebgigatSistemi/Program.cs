@@ -5,6 +5,7 @@ using MuhtarlikTebgigatSistemi.Presenters;
 using MuhtarlikTebgigatSistemi._Repository;
 using MuhtarlikTebgigatSistemi.Views;
 using System.Configuration;
+using MuhtarlikTebgigatSistemi.Views.Interfaces;
 
 namespace MuhtarlikTebgigatSistemi
 {

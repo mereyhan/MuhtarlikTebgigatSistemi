@@ -1,4 +1,5 @@
-﻿using System.Runtime.InteropServices;
+﻿using MuhtarlikTebgigatSistemi.Views.Interfaces;
+using System.Runtime.InteropServices;
 using static System.Windows.Forms.VisualStyles.VisualStyleElement.StartPanel;
 
 namespace MuhtarlikTebgigatSistemi.Views
@@ -81,6 +82,7 @@ namespace MuhtarlikTebgigatSistemi.Views
         public string CompanyName { get => txtCompanyName.Text; set => txtCompanyName.Text = value; }
         public string StreetName { get => txtStreetName.Text; set => txtStreetName.Text = value; }
         public string RegistrationDate { get => txtRegDate.Text; set => txtRegDate.Text = value; }
+        public string DeliveryDate { get => txtDeliveryDate.Text; set => txtDeliveryDate.Text = value; }
         public string DeliveredBy { get => txtDeliveredBy.Text; set => txtDeliveredBy.Text = value; }
         public string BuildingApt { get => txtApt.Text; set => txtApt.Text = value; }
 

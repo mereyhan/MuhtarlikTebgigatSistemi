@@ -1,25 +1,23 @@
-﻿using MuhtarlikTebgigatSistemi._Repository;
-using MuhtarlikTebgigatSistemi.Model;
-using MuhtarlikTebgigatSistemi.Views;
+﻿using MuhtarlikTebgigatSistemi.Model;
+using MuhtarlikTebgigatSistemi.Views.Interfaces;
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Reflection.Metadata;
 using System.Text;
 using System.Threading.Tasks;
 
 namespace MuhtarlikTebgigatSistemi.Presenters
 {
-    public class DocumentPresenter
+    public class DocTypePresenter
     {
         // Fields
-        private IDocumentView view;
-        private IRepository<DocumentModel> repository;
+        private IDocTypeView view;
+        private IRepository<DocTypeModel> repository;
         private BindingSource documentsBindingSource;
-        private IEnumerable<DocumentModel> documentList;
+        private IEnumerable<DocTypeModel> documentList;
 
         // Constructor
-        public DocumentPresenter(IDocumentView _view, IRepository<DocumentModel> _repository)
+        public DocTypePresenter(IDocTypeView _view, IRepository<DocTypeModel> _repository)
         {
             this.view = _view;
             this.repository = _repository;
@@ -34,7 +32,7 @@ namespace MuhtarlikTebgigatSistemi.Presenters
             this.view.CancelEvent += CancelAction;
 
             // Set document binding source
-            this.view.SetDocumentListBindingSource(documentsBindingSource);
+            this.view.SetDocTypeListBindingSource(documentsBindingSource);
 
             // Load documents to binding source
             LoadAllDocumentList();
@@ -56,17 +54,20 @@ namespace MuhtarlikTebgigatSistemi.Presenters
             else documentList = repository.GetAll();
             documentsBindingSource.DataSource = documentList;
         }
-        private void AddNewDocument(object? sender, EventArgs e) { view.IsEdit = false; }
+        private void AddNewDocument(object? sender, EventArgs e)
+        {
+            view.IsEdit = false;
+        }
         private void UpdateSelectedDocument(object? sender, EventArgs e)
         {
-            var document = (DocumentModel)documentsBindingSource.Current;
+            var document = (DocTypeModel)documentsBindingSource.Current;
             view.DocumentID = document.Id.ToString();
             view.DocumentType = document.Type;
             view.PersonName = document.PersonName;
             view.CompanyName = document.CompanyName;
             view.StreetName = document.StreetName;
             view.BuildingApt = document.BuildingApt;
-            view.RegistrationDate = document.RegistrationDate.ToString("yyyy-MM-dd");
+            view.DeliveryDate = document.DeliveryDate.ToString("yyyy-MM-dd");
             view.DeliveredBy = document.DeliveredBy;
             view.IsEdit = true;
         }
@@ -74,7 +75,7 @@ namespace MuhtarlikTebgigatSistemi.Presenters
         {
             try
             {
-                var document = (DocumentModel)documentsBindingSource.Current;
+                var document = (DocTypeModel)documentsBindingSource.Current;
                 repository.Delete(document.Id);
                 view.IsSuccessful = true;
                 view.Message = "Document deleted successfully";
@@ -90,14 +91,15 @@ namespace MuhtarlikTebgigatSistemi.Presenters
         }
         private void SaveDocument(object? sender, EventArgs e)
         {
-            var model = new DocumentModel();
+            var model = new DocTypeModel();
             model.Id = int.Parse(view.DocumentID);
             model.Type = view.DocumentType;
             model.PersonName = view.PersonName;
             model.CompanyName = view.CompanyName;
             model.StreetName = view.StreetName;
             model.BuildingApt = view.BuildingApt;
-            model.DeliveryDate = DateTime.Parse(view.RegistrationDate);
+            model.RegistrationDate = DateTime.Now;
+            model.DeliveryDate = DateTime.Parse(view.DeliveryDate);
             model.DeliveredBy = view.DeliveredBy;
             try
             {
@@ -123,6 +125,7 @@ namespace MuhtarlikTebgigatSistemi.Presenters
             view.StreetName = "";
             view.BuildingApt = "";
             view.RegistrationDate = "";
+            view.DeliveryDate = "";
             view.DeliveredBy = "";
         }
         private void CancelAction(object? sender, EventArgs e)

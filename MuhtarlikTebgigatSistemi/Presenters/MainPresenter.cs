@@ -1,6 +1,7 @@
 ﻿using MuhtarlikTebgigatSistemi._Repository;
 using MuhtarlikTebgigatSistemi.Model;
 using MuhtarlikTebgigatSistemi.Views;
+using MuhtarlikTebgigatSistemi.Views.Interfaces;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -25,7 +26,7 @@ namespace MuhtarlikTebgigatSistemi.Presenters
         private void ShowDocumentView(object? sender, EventArgs e)
         {
             IDocumentView view = DocumentView.GetInstace((MainView)mainView);
-            IDocumentRepository repository = new DocumentRepository(sqlConnectionString);
+            IRepository<DocumentModel> repository = new DocumentRepository(sqlConnectionString);
             new DocumentPresenter(view, repository);
         }
     }

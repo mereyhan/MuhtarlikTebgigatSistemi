@@ -12,7 +12,7 @@ namespace MuhtarlikTebgigatSistemi.Model
     {
         private int id;
         private string street;
-        private DateTime createDate;
+        private DateTime registerDate;
         private DateTime updateDate;
 
         [DisplayName("Tür Numarası")]
@@ -25,7 +25,7 @@ namespace MuhtarlikTebgigatSistemi.Model
 
         [DisplayName("Oluşturma Tarihi")]
         [DataType(DataType.Date)]
-        public DateTime CreateDate { get => createDate; set => createDate = value; }
+        public DateTime RegisterDate { get => registerDate; set => registerDate = value; }
 
         [DisplayName("Kayıt Tarihi")]
         [DataType(DataType.Date)]

@@ -4,19 +4,15 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace MuhtarlikTebgigatSistemi.Views
+namespace MuhtarlikTebgigatSistemi.Views.Interfaces
 {
-    public interface IDocumentView
+    public interface IStreetView
     {
         // Properties - Fields
-        string DocumentID { get; set; }
-        string DocumentType { get; set; }
-        string PersonName { get; set; }
-        string CompanyName { get; set; }
+        string StreetID { get; set; }
         string StreetName { get; set; }
-        string BuildingApt { get; set; }
-        string RegistrationDate { get; set; }
-        string DeliveredBy { get; set; }
+        string RegisterDate { get; set; }
+        string UpdateDate { get; set; }
 
         // Properties - Validations
         string SearchValue { get; set; }
@@ -33,7 +29,7 @@ namespace MuhtarlikTebgigatSistemi.Views
         event EventHandler CancelEvent;
 
         // Methods
-        void SetDocumentListBindingSource(BindingSource documentList);
+        void SetStreetListBindingSource(BindingSource documentList);
         void Show();
     }
 }

@@ -17,9 +17,9 @@ namespace MuhtarlikTebgigatSistemi.Model
         private string companyName;
         private string streetName;
         private string buildingApt;
+        private DateTime registrationDate;
         private DateTime deliveryDate;
         private string deliveredBy;
-        private DateTime registrationDate;
 
         // Properties - Validations
         [DisplayName("Evrak Numarası")]
