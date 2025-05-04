@@ -61,14 +61,10 @@ namespace MuhtarlikTebgigatSistemi.Presenters
         private void UpdateSelectedDocument(object? sender, EventArgs e)
         {
             var document = (StreetModel)documentsBindingSource.Current;
-            view.DocumentID = document.Id.ToString();
-            view.DocumentType = document.Type;
-            view.PersonName = document.PersonName;
-            view.CompanyName = document.CompanyName;
-            view.StreetName = document.StreetName;
-            view.BuildingApt = document.BuildingApt;
-            view.DeliveryDate = document.DeliveryDate.ToString("yyyy-MM-dd");
-            view.DeliveredBy = document.DeliveredBy;
+            view.StreetID = document.Id.ToString();
+            view.StreetName = document.Street;
+            view.RegisterDate = document.RegisterDate.ToString("yyyy-MM-dd");
+            view.UpdateDate = document.UpdateDate.ToString("yyyy-MM-dd");
             view.IsEdit = true;
         }
         private void DeleteSelectedDocument(object? sender, EventArgs e)
@@ -92,15 +88,10 @@ namespace MuhtarlikTebgigatSistemi.Presenters
         private void SaveDocument(object? sender, EventArgs e)
         {
             var model = new StreetModel();
-            model.Id = int.Parse(view.DocumentID);
-            model.Type = view.DocumentType;
-            model.PersonName = view.PersonName;
-            model.CompanyName = view.CompanyName;
-            model.StreetName = view.StreetName;
-            model.BuildingApt = view.BuildingApt;
-            model.RegistrationDate = DateTime.Now;
-            model.DeliveryDate = DateTime.Parse(view.DeliveryDate);
-            model.DeliveredBy = view.DeliveredBy;
+            model.Id = int.Parse(view.StreetID);
+            model.Street = view.StreetName;
+            model.RegisterDate = DateTime.Now;
+            model.UpdateDate = DateTime.Parse(view.UpdateDate);
             try
             {
                 new Common.ModelDataValidation().Validate(model);
@@ -118,15 +109,10 @@ namespace MuhtarlikTebgigatSistemi.Presenters
         }
         private void CleanViewFields()
         {
-            view.DocumentID = "0";
-            view.DocumentType = "";
-            view.PersonName = "";
-            view.CompanyName = "";
-            view.StreetName = "";
-            view.BuildingApt = "";
-            view.RegistrationDate = "";
-            view.DeliveryDate = "";
-            view.DeliveredBy = "";
+            view.StreetID = string.Empty;
+            view.StreetName = string.Empty;
+            view.RegisterDate = string.Empty;
+            view.UpdateDate = string.Empty;
         }
         private void CancelAction(object? sender, EventArgs e)
         {

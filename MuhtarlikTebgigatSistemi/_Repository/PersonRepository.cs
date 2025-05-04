@@ -12,12 +12,12 @@ namespace MuhtarlikTebgigatSistemi._Repository
     {
         public PersonRepository(string connectionString)
         {
-            this.connectionString = connectionString;
+            this.sqliteConnectionString = connectionString;
         }
 
         public void Add(PersonModel entity)
         {
-            using (var connection = new SQLiteConnection(connectionString))
+            using (var connection = new SQLiteConnection(sqliteConnectionString))
             using (var command = new SQLiteCommand())
             {
                 connection.Open();
@@ -37,7 +37,7 @@ namespace MuhtarlikTebgigatSistemi._Repository
         }
         public void Delete(int id)
         {
-            using (var connection = new SQLiteConnection(connectionString))
+            using (var connection = new SQLiteConnection(sqliteConnectionString))
             using (var command = new SQLiteCommand())
             {
                 connection.Open();
@@ -49,7 +49,7 @@ namespace MuhtarlikTebgigatSistemi._Repository
         }
         public void Update(PersonModel entity)
         {
-            using (var connection = new SQLiteConnection(connectionString))
+            using (var connection = new SQLiteConnection(sqliteConnectionString))
             using (var command = new SQLiteCommand())
             {
                 connection.Open();
@@ -77,7 +77,7 @@ namespace MuhtarlikTebgigatSistemi._Repository
         public IEnumerable<PersonModel> GetAll()
         {
             var personList = new List<PersonModel>();
-            using (var connection = new SQLiteConnection(connectionString))
+            using (var connection = new SQLiteConnection(sqliteConnectionString))
             using (var command = new SQLiteCommand())
             {
                 connection.Open();
@@ -109,7 +109,7 @@ namespace MuhtarlikTebgigatSistemi._Repository
         public IEnumerable<PersonModel> GetByValue(string searchValue)
         {
             var personList = new List<PersonModel>();
-            using (var connection = new SQLiteConnection(connectionString))
+            using (var connection = new SQLiteConnection(sqliteConnectionString))
             using (var command = new SQLiteCommand())
             {
                 connection.Open();

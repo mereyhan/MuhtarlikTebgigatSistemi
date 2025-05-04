@@ -12,11 +12,11 @@ namespace MuhtarlikTebgigatSistemi._Repository
     {
         public StreetRepository(string connectionString)
         {
-            this.connectionString = connectionString;
+            this.sqliteConnectionString = connectionString;
         }
         public void Add(StreetModel entity)
         {
-            using (var connection = new SQLiteConnection(connectionString))
+            using (var connection = new SQLiteConnection(sqliteConnectionString))
             using (var command = new SQLiteCommand())
             {
                 connection.Open();
@@ -31,7 +31,7 @@ namespace MuhtarlikTebgigatSistemi._Repository
         }
         public void Delete(int id)
         {
-            using (var connection = new SQLiteConnection(connectionString))
+            using (var connection = new SQLiteConnection(sqliteConnectionString))
             using (var command = new SQLiteCommand())
             {
                 connection.Open();
@@ -43,7 +43,7 @@ namespace MuhtarlikTebgigatSistemi._Repository
         }
         public void Update(StreetModel entity)
         {
-            using (var connection = new SQLiteConnection(connectionString))
+            using (var connection = new SQLiteConnection(sqliteConnectionString))
             using (var command = new SQLiteCommand())
             {
                 connection.Open();
@@ -61,7 +61,7 @@ namespace MuhtarlikTebgigatSistemi._Repository
         public IEnumerable<StreetModel> GetAll()
         {
             var streetList = new List<StreetModel>();
-            using (var connection = new SQLiteConnection(connectionString))
+            using (var connection = new SQLiteConnection(sqliteConnectionString))
             using (var command = new SQLiteCommand())
             {
                 connection.Open();
@@ -75,7 +75,7 @@ namespace MuhtarlikTebgigatSistemi._Repository
                         {
                             Id = reader.GetInt32(0),
                             Street = reader.GetString(1),
-                            CreateDate = reader.GetDateTime(2),
+                            RegisterDate = reader.GetDateTime(2),
                             UpdateDate = reader.GetDateTime(3)
                         };
                         streetList.Add(streetModel);
@@ -88,7 +88,7 @@ namespace MuhtarlikTebgigatSistemi._Repository
         public IEnumerable<StreetModel> GetByValue(string searchValue)
         {
             var streetList = new List<StreetModel>();
-            using (var connection = new SQLiteConnection(connectionString))
+            using (var connection = new SQLiteConnection(sqliteConnectionString))
             using (var command = new SQLiteCommand())
             {
                 connection.Open();
@@ -107,7 +107,7 @@ namespace MuhtarlikTebgigatSistemi._Repository
                         {
                             Id = reader.GetInt32(0),
                             Street = reader.GetString(1),
-                            CreateDate = reader.GetDateTime(2),
+                            RegisterDate = reader.GetDateTime(2),
                             UpdateDate = reader.GetDateTime(3)
                         };
                         streetList.Add(streetModel);

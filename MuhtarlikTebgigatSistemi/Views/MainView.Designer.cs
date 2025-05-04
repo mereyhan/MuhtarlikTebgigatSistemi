@@ -31,10 +31,10 @@
             panelSideMenu = new Panel();
             button7 = new Button();
             button6 = new Button();
-            button5 = new Button();
-            button4 = new Button();
-            button3 = new Button();
-            button2 = new Button();
+            btnCompanies = new Button();
+            btnPersons = new Button();
+            btnDocTypes = new Button();
+            btnStreets = new Button();
             button1 = new Button();
             btnDocuments = new Button();
             panelLogo = new Panel();
@@ -48,10 +48,10 @@
             panelSideMenu.BackColor = Color.Maroon;
             panelSideMenu.Controls.Add(button7);
             panelSideMenu.Controls.Add(button6);
-            panelSideMenu.Controls.Add(button5);
-            panelSideMenu.Controls.Add(button4);
-            panelSideMenu.Controls.Add(button3);
-            panelSideMenu.Controls.Add(button2);
+            panelSideMenu.Controls.Add(btnCompanies);
+            panelSideMenu.Controls.Add(btnPersons);
+            panelSideMenu.Controls.Add(btnDocTypes);
+            panelSideMenu.Controls.Add(btnStreets);
             panelSideMenu.Controls.Add(button1);
             panelSideMenu.Controls.Add(btnDocuments);
             panelSideMenu.Controls.Add(panelLogo);
@@ -97,77 +97,77 @@
             button6.TextAlign = ContentAlignment.MiddleLeft;
             button6.UseVisualStyleBackColor = true;
             // 
-            // button5
+            // btnCompanies
             // 
-            button5.Dock = DockStyle.Top;
-            button5.FlatAppearance.BorderSize = 0;
-            button5.FlatAppearance.MouseOverBackColor = Color.Red;
-            button5.FlatStyle = FlatStyle.Flat;
-            button5.Font = new Font("Arial", 12F);
-            button5.ForeColor = SystemColors.Control;
-            button5.ImageAlign = ContentAlignment.MiddleLeft;
-            button5.Location = new Point(0, 325);
-            button5.Name = "button5";
-            button5.Padding = new Padding(10, 0, 0, 0);
-            button5.Size = new Size(250, 45);
-            button5.TabIndex = 5;
-            button5.Text = "Firma Bilgileri";
-            button5.TextAlign = ContentAlignment.MiddleLeft;
-            button5.UseVisualStyleBackColor = true;
+            btnCompanies.Dock = DockStyle.Top;
+            btnCompanies.FlatAppearance.BorderSize = 0;
+            btnCompanies.FlatAppearance.MouseOverBackColor = Color.Red;
+            btnCompanies.FlatStyle = FlatStyle.Flat;
+            btnCompanies.Font = new Font("Arial", 12F);
+            btnCompanies.ForeColor = SystemColors.Control;
+            btnCompanies.ImageAlign = ContentAlignment.MiddleLeft;
+            btnCompanies.Location = new Point(0, 325);
+            btnCompanies.Name = "btnCompanies";
+            btnCompanies.Padding = new Padding(10, 0, 0, 0);
+            btnCompanies.Size = new Size(250, 45);
+            btnCompanies.TabIndex = 5;
+            btnCompanies.Text = "Firma Bilgileri";
+            btnCompanies.TextAlign = ContentAlignment.MiddleLeft;
+            btnCompanies.UseVisualStyleBackColor = true;
             // 
-            // button4
+            // btnPersons
             // 
-            button4.Dock = DockStyle.Top;
-            button4.FlatAppearance.BorderSize = 0;
-            button4.FlatAppearance.MouseOverBackColor = Color.Red;
-            button4.FlatStyle = FlatStyle.Flat;
-            button4.Font = new Font("Arial", 12F);
-            button4.ForeColor = SystemColors.Control;
-            button4.ImageAlign = ContentAlignment.MiddleLeft;
-            button4.Location = new Point(0, 280);
-            button4.Name = "button4";
-            button4.Padding = new Padding(10, 0, 0, 0);
-            button4.Size = new Size(250, 45);
-            button4.TabIndex = 4;
-            button4.Text = "Kullanıcı Bilgileri";
-            button4.TextAlign = ContentAlignment.MiddleLeft;
-            button4.UseVisualStyleBackColor = true;
+            btnPersons.Dock = DockStyle.Top;
+            btnPersons.FlatAppearance.BorderSize = 0;
+            btnPersons.FlatAppearance.MouseOverBackColor = Color.Red;
+            btnPersons.FlatStyle = FlatStyle.Flat;
+            btnPersons.Font = new Font("Arial", 12F);
+            btnPersons.ForeColor = SystemColors.Control;
+            btnPersons.ImageAlign = ContentAlignment.MiddleLeft;
+            btnPersons.Location = new Point(0, 280);
+            btnPersons.Name = "btnPersons";
+            btnPersons.Padding = new Padding(10, 0, 0, 0);
+            btnPersons.Size = new Size(250, 45);
+            btnPersons.TabIndex = 4;
+            btnPersons.Text = "Kullanıcı Bilgileri";
+            btnPersons.TextAlign = ContentAlignment.MiddleLeft;
+            btnPersons.UseVisualStyleBackColor = true;
             // 
-            // button3
+            // btnDocTypes
             // 
-            button3.Dock = DockStyle.Top;
-            button3.FlatAppearance.BorderSize = 0;
-            button3.FlatAppearance.MouseOverBackColor = Color.Red;
-            button3.FlatStyle = FlatStyle.Flat;
-            button3.Font = new Font("Arial", 12F);
-            button3.ForeColor = SystemColors.Control;
-            button3.ImageAlign = ContentAlignment.MiddleLeft;
-            button3.Location = new Point(0, 235);
-            button3.Name = "button3";
-            button3.Padding = new Padding(10, 0, 0, 0);
-            button3.Size = new Size(250, 45);
-            button3.TabIndex = 3;
-            button3.Text = "Evrak Türü Bilgileri";
-            button3.TextAlign = ContentAlignment.MiddleLeft;
-            button3.UseVisualStyleBackColor = true;
+            btnDocTypes.Dock = DockStyle.Top;
+            btnDocTypes.FlatAppearance.BorderSize = 0;
+            btnDocTypes.FlatAppearance.MouseOverBackColor = Color.Red;
+            btnDocTypes.FlatStyle = FlatStyle.Flat;
+            btnDocTypes.Font = new Font("Arial", 12F);
+            btnDocTypes.ForeColor = SystemColors.Control;
+            btnDocTypes.ImageAlign = ContentAlignment.MiddleLeft;
+            btnDocTypes.Location = new Point(0, 235);
+            btnDocTypes.Name = "btnDocTypes";
+            btnDocTypes.Padding = new Padding(10, 0, 0, 0);
+            btnDocTypes.Size = new Size(250, 45);
+            btnDocTypes.TabIndex = 3;
+            btnDocTypes.Text = "Evrak Türü Bilgileri";
+            btnDocTypes.TextAlign = ContentAlignment.MiddleLeft;
+            btnDocTypes.UseVisualStyleBackColor = true;
             // 
-            // button2
+            // btnStreets
             // 
-            button2.Dock = DockStyle.Top;
-            button2.FlatAppearance.BorderSize = 0;
-            button2.FlatAppearance.MouseOverBackColor = Color.Red;
-            button2.FlatStyle = FlatStyle.Flat;
-            button2.Font = new Font("Arial", 12F);
-            button2.ForeColor = SystemColors.Control;
-            button2.ImageAlign = ContentAlignment.MiddleLeft;
-            button2.Location = new Point(0, 190);
-            button2.Name = "button2";
-            button2.Padding = new Padding(10, 0, 0, 0);
-            button2.Size = new Size(250, 45);
-            button2.TabIndex = 2;
-            button2.Text = "Sokak Bilgileri";
-            button2.TextAlign = ContentAlignment.MiddleLeft;
-            button2.UseVisualStyleBackColor = true;
+            btnStreets.Dock = DockStyle.Top;
+            btnStreets.FlatAppearance.BorderSize = 0;
+            btnStreets.FlatAppearance.MouseOverBackColor = Color.Red;
+            btnStreets.FlatStyle = FlatStyle.Flat;
+            btnStreets.Font = new Font("Arial", 12F);
+            btnStreets.ForeColor = SystemColors.Control;
+            btnStreets.ImageAlign = ContentAlignment.MiddleLeft;
+            btnStreets.Location = new Point(0, 190);
+            btnStreets.Name = "btnStreets";
+            btnStreets.Padding = new Padding(10, 0, 0, 0);
+            btnStreets.Size = new Size(250, 45);
+            btnStreets.TabIndex = 2;
+            btnStreets.Text = "Sokak Bilgileri";
+            btnStreets.TextAlign = ContentAlignment.MiddleLeft;
+            btnStreets.UseVisualStyleBackColor = true;
             // 
             // button1
             // 
@@ -247,9 +247,9 @@
         private Button button1;
         private Button button7;
         private Button button6;
-        private Button button5;
-        private Button button4;
-        private Button button3;
-        private Button button2;
+        private Button btnCompanies;
+        private Button btnPersons;
+        private Button btnDocTypes;
+        private Button btnStreets;
     }
 }

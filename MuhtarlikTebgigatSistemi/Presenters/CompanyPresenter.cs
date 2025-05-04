@@ -3,6 +3,7 @@ using MuhtarlikTebgigatSistemi.Views.Interfaces;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Reflection;
 using System.Text;
 using System.Threading.Tasks;
 
@@ -61,14 +62,15 @@ namespace MuhtarlikTebgigatSistemi.Presenters
         private void UpdateSelectedDocument(object? sender, EventArgs e)
         {
             var document = (CompanyModel)documentsBindingSource.Current;
-            view.DocumentID = document.Id.ToString();
-            view.DocumentType = document.Type;
-            view.PersonName = document.PersonName;
+            view.CompanyID= document.Id.ToString();
             view.CompanyName = document.CompanyName;
             view.StreetName = document.StreetName;
             view.BuildingApt = document.BuildingApt;
-            view.DeliveryDate = document.DeliveryDate.ToString("yyyy-MM-dd");
-            view.DeliveredBy = document.DeliveredBy;
+            view.PersonName = document.PersonName;
+            view.PhoneNumber = document.PhoneNumber;
+            view.Email = document.Email;
+            view.RegisterDate = document.RegisterDate.ToString("yyyy-MM-dd");
+            view.UpdateDate = document.UpdateDate.ToString("yyyy-MM-dd");
             view.IsEdit = true;
         }
         private void DeleteSelectedDocument(object? sender, EventArgs e)
@@ -92,15 +94,15 @@ namespace MuhtarlikTebgigatSistemi.Presenters
         private void SaveDocument(object? sender, EventArgs e)
         {
             var model = new CompanyModel();
-            model.Id = int.Parse(view.DocumentID);
-            model.Type = view.DocumentType;
-            model.PersonName = view.PersonName;
+            model.Id = int.Parse(view.CompanyID);
             model.CompanyName = view.CompanyName;
             model.StreetName = view.StreetName;
             model.BuildingApt = view.BuildingApt;
-            model.RegistrationDate = DateTime.Now;
-            model.DeliveryDate = DateTime.Parse(view.DeliveryDate);
-            model.DeliveredBy = view.DeliveredBy;
+            model.PersonName = view.PersonName;
+            model.PhoneNumber = view.PhoneNumber;
+            model.Email = view.Email;
+            model.RegisterDate = DateTime.Now;
+            model.UpdateDate = DateTime.Parse(view.UpdateDate);
             try
             {
                 new Common.ModelDataValidation().Validate(model);
@@ -118,15 +120,15 @@ namespace MuhtarlikTebgigatSistemi.Presenters
         }
         private void CleanViewFields()
         {
-            view.DocumentID = "0";
-            view.DocumentType = "";
-            view.PersonName = "";
-            view.CompanyName = "";
-            view.StreetName = "";
-            view.BuildingApt = "";
-            view.RegistrationDate = "";
-            view.DeliveryDate = "";
-            view.DeliveredBy = "";
+            view.CompanyID = string.Empty;
+            view.CompanyName = string.Empty;
+            view.StreetName = string.Empty;
+            view.BuildingApt = string.Empty;
+            view.PersonName = string.Empty;
+            view.PhoneNumber = string.Empty;
+            view.Email = string.Empty;
+            view.RegisterDate = string.Empty;
+            view.UpdateDate = string.Empty;
         }
         private void CancelAction(object? sender, EventArgs e)
         {

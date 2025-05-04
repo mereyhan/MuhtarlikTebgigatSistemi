@@ -67,7 +67,7 @@
             formBorderPanel.Location = new Point(0, 0);
             formBorderPanel.Margin = new Padding(4, 3, 4, 3);
             formBorderPanel.Name = "formBorderPanel";
-            formBorderPanel.Size = new Size(789, 35);
+            formBorderPanel.Size = new Size(800, 35);
             formBorderPanel.TabIndex = 2;
             // 
             // btnClose
@@ -108,7 +108,7 @@
             tabControl1.Location = new Point(0, 35);
             tabControl1.Name = "tabControl1";
             tabControl1.SelectedIndex = 0;
-            tabControl1.Size = new Size(789, 400);
+            tabControl1.Size = new Size(800, 415);
             tabControl1.TabIndex = 3;
             // 
             // TabPageStreetList
@@ -123,7 +123,7 @@
             TabPageStreetList.Location = new Point(4, 24);
             TabPageStreetList.Name = "TabPageStreetList";
             TabPageStreetList.Padding = new Padding(3);
-            TabPageStreetList.Size = new Size(781, 372);
+            TabPageStreetList.Size = new Size(792, 387);
             TabPageStreetList.TabIndex = 0;
             TabPageStreetList.Text = "Street List";
             TabPageStreetList.UseVisualStyleBackColor = true;
@@ -131,7 +131,7 @@
             // btnDelete
             // 
             btnDelete.Anchor = AnchorStyles.Top | AnchorStyles.Right;
-            btnDelete.Location = new Point(697, 112);
+            btnDelete.Location = new Point(709, 118);
             btnDelete.Margin = new Padding(4, 3, 4, 3);
             btnDelete.Name = "btnDelete";
             btnDelete.Size = new Size(75, 23);
@@ -142,7 +142,7 @@
             // btnUpdate
             // 
             btnUpdate.Anchor = AnchorStyles.Top | AnchorStyles.Right;
-            btnUpdate.Location = new Point(697, 83);
+            btnUpdate.Location = new Point(709, 89);
             btnUpdate.Margin = new Padding(4, 3, 4, 3);
             btnUpdate.Name = "btnUpdate";
             btnUpdate.Size = new Size(75, 23);
@@ -153,7 +153,7 @@
             // btnAdd
             // 
             btnAdd.Anchor = AnchorStyles.Top | AnchorStyles.Right;
-            btnAdd.Location = new Point(697, 54);
+            btnAdd.Location = new Point(709, 60);
             btnAdd.Margin = new Padding(4, 3, 4, 3);
             btnAdd.Name = "btnAdd";
             btnAdd.Size = new Size(75, 23);
@@ -166,16 +166,16 @@
             dataGridView.Anchor = AnchorStyles.Top | AnchorStyles.Bottom | AnchorStyles.Left | AnchorStyles.Right;
             dataGridView.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.Fill;
             dataGridView.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            dataGridView.Location = new Point(4, 54);
+            dataGridView.Location = new Point(9, 60);
             dataGridView.Margin = new Padding(4, 3, 4, 3);
             dataGridView.Name = "dataGridView";
-            dataGridView.Size = new Size(686, 315);
+            dataGridView.Size = new Size(694, 304);
             dataGridView.TabIndex = 10;
             // 
             // btnSearch
             // 
             btnSearch.Anchor = AnchorStyles.Top | AnchorStyles.Right;
-            btnSearch.Location = new Point(615, 27);
+            btnSearch.Location = new Point(628, 31);
             btnSearch.Margin = new Padding(4, 3, 4, 3);
             btnSearch.Name = "btnSearch";
             btnSearch.Size = new Size(75, 23);
@@ -186,17 +186,17 @@
             // txtSearch
             // 
             txtSearch.Anchor = AnchorStyles.Top | AnchorStyles.Left | AnchorStyles.Right;
-            txtSearch.Location = new Point(4, 27);
+            txtSearch.Location = new Point(9, 32);
             txtSearch.Margin = new Padding(4, 3, 4, 3);
             txtSearch.Name = "txtSearch";
-            txtSearch.Size = new Size(603, 21);
+            txtSearch.Size = new Size(613, 21);
             txtSearch.TabIndex = 8;
             // 
             // label2
             // 
             label2.AutoSize = true;
             label2.Font = new Font("Segoe UI", 12F);
-            label2.Location = new Point(4, 3);
+            label2.Location = new Point(8, 9);
             label2.Margin = new Padding(4, 0, 4, 0);
             label2.Name = "label2";
             label2.Size = new Size(101, 21);
@@ -218,7 +218,7 @@
             TabPageStreetDetail.Location = new Point(4, 24);
             TabPageStreetDetail.Name = "TabPageStreetDetail";
             TabPageStreetDetail.Padding = new Padding(3);
-            TabPageStreetDetail.Size = new Size(781, 372);
+            TabPageStreetDetail.Size = new Size(792, 387);
             TabPageStreetDetail.TabIndex = 1;
             TabPageStreetDetail.Text = "Street Detail";
             TabPageStreetDetail.UseVisualStyleBackColor = true;
@@ -326,7 +326,7 @@
             AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
             BackColor = Color.White;
-            ClientSize = new Size(789, 435);
+            ClientSize = new Size(800, 450);
             Controls.Add(tabControl1);
             Controls.Add(formBorderPanel);
             Font = new Font("Arial", 9F);

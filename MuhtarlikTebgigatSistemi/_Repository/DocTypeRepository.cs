@@ -12,12 +12,12 @@ namespace MuhtarlikTebgigatSistemi._Repository
     {
         public DocTypeRepository(string connectionString)
         {
-            this.connectionString = connectionString;
+            this.sqliteConnectionString = connectionString;
         }
 
         public void Add(DocTypeModel entity)
         {
-            using (var connection = new SQLiteConnection(connectionString))
+            using (var connection = new SQLiteConnection(sqliteConnectionString))
             using (var command = new SQLiteCommand())
             {
                 connection.Open();
@@ -32,7 +32,7 @@ namespace MuhtarlikTebgigatSistemi._Repository
         }
         public void Delete(int id)
         {
-            using (var connection = new SQLiteConnection(connectionString))
+            using (var connection = new SQLiteConnection(sqliteConnectionString))
             using (var command = new SQLiteCommand())
             {
                 connection.Open();
@@ -44,7 +44,7 @@ namespace MuhtarlikTebgigatSistemi._Repository
         }
         public void Update(DocTypeModel entity)
         {
-            using (var connection = new SQLiteConnection(connectionString))
+            using (var connection = new SQLiteConnection(sqliteConnectionString))
             using (var command = new SQLiteCommand())
             {
                 connection.Open();
@@ -62,7 +62,7 @@ namespace MuhtarlikTebgigatSistemi._Repository
         public IEnumerable<DocTypeModel> GetAll()
         {
             var doctypeList = new List<DocTypeModel>();
-            using (var connection = new SQLiteConnection(connectionString))
+            using (var connection = new SQLiteConnection(sqliteConnectionString))
             using (var command = new SQLiteCommand())
             {
                 connection.Open();
@@ -76,7 +76,7 @@ namespace MuhtarlikTebgigatSistemi._Repository
                         {
                             Id = reader.GetInt32(0),
                             Type = reader.GetString(1),
-                            CreateDate = reader.GetDateTime(2),
+                            RegisterDate = reader.GetDateTime(2),
                             UpdateDate = reader.GetDateTime(3)
                         };
                         doctypeList.Add(doctypeModel);
@@ -89,7 +89,7 @@ namespace MuhtarlikTebgigatSistemi._Repository
         public IEnumerable<DocTypeModel> GetByValue(string searchValue)
         {
             var doctypeList = new List<DocTypeModel>();
-            using (var connection = new SQLiteConnection(connectionString))
+            using (var connection = new SQLiteConnection(sqliteConnectionString))
             using (var command = new SQLiteCommand())
             {
                 connection.Open();
@@ -108,7 +108,7 @@ namespace MuhtarlikTebgigatSistemi._Repository
                         {
                             Id = reader.GetInt32(0),
                             Type = reader.GetString(1),
-                            CreateDate = reader.GetDateTime(2),
+                            RegisterDate = reader.GetDateTime(2),
                             UpdateDate = reader.GetDateTime(3)
                         };
                         doctypeList.Add(doctypeModel);

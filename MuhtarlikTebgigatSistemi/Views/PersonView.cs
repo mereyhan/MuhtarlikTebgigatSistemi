@@ -104,5 +104,24 @@ namespace MuhtarlikTebgigatSistemi.Views
         {
             dataGridView.DataSource = personList;
         }
+
+        private static PersonView instance;
+        public static PersonView GetInstace(Form parentContainer)
+        {
+            if (instance == null || instance.IsDisposed)
+            {
+                instance = new PersonView();
+                instance.MdiParent = parentContainer;
+                instance.FormBorderStyle = FormBorderStyle.None;
+                instance.Dock = DockStyle.Fill;
+            }
+            else
+            {
+                if (instance.WindowState == FormWindowState.Minimized)
+                    instance.WindowState = FormWindowState.Normal;
+                instance.BringToFront();
+            }
+            return instance;
+        }
     }
 }

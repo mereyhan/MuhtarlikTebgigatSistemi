@@ -12,12 +12,12 @@ namespace MuhtarlikTebgigatSistemi._Repository
     {
         public CompanyRepository(string connectionString)
         {
-            this.connectionString = connectionString;
+            this.sqliteConnectionString = connectionString;
         }
 
         public void Add(CompanyModel entity)
         {
-            using (var connection = new SQLiteConnection(connectionString))
+            using (var connection = new SQLiteConnection(sqliteConnectionString))
             using (var command = new SQLiteCommand())
             {
                 connection.Open();
@@ -37,7 +37,7 @@ namespace MuhtarlikTebgigatSistemi._Repository
         }
         public void Delete(int id)
         {
-            using (var connection = new SQLiteConnection(connectionString))
+            using (var connection = new SQLiteConnection(sqliteConnectionString))
             using (var command = new SQLiteCommand())
             {
                 connection.Open();
@@ -50,7 +50,7 @@ namespace MuhtarlikTebgigatSistemi._Repository
         public IEnumerable<CompanyModel> GetAll()
         {
             var companyList = new List<CompanyModel>();
-            using (var connection = new SQLiteConnection(connectionString))
+            using (var connection = new SQLiteConnection(sqliteConnectionString))
             using (var command = new SQLiteCommand())
             {
                 connection.Open();
@@ -82,7 +82,7 @@ namespace MuhtarlikTebgigatSistemi._Repository
         public IEnumerable<CompanyModel> GetByValue(string searchValue)
         {
             var companyList = new List<CompanyModel>();
-            using (var connection = new SQLiteConnection(connectionString))
+            using (var connection = new SQLiteConnection(sqliteConnectionString))
             using (var command = new SQLiteCommand())
             {
                 connection.Open();

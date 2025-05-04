@@ -131,7 +131,7 @@
             // btnDelete
             // 
             btnDelete.Anchor = AnchorStyles.Top | AnchorStyles.Right;
-            btnDelete.Location = new Point(705, 119);
+            btnDelete.Location = new Point(709, 118);
             btnDelete.Margin = new Padding(4, 3, 4, 3);
             btnDelete.Name = "btnDelete";
             btnDelete.Size = new Size(75, 23);
@@ -142,7 +142,7 @@
             // btnUpdate
             // 
             btnUpdate.Anchor = AnchorStyles.Top | AnchorStyles.Right;
-            btnUpdate.Location = new Point(705, 90);
+            btnUpdate.Location = new Point(709, 89);
             btnUpdate.Margin = new Padding(4, 3, 4, 3);
             btnUpdate.Name = "btnUpdate";
             btnUpdate.Size = new Size(75, 23);
@@ -153,7 +153,7 @@
             // btnAdd
             // 
             btnAdd.Anchor = AnchorStyles.Top | AnchorStyles.Right;
-            btnAdd.Location = new Point(705, 61);
+            btnAdd.Location = new Point(709, 60);
             btnAdd.Margin = new Padding(4, 3, 4, 3);
             btnAdd.Name = "btnAdd";
             btnAdd.Size = new Size(75, 23);
@@ -166,16 +166,16 @@
             dataGridView.Anchor = AnchorStyles.Top | AnchorStyles.Bottom | AnchorStyles.Left | AnchorStyles.Right;
             dataGridView.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.Fill;
             dataGridView.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            dataGridView.Location = new Point(12, 61);
+            dataGridView.Location = new Point(9, 60);
             dataGridView.Margin = new Padding(4, 3, 4, 3);
             dataGridView.Name = "dataGridView";
-            dataGridView.Size = new Size(686, 315);
+            dataGridView.Size = new Size(694, 304);
             dataGridView.TabIndex = 17;
             // 
             // btnSearch
             // 
             btnSearch.Anchor = AnchorStyles.Top | AnchorStyles.Right;
-            btnSearch.Location = new Point(623, 34);
+            btnSearch.Location = new Point(628, 31);
             btnSearch.Margin = new Padding(4, 3, 4, 3);
             btnSearch.Name = "btnSearch";
             btnSearch.Size = new Size(75, 23);
@@ -186,17 +186,17 @@
             // txtSearch
             // 
             txtSearch.Anchor = AnchorStyles.Top | AnchorStyles.Left | AnchorStyles.Right;
-            txtSearch.Location = new Point(12, 34);
+            txtSearch.Location = new Point(9, 32);
             txtSearch.Margin = new Padding(4, 3, 4, 3);
             txtSearch.Name = "txtSearch";
-            txtSearch.Size = new Size(603, 23);
+            txtSearch.Size = new Size(613, 23);
             txtSearch.TabIndex = 15;
             // 
             // label2
             // 
             label2.AutoSize = true;
             label2.Font = new Font("Segoe UI", 12F);
-            label2.Location = new Point(12, 10);
+            label2.Location = new Point(9, 8);
             label2.Margin = new Padding(4, 0, 4, 0);
             label2.Name = "label2";
             label2.Size = new Size(169, 21);

@@ -99,5 +99,24 @@ namespace MuhtarlikTebgigatSistemi.Views
         {
             dataGridView.DataSource = StreetList;
         }
+
+        private static StreetView instance;
+        public static StreetView GetInstace(Form parentContainer)
+        {
+            if (instance == null || instance.IsDisposed)
+            {
+                instance = new StreetView();
+                instance.MdiParent = parentContainer;
+                instance.FormBorderStyle = FormBorderStyle.None;
+                instance.Dock = DockStyle.Fill;
+            }
+            else
+            {
+                if (instance.WindowState == FormWindowState.Minimized)
+                    instance.WindowState = FormWindowState.Normal;
+                instance.BringToFront();
+            }
+            return instance;
+        }
     }
 }

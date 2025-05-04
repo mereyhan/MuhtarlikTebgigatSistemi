@@ -8,7 +8,7 @@ namespace MuhtarlikTebgigatSistemi._Repository
 {
     public abstract class BaseRepository
     {
-        protected string connectionString;
+        protected string sqliteConnectionString;
     }
 
 }

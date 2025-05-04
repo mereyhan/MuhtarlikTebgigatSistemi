@@ -105,5 +105,24 @@ namespace MuhtarlikTebgigatSistemi.Views
         {
             dataGridView.DataSource = companyList;
         }
+
+        private static CompanyView instance;
+        public static CompanyView GetInstace(Form parentContainer)
+        {
+            if (instance == null || instance.IsDisposed)
+            {
+                instance = new CompanyView();
+                instance.MdiParent = parentContainer;
+                instance.FormBorderStyle = FormBorderStyle.None;
+                instance.Dock = DockStyle.Fill;
+            }
+            else
+            {
+                if (instance.WindowState == FormWindowState.Minimized)
+                    instance.WindowState = FormWindowState.Normal;
+                instance.BringToFront();
+            }
+            return instance;
+        }
     }
 }

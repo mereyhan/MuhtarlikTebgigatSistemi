@@ -15,13 +15,13 @@ namespace MuhtarlikTebgigatSistemi._Repository
         // Constructor
         public DocumentRepository(string connectionString)
         {
-            this.connectionString = connectionString;
+            this.sqliteConnectionString = connectionString;
         }
 
         // Methods
         public void Add(DocumentModel entity)
         {
-            using (var connection = new SQLiteConnection(connectionString))
+            using (var connection = new SQLiteConnection(sqliteConnectionString))
             using (var command = new SQLiteCommand())
             {
                 connection.Open();
@@ -42,7 +42,7 @@ namespace MuhtarlikTebgigatSistemi._Repository
         }
         public void Delete(int id)
         {
-            using (var connection = new SQLiteConnection(connectionString))
+            using (var connection = new SQLiteConnection(sqliteConnectionString))
             using (var command = new SQLiteCommand())
             {
                 connection.Open();
@@ -54,7 +54,7 @@ namespace MuhtarlikTebgigatSistemi._Repository
         }
         public void Update(DocumentModel entity)
         {
-            using (var connection = new SQLiteConnection(connectionString))
+            using (var connection = new SQLiteConnection(sqliteConnectionString))
             using (var command = new SQLiteCommand())
             {
                 connection.Open();
@@ -82,7 +82,7 @@ namespace MuhtarlikTebgigatSistemi._Repository
         public IEnumerable<DocumentModel> GetAll()
         {
             var documentList = new List<DocumentModel>();
-            using (var connection = new SQLiteConnection(connectionString))
+            using (var connection = new SQLiteConnection(sqliteConnectionString))
             using (var command = new SQLiteCommand())
             {
                 connection.Open();
@@ -114,7 +114,7 @@ namespace MuhtarlikTebgigatSistemi._Repository
         public IEnumerable<DocumentModel> GetByValue(string searchValue)
         {
             var documentList = new List<DocumentModel>();
-            using (var connection = new SQLiteConnection(connectionString))
+            using (var connection = new SQLiteConnection(sqliteConnectionString))
             using (var command = new SQLiteCommand())
             {
                 connection.Open();

@@ -22,10 +22,10 @@ namespace MuhtarlikTebgigatSistemi
             Application.SetCompatibleTextRenderingDefault(false);
 
             // NameSpace, Properties, Settings, General, Settings.settings, SqlConnectionString
-            string sqlConnectionString = ConfigurationManager.ConnectionStrings["SqlConnection"].ConnectionString;
+            string sqliteConnectionString = ConfigurationManager.ConnectionStrings["SqliteConnection"].ConnectionString;
             
             IMainView view = new MainView();
-            new MainPresenter(view, sqlConnectionString);
+            new MainPresenter(view, sqliteConnectionString);
 
             Application.Run((Form)view);
         }

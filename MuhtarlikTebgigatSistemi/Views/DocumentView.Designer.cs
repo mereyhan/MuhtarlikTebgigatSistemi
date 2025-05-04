@@ -238,11 +238,11 @@
             TabPageDocDetail.Controls.Add(txtDocId);
             TabPageDocDetail.Controls.Add(documentType);
             TabPageDocDetail.Controls.Add(documentID);
-            TabPageDocDetail.Location = new Point(4, 25);
+            TabPageDocDetail.Location = new Point(4, 24);
             TabPageDocDetail.Margin = new Padding(4, 3, 4, 3);
             TabPageDocDetail.Name = "TabPageDocDetail";
             TabPageDocDetail.Padding = new Padding(4, 3, 4, 3);
-            TabPageDocDetail.Size = new Size(792, 386);
+            TabPageDocDetail.Size = new Size(792, 387);
             TabPageDocDetail.TabIndex = 1;
             TabPageDocDetail.Text = "Document Detail";
             TabPageDocDetail.UseVisualStyleBackColor = true;

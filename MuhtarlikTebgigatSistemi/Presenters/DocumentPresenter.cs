@@ -116,14 +116,14 @@ namespace MuhtarlikTebgigatSistemi.Presenters
         }
         private void CleanViewFields()
         {
-            view.DocumentID = "0";
-            view.DocumentType = "";
-            view.PersonName = "";
-            view.CompanyName = "";
-            view.StreetName = "";
-            view.BuildingApt = "";
-            view.RegistrationDate = "";
-            view.DeliveredBy = "";
+            view.DocumentID = string.Empty;
+            view.DocumentType = string.Empty;
+            view.PersonName = string.Empty;
+            view.CompanyName = string.Empty;
+            view.StreetName = string.Empty;
+            view.BuildingApt = string.Empty;
+            view.RegistrationDate = string.Empty;
+            view.DeliveredBy = string.Empty;
         }
         private void CancelAction(object? sender, EventArgs e)
         {

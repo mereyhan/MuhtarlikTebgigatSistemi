@@ -18,7 +18,7 @@ namespace MuhtarlikTebgigatSistemi.Presenters.Common
             if (!isValid)
             {
                 foreach (var result in reults)
-                    errorMessage += result.ErrorMessage + "\n";
+                    errorMessage += $"- {result.ErrorMessage}\n";
 
                 throw new Exception(errorMessage);
             }
