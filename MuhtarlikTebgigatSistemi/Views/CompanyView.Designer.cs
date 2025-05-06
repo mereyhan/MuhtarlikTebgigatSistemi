@@ -37,7 +37,6 @@
             btnUpdate = new Button();
             btnAdd = new Button();
             dataGridView = new DataGridView();
-            btnSearch = new Button();
             txtSearch = new TextBox();
             label2 = new Label();
             TabPageCompanyDetail = new TabPage();
@@ -127,7 +126,6 @@
             TabPageCompanyList.Controls.Add(btnUpdate);
             TabPageCompanyList.Controls.Add(btnAdd);
             TabPageCompanyList.Controls.Add(dataGridView);
-            TabPageCompanyList.Controls.Add(btnSearch);
             TabPageCompanyList.Controls.Add(txtSearch);
             TabPageCompanyList.Controls.Add(label2);
             TabPageCompanyList.Location = new Point(4, 24);
@@ -140,8 +138,7 @@
             // 
             // btnDelete
             // 
-            btnDelete.Anchor = AnchorStyles.Top | AnchorStyles.Right;
-            btnDelete.Location = new Point(709, 118);
+            btnDelete.Location = new Point(175, 60);
             btnDelete.Margin = new Padding(4, 3, 4, 3);
             btnDelete.Name = "btnDelete";
             btnDelete.Size = new Size(75, 23);
@@ -151,8 +148,7 @@
             // 
             // btnUpdate
             // 
-            btnUpdate.Anchor = AnchorStyles.Top | AnchorStyles.Right;
-            btnUpdate.Location = new Point(709, 89);
+            btnUpdate.Location = new Point(92, 60);
             btnUpdate.Margin = new Padding(4, 3, 4, 3);
             btnUpdate.Name = "btnUpdate";
             btnUpdate.Size = new Size(75, 23);
@@ -162,8 +158,7 @@
             // 
             // btnAdd
             // 
-            btnAdd.Anchor = AnchorStyles.Top | AnchorStyles.Right;
-            btnAdd.Location = new Point(709, 60);
+            btnAdd.Location = new Point(9, 60);
             btnAdd.Margin = new Padding(4, 3, 4, 3);
             btnAdd.Name = "btnAdd";
             btnAdd.Size = new Size(75, 23);
@@ -175,23 +170,13 @@
             // 
             dataGridView.Anchor = AnchorStyles.Top | AnchorStyles.Bottom | AnchorStyles.Left | AnchorStyles.Right;
             dataGridView.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.Fill;
+            dataGridView.BackgroundColor = SystemColors.Control;
             dataGridView.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            dataGridView.Location = new Point(9, 60);
+            dataGridView.Location = new Point(9, 89);
             dataGridView.Margin = new Padding(4, 3, 4, 3);
             dataGridView.Name = "dataGridView";
-            dataGridView.Size = new Size(694, 304);
+            dataGridView.Size = new Size(694, 275);
             dataGridView.TabIndex = 17;
-            // 
-            // btnSearch
-            // 
-            btnSearch.Anchor = AnchorStyles.Top | AnchorStyles.Right;
-            btnSearch.Location = new Point(628, 31);
-            btnSearch.Margin = new Padding(4, 3, 4, 3);
-            btnSearch.Name = "btnSearch";
-            btnSearch.Size = new Size(75, 23);
-            btnSearch.TabIndex = 16;
-            btnSearch.Text = "Search";
-            btnSearch.UseVisualStyleBackColor = true;
             // 
             // txtSearch
             // 
@@ -199,7 +184,7 @@
             txtSearch.Location = new Point(9, 32);
             txtSearch.Margin = new Padding(4, 3, 4, 3);
             txtSearch.Name = "txtSearch";
-            txtSearch.Size = new Size(613, 23);
+            txtSearch.Size = new Size(694, 23);
             txtSearch.TabIndex = 15;
             // 
             // label2
@@ -468,7 +453,6 @@
         private Button btnUpdate;
         private Button btnAdd;
         private DataGridView dataGridView;
-        private Button btnSearch;
         private TextBox txtSearch;
         private Label label2;
         private Label label9;

@@ -34,15 +34,13 @@ namespace MuhtarlikTebgigatSistemi.Presenters
             IRepository<DocumentModel> repository = new DocumentRepository(sqliteConnectionString);
             new DocumentPresenter(view, repository);
         }
-
-        public void ShowDocTypeView(object? sender, EventArgs e)
+        private void ShowDocTypeView(object? sender, EventArgs e)
         {
             CloseOtherMdiChilds();
             IDocTypeView view = DocTypeView.GetInstace((MainView)mainView);
             IRepository<DocTypeModel> repository = new DocTypeRepository(sqliteConnectionString);
             new DocTypePresenter(view, repository);
         }
-
         private void ShowStreetView(object? sender, EventArgs e)
         {
             CloseOtherMdiChilds();
@@ -50,7 +48,6 @@ namespace MuhtarlikTebgigatSistemi.Presenters
             IRepository<StreetModel> repository = new StreetRepository(sqliteConnectionString);
             new StreetPresenter(view, repository);
         }
-
         private void ShowPersonView(object? sender, EventArgs e)
         {
             CloseOtherMdiChilds();
@@ -58,7 +55,6 @@ namespace MuhtarlikTebgigatSistemi.Presenters
             IRepository<PersonModel> repository = new PersonRepository(sqliteConnectionString);
             new PersonPresenter(view, repository);
         }
-
         private void ShowCompanyView(object? sender, EventArgs e)
         {
             CloseOtherMdiChilds();

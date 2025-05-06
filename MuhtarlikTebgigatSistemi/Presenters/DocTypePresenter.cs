@@ -8,69 +8,71 @@ namespace MuhtarlikTebgigatSistemi.Presenters
         // Fields
         private IDocTypeView view;
         private IRepository<DocTypeModel> repository;
-        private BindingSource documentsBindingSource;
-        private IEnumerable<DocTypeModel> documentList;
+        private BindingSource docTypesBindingSource;
+        private IEnumerable<DocTypeModel> docTypeList;
 
         // Constructor
         public DocTypePresenter(IDocTypeView _view, IRepository<DocTypeModel> _repository)
         {
             this.view = _view;
             this.repository = _repository;
-            this.documentsBindingSource = new BindingSource();
+            this.docTypesBindingSource = new BindingSource();
 
             // Associate and raise view events
-            this.view.SearchEvent += SearchDocument;
-            this.view.AddEvent += AddNewDocument;
-            this.view.UpdateEvent += UpdateSelectedDocument;
-            this.view.DeleteEvent += DeleteSelectedDocument;
-            this.view.SaveEvent += SaveDocument;
+            this.view.SearchEvent += SearchDocType;
+            this.view.AddEvent += AddNewDocType;
+            this.view.UpdateEvent += UpdateSelectedDocType;
+            this.view.DeleteEvent += DeleteSelectedDocType;
+            this.view.SaveEvent += SaveDocType;
             this.view.CancelEvent += CancelAction;
 
             // Set document binding source
-            this.view.SetDocTypeListBindingSource(documentsBindingSource);
+            this.view.SetDocTypeListBindingSource(docTypesBindingSource);
 
             // Load documents to binding source
-            LoadAllDocumentList();
+            LoadAllDocTypeList();
 
             // Show view
             this.view.Show();
         }
 
         // Methods
-        private void LoadAllDocumentList()
+        private void LoadAllDocTypeList()
         {
-            documentList = repository.GetAll();
-            documentsBindingSource.DataSource = documentList; // Binding source is updated
+            docTypeList = repository.GetAll();
+            docTypesBindingSource.DataSource = docTypeList; // Binding source is updated
         }
-        private void SearchDocument(object? sender, EventArgs e)
+        private void SearchDocType(object? sender, EventArgs e)
         {
             bool emptyValue = string.IsNullOrWhiteSpace(this.view.SearchValue);
-            if (emptyValue == false) documentList = repository.GetByValue(this.view.SearchValue);
-            else documentList = repository.GetAll();
-            documentsBindingSource.DataSource = documentList;
+            if (emptyValue == false)
+                docTypeList = repository.GetByValue(this.view.SearchValue);
+            else
+                docTypeList = repository.GetAll();
+
+            docTypesBindingSource.DataSource = docTypeList;
         }
-        private void AddNewDocument(object? sender, EventArgs e)
+        private void AddNewDocType(object? sender, EventArgs e)
         {
             view.IsEdit = false;
         }
-        private void UpdateSelectedDocument(object? sender, EventArgs e)
+        private void UpdateSelectedDocType(object? sender, EventArgs e)
         {
-            var document = (DocTypeModel)documentsBindingSource.Current;
+            var document = (DocTypeModel)docTypesBindingSource.Current;
             view.DocTypeID = document.Id.ToString();
             view.DocumentType = document.Type;
             view.RegisterDate = document.RegisterDate.ToString("yyyy-MM-dd");
             view.UpdateDate = document.UpdateDate.ToString("yyyy-MM-dd");
             view.IsEdit = true;
         }
-        private void DeleteSelectedDocument(object? sender, EventArgs e)
+        private void DeleteSelectedDocType(object? sender, EventArgs e)
         {
             try
             {
-                var document = (DocTypeModel)documentsBindingSource.Current;
+                var document = (DocTypeModel)docTypesBindingSource.Current;
                 repository.Delete(document.Id);
                 view.IsSuccessful = true;
-                view.Message = "Document deleted successfully";
-                LoadAllDocumentList();
+                LoadAllDocTypeList();
             }
             catch (Exception ex)
             {
@@ -80,7 +82,7 @@ namespace MuhtarlikTebgigatSistemi.Presenters
 
             }
         }
-        private void SaveDocument(object? sender, EventArgs e)
+        private void SaveDocType(object? sender, EventArgs e)
         {
             var model = new DocTypeModel();
             model.Type = view.DocumentType;
@@ -99,7 +101,7 @@ namespace MuhtarlikTebgigatSistemi.Presenters
                     else
                     {
                         view.IsSuccessful = false;
-                        view.Message = "Invalid Street ID for update.";
+                        view.Message = "Güncelleme için geçersiz bir ID";
                         return;
                     }
                 }
@@ -110,7 +112,7 @@ namespace MuhtarlikTebgigatSistemi.Presenters
                 }
 
                 view.IsSuccessful = true;
-                LoadAllDocumentList();
+                LoadAllDocTypeList();
                 CleanViewFields();
             }
             catch (Exception ex)

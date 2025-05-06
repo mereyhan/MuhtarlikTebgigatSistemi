@@ -45,11 +45,17 @@ namespace MuhtarlikTebgigatSistemi.Presenters
         private void SearchDocument(object? sender, EventArgs e)
         {
             bool emptyValue = string.IsNullOrWhiteSpace(this.view.SearchValue);
-            if (emptyValue == false) documentList = repository.GetByValue(this.view.SearchValue);
-            else documentList = repository.GetAll();
+            if (emptyValue == false)
+                documentList = repository.GetByValue(this.view.SearchValue);
+            else
+                documentList = repository.GetAll();
+
             documentsBindingSource.DataSource = documentList;
         }
-        private void AddNewDocument(object? sender, EventArgs e) { view.IsEdit = false; }
+        private void AddNewDocument(object? sender, EventArgs e)
+        {
+            view.IsEdit = false;
+        }
         private void UpdateSelectedDocument(object? sender, EventArgs e)
         {
             var document = (DocumentModel)documentsBindingSource.Current;
@@ -70,7 +76,6 @@ namespace MuhtarlikTebgigatSistemi.Presenters
                 var document = (DocumentModel)documentsBindingSource.Current;
                 repository.Delete(document.Id);
                 view.IsSuccessful = true;
-                view.Message = "Document deleted successfully";
                 LoadAllDocumentList();
             }
             catch (Exception ex)
@@ -105,7 +110,7 @@ namespace MuhtarlikTebgigatSistemi.Presenters
                     else
                     {
                         view.IsSuccessful = false;
-                        view.Message = "Invalid Street ID for update.";
+                        view.Message = "Güncelleme için geçersiz bir ID";
                         return;
                     }
                 }

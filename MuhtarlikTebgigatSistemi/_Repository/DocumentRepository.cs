@@ -121,6 +121,7 @@ namespace MuhtarlikTebgigatSistemi._Repository
                     "OR LOWER(Company_Name) LIKE '%' || LOWER(@searchValue) || '%' " +
                     "OR LOWER(Street_Name) LIKE '%' || LOWER(@searchValue) || '%' " +
                     "OR LOWER(Delivered_By) LIKE '%' || LOWER(@searchValue) || '%' " +
+                    "ORDER BY Document_Id DESC";
                 command.Parameters.AddWithValue("@searchValue", "%" + searchValue + "%");
                 
                 using (var reader = command.ExecuteReader())

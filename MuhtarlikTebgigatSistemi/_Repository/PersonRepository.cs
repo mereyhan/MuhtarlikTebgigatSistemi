@@ -1,4 +1,5 @@
 ﻿using MuhtarlikTebgigatSistemi.Model;
+using System;
 using System.Data.SQLite;
 
 namespace MuhtarlikTebgigatSistemi._Repository

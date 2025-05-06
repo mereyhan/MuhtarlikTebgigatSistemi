@@ -15,6 +15,7 @@
         string Message { get; set; }
 
         // Events
+        event EventHandler SearchTextChanged;
         event EventHandler SearchEvent;
         event EventHandler AddEvent;
         event EventHandler UpdateEvent;

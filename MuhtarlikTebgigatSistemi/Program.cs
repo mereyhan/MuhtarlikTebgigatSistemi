@@ -1,3 +1,4 @@
+using MuhtarlikTebgigatSistemi._Repository;
 using MuhtarlikTebgigatSistemi.Presenters;
 using MuhtarlikTebgigatSistemi.Views;
 using MuhtarlikTebgigatSistemi.Views.Interfaces;
@@ -17,13 +18,21 @@ namespace MuhtarlikTebgigatSistemi
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
 
-            // NameSpace, Properties, Settings, General, Settings.settings, SqlConnectionString
             string sqliteConnectionString = ConfigurationManager.ConnectionStrings["SqliteConnection"].ConnectionString;
-            
-            IMainView view = new MainView();
-            new MainPresenter(view, sqliteConnectionString);
 
-            Application.Run((Form)view);
+            var loginView = new LoginView();
+            var userRepository = new LoginRepository(sqliteConnectionString);
+            var loginPresenter = new LoginPresenter(loginView, userRepository);
+
+            var result = loginView.ShowDialog();
+
+            if (loginView.IsLoginSuccessful)
+            {
+                IMainView view = new MainView();
+                new MainPresenter(view, sqliteConnectionString);
+
+                Application.Run((Form)view);
+            }
         }
     }
 }

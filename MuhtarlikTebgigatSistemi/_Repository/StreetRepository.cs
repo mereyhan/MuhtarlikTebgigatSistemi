@@ -94,6 +94,7 @@ namespace MuhtarlikTebgigatSistemi._Repository
                     "OR LOWER(Street_Name) LIKE '%' || LOWER(@searchValue) || '%' " +
                     "ORDER BY Street_Id DESC";
                 command.Parameters.AddWithValue("@searchValue", "%" + searchValue + "%");
+
                 using (var reader = command.ExecuteReader())
                 {
                     while (reader.Read())

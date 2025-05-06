@@ -8,74 +8,76 @@ namespace MuhtarlikTebgigatSistemi.Presenters
         // Fields
         private ICompanyView view;
         private IRepository<CompanyModel> repository;
-        private BindingSource documentsBindingSource;
-        private IEnumerable<CompanyModel> documentList;
+        private BindingSource companyBindingSource;
+        private IEnumerable<CompanyModel> companyList;
 
         // Constructor
         public CompanyPresenter(ICompanyView _view, IRepository<CompanyModel> _repository)
         {
             this.view = _view;
             this.repository = _repository;
-            this.documentsBindingSource = new BindingSource();
+            this.companyBindingSource = new BindingSource();
 
             // Associate and raise view events
-            this.view.SearchEvent += SearchDocument;
-            this.view.AddEvent += AddNewDocument;
-            this.view.UpdateEvent += UpdateSelectedDocument;
-            this.view.DeleteEvent += DeleteSelectedDocument;
-            this.view.SaveEvent += SaveDocument;
+            this.view.SearchEvent += SearchCompany;
+            this.view.AddEvent += AddNewCompany;
+            this.view.UpdateEvent += UpdateSelectedCompany;
+            this.view.DeleteEvent += DeleteSelectedCompany;
+            this.view.SaveEvent += SaveCompany;
             this.view.CancelEvent += CancelAction;
 
-            // Set document binding source
-            this.view.SetCompanyListBindingSource(documentsBindingSource);
+            // Set dompany binding source
+            this.view.SetCompanyListBindingSource(companyBindingSource);
 
-            // Load documents to binding source
-            LoadAllDocumentList();
+            // Load dompanys to binding source
+            LoadAllCompanyList();
 
             // Show view
             this.view.Show();
         }
 
         // Methods
-        private void LoadAllDocumentList()
+        private void LoadAllCompanyList()
         {
-            documentList = repository.GetAll();
-            documentsBindingSource.DataSource = documentList; // Binding source is updated
+            companyList = repository.GetAll();
+            companyBindingSource.DataSource = companyList; // Binding source is updated
         }
-        private void SearchDocument(object? sender, EventArgs e)
+        private void SearchCompany(object? sender, EventArgs e)
         {
             bool emptyValue = string.IsNullOrWhiteSpace(this.view.SearchValue);
-            if (emptyValue == false) documentList = repository.GetByValue(this.view.SearchValue);
-            else documentList = repository.GetAll();
-            documentsBindingSource.DataSource = documentList;
+            if (emptyValue == false)
+                companyList = repository.GetByValue(this.view.SearchValue);
+            else
+                companyList = repository.GetAll();
+
+            companyBindingSource.DataSource = companyList;
         }
-        private void AddNewDocument(object? sender, EventArgs e)
+        private void AddNewCompany(object? sender, EventArgs e)
         {
             view.IsEdit = false;
         }
-        private void UpdateSelectedDocument(object? sender, EventArgs e)
+        private void UpdateSelectedCompany(object? sender, EventArgs e)
         {
-            var document = (CompanyModel)documentsBindingSource.Current;
-            view.CompanyID= document.Id.ToString();
-            view.CompanyName = document.CompanyName;
-            view.StreetName = document.StreetName;
-            view.BuildingApt = document.BuildingApt;
-            view.PersonName = document.PersonName;
-            view.PhoneNumber = document.PhoneNumber;
-            view.Email = document.Email;
-            view.RegisterDate = document.RegisterDate.ToString("yyyy-MM-dd");
-            view.UpdateDate = document.UpdateDate.ToString("yyyy-MM-dd");
+            var company = (CompanyModel)companyBindingSource.Current;
+            view.CompanyID= company.Id.ToString();
+            view.CompanyName = company.CompanyName;
+            view.StreetName = company.StreetName;
+            view.BuildingApt = company.BuildingApt;
+            view.PersonName = company.PersonName;
+            view.PhoneNumber = company.PhoneNumber;
+            view.Email = company.Email;
+            view.RegisterDate = company.RegisterDate.ToString("yyyy-MM-dd");
+            view.UpdateDate = company.UpdateDate.ToString("yyyy-MM-dd");
             view.IsEdit = true;
         }
-        private void DeleteSelectedDocument(object? sender, EventArgs e)
+        private void DeleteSelectedCompany(object? sender, EventArgs e)
         {
             try
             {
-                var document = (CompanyModel)documentsBindingSource.Current;
-                repository.Delete(document.Id);
+                var company = (CompanyModel)companyBindingSource.Current;
+                repository.Delete(company.Id);
                 view.IsSuccessful = true;
-                view.Message = "Document deleted successfully";
-                LoadAllDocumentList();
+                LoadAllCompanyList();
             }
             catch (Exception ex)
             {
@@ -85,7 +87,7 @@ namespace MuhtarlikTebgigatSistemi.Presenters
 
             }
         }
-        private void SaveDocument(object? sender, EventArgs e)
+        private void SaveCompany(object? sender, EventArgs e)
         {
             var model = new CompanyModel();
             model.CompanyName = view.CompanyName;
@@ -109,7 +111,7 @@ namespace MuhtarlikTebgigatSistemi.Presenters
                     else
                     {
                         view.IsSuccessful = false;
-                        view.Message = "Invalid Street ID for update.";
+                        view.Message = "Güncelleme için geçersiz bir ID";
                         return;
                     }
                 }
@@ -120,7 +122,7 @@ namespace MuhtarlikTebgigatSistemi.Presenters
                 }
 
                 view.IsSuccessful = true;
-                LoadAllDocumentList();
+                LoadAllCompanyList();
                 CleanViewFields();
             }
             catch (Exception ex)

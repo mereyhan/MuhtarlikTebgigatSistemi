@@ -8,6 +8,9 @@ namespace MuhtarlikTebgigatSistemi.Views
         private bool isSuccessful;
         private bool isEdit;
 
+        private bool isTimerRunning = false;
+        private System.Windows.Forms.Timer searchDelayTimer;
+
         public DocTypeView()
         {
             InitializeComponent();
@@ -19,8 +22,33 @@ namespace MuhtarlikTebgigatSistemi.Views
         private void AssociateAndRaiseViewEvents()
         {
             // Search document
-            btnSearch.Click += delegate { SearchEvent?.Invoke(this, EventArgs.Empty); };
-            txtSearch.KeyDown += (s, e) => { if (e.KeyCode == Keys.Enter) SearchEvent?.Invoke(this, EventArgs.Empty); };
+            txtSearch.TextChanged += (s, e) =>
+            {
+                searchDelayTimer.Stop();
+                searchDelayTimer.Start();
+            };
+            searchDelayTimer = new System.Windows.Forms.Timer
+            {
+                Interval = 300
+            };
+            searchDelayTimer.Tick += (s, e) =>
+            {
+                if (!isTimerRunning)
+                {
+                    isTimerRunning = true;
+
+                    searchDelayTimer.Stop();
+                    SearchEvent?.Invoke(this, EventArgs.Empty);
+
+                    isTimerRunning = false;
+                }
+            };
+
+            txtSearch.KeyDown += (s, e) =>
+            {
+                if (e.KeyCode == Keys.Enter)
+                    SearchEvent?.Invoke(this, EventArgs.Empty);
+            };
             // Add new document
             btnAdd.Click += delegate
             {
@@ -40,7 +68,6 @@ namespace MuhtarlikTebgigatSistemi.Views
             // Delete selected document
             btnDelete.Click += delegate
             {
-                DeleteEvent?.Invoke(this, EventArgs.Empty);
                 var result = MessageBox.Show("Are you sure you want to delete the selected document?", "Warning",
                     MessageBoxButtons.YesNo, MessageBoxIcon.Warning);
                 if (result == DialogResult.Yes)
@@ -80,6 +107,7 @@ namespace MuhtarlikTebgigatSistemi.Views
         public string Message { get => message; set => message = value; }
 
         public event EventHandler SearchEvent;
+        public event EventHandler SearchTextChanged;
         public event EventHandler AddEvent;
         public event EventHandler UpdateEvent;
         public event EventHandler DeleteEvent;

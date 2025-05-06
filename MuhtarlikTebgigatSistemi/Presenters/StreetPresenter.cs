@@ -8,69 +8,71 @@ namespace MuhtarlikTebgigatSistemi.Presenters
         // Fields
         private IStreetView view;
         private IRepository<StreetModel> repository;
-        private BindingSource documentsBindingSource;
-        private IEnumerable<StreetModel> documentList;
+        private BindingSource streetsBindingSource;
+        private IEnumerable<StreetModel> streetList;
 
         // Constructor
         public StreetPresenter(IStreetView _view, IRepository<StreetModel> _repository)
         {
             this.view = _view;
             this.repository = _repository;
-            this.documentsBindingSource = new BindingSource();
+            this.streetsBindingSource = new BindingSource();
 
             // Associate and raise view events
-            this.view.SearchEvent += SearchDocument;
-            this.view.AddEvent += AddNewDocument;
-            this.view.UpdateEvent += UpdateSelectedDocument;
-            this.view.DeleteEvent += DeleteSelectedDocument;
-            this.view.SaveEvent += SaveDocument;
+            this.view.SearchEvent += SearchStreet;
+            this.view.AddEvent += AddNewStreet;
+            this.view.UpdateEvent += UpdateSelectedStreet;
+            this.view.DeleteEvent += DeleteSelectedStreet;
+            this.view.SaveEvent += SaveStreet;
             this.view.CancelEvent += CancelAction;
 
-            // Set document binding source
-            this.view.SetStreetListBindingSource(documentsBindingSource);
+            // Set street binding source
+            this.view.SetStreetListBindingSource(streetsBindingSource);
 
-            // Load documents to binding source
-            LoadAllDocumentList();
+            // Load streets to binding source
+            LoadAllStreetList();
 
             // Show view
             this.view.Show();
         }
 
         // Methods
-        private void LoadAllDocumentList()
+        private void LoadAllStreetList()
         {
-            documentList = repository.GetAll();
-            documentsBindingSource.DataSource = documentList; // Binding source is updated
+            streetList = repository.GetAll();
+            streetsBindingSource.DataSource = streetList; // Binding source is updated
         }
-        private void SearchDocument(object? sender, EventArgs e)
+        private void SearchStreet(object? sender, EventArgs e)
         {
             bool emptyValue = string.IsNullOrWhiteSpace(this.view.SearchValue);
-            if (emptyValue == false) documentList = repository.GetByValue(this.view.SearchValue);
-            else documentList = repository.GetAll();
-            documentsBindingSource.DataSource = documentList;
+            if (emptyValue == false)
+                streetList = repository.GetByValue(this.view.SearchValue);
+            else
+                streetList = repository.GetAll();
+
+            streetsBindingSource.DataSource = streetList;
         }
-        private void AddNewDocument(object? sender, EventArgs e)
+        private void AddNewStreet(object? sender, EventArgs e)
         {
             view.IsEdit = false;
         }
-        private void UpdateSelectedDocument(object? sender, EventArgs e)
+        private void UpdateSelectedStreet(object? sender, EventArgs e)
         {
-            var document = (StreetModel)documentsBindingSource.Current;
-            view.StreetID = document.Id.ToString();
-            view.StreetName = document.Street;
-            view.RegisterDate = document.RegisterDate.ToString("yyyy-MM-dd");
-            view.UpdateDate = document.UpdateDate.ToString("yyyy-MM-dd");
+            var street = (StreetModel)streetsBindingSource.Current;
+            view.StreetID = street.Id.ToString();
+            view.StreetName = street.Street;
+            view.RegisterDate = street.RegisterDate.ToString("yyyy-MM-dd");
+            view.UpdateDate = street.UpdateDate.ToString("yyyy-MM-dd");
             view.IsEdit = true;
         }
-        private void DeleteSelectedDocument(object? sender, EventArgs e)
+        private void DeleteSelectedStreet(object? sender, EventArgs e)
         {
             try
             {
-                var document = (StreetModel)documentsBindingSource.Current;
-                repository.Delete(document.Id);
+                var street = (StreetModel)streetsBindingSource.Current;
+                repository.Delete(street.Id);
                 view.IsSuccessful = true;
-                view.Message = "Document deleted successfully";
-                LoadAllDocumentList();
+                LoadAllStreetList();
             }
             catch (Exception ex)
             {
@@ -80,7 +82,7 @@ namespace MuhtarlikTebgigatSistemi.Presenters
 
             }
         }
-        private void SaveDocument(object? sender, EventArgs e)
+        private void SaveStreet(object? sender, EventArgs e)
         {
             var model = new StreetModel();
             model.Street = view.StreetName;
@@ -99,7 +101,7 @@ namespace MuhtarlikTebgigatSistemi.Presenters
                     else
                     {
                         view.IsSuccessful = false;
-                        view.Message = "Invalid Street ID for update.";
+                        view.Message = "Güncelleme için geçersiz bir ID";
                         return;
                     }
                 }
@@ -110,7 +112,7 @@ namespace MuhtarlikTebgigatSistemi.Presenters
                 }
 
                 view.IsSuccessful = true;
-                LoadAllDocumentList();
+                LoadAllStreetList();
                 CleanViewFields();
             }
             catch (Exception ex)

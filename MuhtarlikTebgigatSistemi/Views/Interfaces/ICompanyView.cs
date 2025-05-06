@@ -21,6 +21,7 @@
 
         // Events
         event EventHandler SearchEvent;
+        event EventHandler SearchTextChanged;
         event EventHandler AddEvent;
         event EventHandler UpdateEvent;
         event EventHandler DeleteEvent;

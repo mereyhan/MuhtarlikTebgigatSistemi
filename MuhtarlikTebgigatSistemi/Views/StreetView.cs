@@ -1,16 +1,22 @@
 ﻿using MuhtarlikTebgigatSistemi.Views.Interfaces;
+using System.Windows.Forms;
 
 namespace MuhtarlikTebgigatSistemi.Views
 {
     public partial class StreetView : Form, IStreetView
     {
+
         private string message;
         private bool isSuccessful;
         private bool isEdit;
 
+        private bool isTimerRunning = false;
+        private System.Windows.Forms.Timer searchDelayTimer;
+
         public StreetView()
         {
             InitializeComponent();
+
             AssociateAndRaiseViewEvents();
             tabControl1.TabPages.Remove(TabPageStreetDetail);
             btnClose.Click += delegate { this.Close(); };
@@ -19,15 +25,40 @@ namespace MuhtarlikTebgigatSistemi.Views
         private void AssociateAndRaiseViewEvents()
         {
             // Search document
-            btnSearch.Click += delegate { SearchEvent?.Invoke(this, EventArgs.Empty); };
-            txtSearch.KeyDown += (s, e) => { if (e.KeyCode == Keys.Enter) SearchEvent?.Invoke(this, EventArgs.Empty); };
+            txtSearch.TextChanged += (s, e) =>
+            {
+                searchDelayTimer.Stop();
+                searchDelayTimer.Start();
+            };
+            searchDelayTimer = new System.Windows.Forms.Timer
+            {
+                Interval = 300
+            };
+            searchDelayTimer.Tick += (s, e) =>
+            {
+                if (!isTimerRunning)
+                {
+                    isTimerRunning = true;
+
+                    searchDelayTimer.Stop();
+                    SearchEvent?.Invoke(this, EventArgs.Empty);
+
+                    isTimerRunning = false;
+                }
+            };
+
+            txtSearch.KeyDown += (s, e) =>
+            {
+                if (e.KeyCode == Keys.Enter)
+                    SearchEvent?.Invoke(this, EventArgs.Empty);
+            };
             // Add new document
             btnAdd.Click += delegate
             {
                 AddEvent?.Invoke(this, EventArgs.Empty);
                 tabControl1.TabPages.Remove(TabPageStreetList);
                 tabControl1.TabPages.Add(TabPageStreetDetail);
-                TabPageStreetDetail.Text = "Add new document";
+                TabPageStreetDetail.Text = "Add new street";
             };
             // Update selected document
             btnUpdate.Click += delegate
@@ -35,13 +66,12 @@ namespace MuhtarlikTebgigatSistemi.Views
                 UpdateEvent?.Invoke(this, EventArgs.Empty);
                 tabControl1.TabPages.Remove(TabPageStreetList);
                 tabControl1.TabPages.Add(TabPageStreetDetail);
-                TabPageStreetDetail.Text = "Update document";
+                TabPageStreetDetail.Text = "Update street";
             };
             // Delete selected document
             btnDelete.Click += delegate
             {
-                DeleteEvent?.Invoke(this, EventArgs.Empty);
-                var result = MessageBox.Show("Are you sure you want to delete the selected document?", "Warning",
+                var result = MessageBox.Show("Are you sure you want to delete the selected street?", "Warning",
                     MessageBoxButtons.YesNo, MessageBoxIcon.Warning);
                 if (result == DialogResult.Yes)
                 {
@@ -85,13 +115,13 @@ namespace MuhtarlikTebgigatSistemi.Views
         public event EventHandler DeleteEvent;
         public event EventHandler SaveEvent;
         public event EventHandler CancelEvent;
+        private static StreetView instance;
 
         public void SetStreetListBindingSource(BindingSource StreetList)
         {
             dataGridView.DataSource = StreetList;
         }
 
-        private static StreetView instance;
         public static StreetView GetInstace(Form parentContainer)
         {
             if (instance == null || instance.IsDisposed)
