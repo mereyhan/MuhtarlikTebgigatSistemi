@@ -104,4 +104,4 @@ Katkıda Bulunmak İster misiniz?
 
 Lisans
 
-Bu proje GPL lisansı altında lisanslanmıştır. Detaylar için sanırım LICENSE dosyasına bakabilirsiniz.
+sanırım olacak... sanırım
