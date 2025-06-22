@@ -1,151 +1,196 @@
 ﻿using MuhtarlikTebgigatSistemi.Model;
+using MuhtarlikTebgigatSistemi.Repository;
 using MuhtarlikTebgigatSistemi.Views.Interfaces;
+using System.ComponentModel;
 
-namespace MuhtarlikTebgigatSistemi.Presenters
+namespace MuhtarlikTebgigatSistemi.Presenters;
+
+public class PersonPresenter
 {
-    public class PersonPresenter
+    private readonly IPersonView _view;
+    private readonly PersonRepository _personRepo;
+    private readonly PersonOverviewRepository _overviewRepo;
+    private readonly StreetRepository _streetRepo;
+
+    private readonly BindingList<PersonOverviewModel> _personList;
+    private readonly BindingSource _bindingSource;
+
+    public PersonPresenter(
+    IPersonView view,
+    PersonRepository personRepo,
+    PersonOverviewRepository overviewRepo,
+    StreetRepository streetRepo)
     {
-        // Fields
-        private IPersonView view;
-        private IRepository<PersonModel> repository;
-        private BindingSource personsBindingSource;
-        private IEnumerable<PersonModel> personList;
+        _view = view;
+        _personRepo = personRepo;
+        _overviewRepo = overviewRepo;
+        _streetRepo = streetRepo;
 
-        // Constructor
-        public PersonPresenter(IPersonView _view, IRepository<PersonModel> _repository)
+        //MessageBox.Show("1");
+        _bindingSource = new BindingSource();
+        //MessageBox.Show("2");
+        _personList = new BindingList<PersonOverviewModel>(_overviewRepo.GetAll().ToList());
+        //MessageBox.Show("3");
+        _bindingSource.DataSource = _personList;
+        //MessageBox.Show("4");
+        _view.SetPersonListBindingSource(_bindingSource);
+        //MessageBox.Show("5");
+        SubscribeToEvents();
+        //MessageBox.Show("6");
+        _view.Show();
+    }
+
+    private void SubscribeToEvents()
+    {
+        _view.SearchEvent += OnSearch;
+        _view.SearchTextChanged += OnSearch;
+        _view.AddEvent += OnAdd;
+        _view.UpdateEvent += OnUpdate;
+        _view.DeleteEvent += OnDelete;
+        _view.SaveEvent += OnSave;
+        _view.CancelEvent += OnCancel;
+        LoadStreetComboBox();
+    }
+
+    private void OnSearch(object? sender, EventArgs e)
+    {
+        var query = _view.SearchValue?.Trim().ToLower() ?? "";
+
+        var result = string.IsNullOrWhiteSpace(query)
+            ? _overviewRepo.GetAll()
+            : _overviewRepo.Search(query)
+                  .Select(p => new PersonOverviewModel
+                  {
+                      PersonId = p.PersonId,
+                      PersonName = p.PersonName,
+                      Building = p.Building,
+                      Email = p.Email,
+                      Phone = p.Phone,
+                      RegisterDate = p.RegisterDate,
+                      UpdateDate = p.UpdateDate,
+                      Street = p.Street
+                  });
+
+        _personList.Clear();
+        foreach (var item in result)
+            _personList.Add(item);
+    }
+
+    private void OnAdd(object? sender, EventArgs e)
+    {
+        _view.IsEdit = false;
+    }
+
+    private void OnUpdate(object? sender, EventArgs e)
+    {
+        if (_bindingSource.Current is not PersonOverviewModel selected)
+            return;
+
+        var model = _personRepo.GetAll().FirstOrDefault(x => x.PersonId == selected.PersonId);
+        if (model == null)
         {
-            this.view = _view;
-            this.repository = _repository;
-            this.personsBindingSource = new BindingSource();
-
-            // Associate and raise view events
-            this.view.SearchEvent += SearchPerson;
-            this.view.AddEvent += AddNewPerson;
-            this.view.UpdateEvent += UpdateSelectedPerson;
-            this.view.DeleteEvent += DeleteSelectedPerson;
-            this.view.SaveEvent += SavePerson;
-            this.view.CancelEvent += CancelAction;
-
-            // Set person binding source
-            this.view.SetPersonListBindingSource(personsBindingSource);
-
-            // Load person to binding source
-            LoadAllPersonList();
-
-            // Show view
-            this.view.Show();
+            _view.IsSuccessful = false;
+            _view.Message = "Kayıt bulunamadı.";
+            return;
         }
 
-        // Methods
-        private void LoadAllPersonList()
+        _view.PersonID = model.PersonId.ToString();
+        _view.PersonName = model.PersonName;
+        _view.StreetName = _streetRepo.GetById(model.StreetId)?.Street ?? "";
+        _view.BuildingApt = model.Building;
+        _view.PhoneNumber = model.Phone;
+        _view.Email = model.Email;
+
+        _view.IsEdit = true;
+    }
+
+    private void OnDelete(object? sender, EventArgs e)
+    {
+        if (!int.TryParse(_view.PersonID, out int id))
         {
-            personList = repository.GetAll();
-            personsBindingSource.DataSource = personList; // Binding source is updated
+            _view.IsSuccessful = false;
+            _view.Message = "Geçerli bir ID girilmedi.";
+            return;
         }
-        private void SearchPerson(object? sender, EventArgs e)
+
+        try
         {
-            bool emptyValue = string.IsNullOrWhiteSpace(this.view.SearchValue);
-            if (emptyValue == false)
-                personList = repository.GetByValue(this.view.SearchValue);
+            _personRepo.Delete(id);
+            _view.IsSuccessful = true;
+            _view.Message = "Kayıt silindi.";
+            RefreshCompanyList();
+        }
+        catch (Exception ex)
+        {
+            _view.IsSuccessful = false;
+            _view.Message = $"Silme hatası: {ex.Message}";
+        }
+    }
+
+    private void OnSave(object? sender, EventArgs e)
+    {
+        try
+        {
+            int streetId = _streetRepo.GetOrCreate(_view.StreetName.Trim());
+
+            var model = new PersonModel
+            {
+                PersonId = int.TryParse(_view.PersonID, out int id) ? id : 0,
+                PersonName = _view.PersonName.Trim(),
+                StreetId = streetId,
+                Building = _view.BuildingApt.Trim(),
+                Phone = _view.PhoneNumber?.Trim(),
+                Email = _view.Email?.Trim(),
+                UpdateDate = string.IsNullOrWhiteSpace(_view.UpdateDate) ? (DateTime?)null : DateTime.Parse(_view.UpdateDate)
+            };
+
+            if (_view.IsEdit)
+                _personRepo.Update(model);
             else
-                personList = repository.GetAll();
+                _personRepo.AddAndReturnId(model);
 
-            personsBindingSource.DataSource = personList;
-        }
-        private void AddNewPerson(object? sender, EventArgs e)
-        {
-            view.IsEdit = false;
-        }
-        private void UpdateSelectedPerson(object? sender, EventArgs e)
-        {
-            var person = (PersonModel)personsBindingSource.Current;
-            view.PersonID = person.Id.ToString();
-            view.PersonName = person.PersonName;
-            view.StreetName = person.StreetName;
-            view.BuildingApt = person.BuildingApt;
-            view.CompanyName = person.CompanyName;
-            view.PhoneNumber = person.PhoneNumber;
-            view.Email = person.Email;
-            view.RegisterDate = person.RegisterDate.ToString("yyyy-MM-dd");
-            view.UpdateDate = person.UpdateDate.ToString("yyyy-MM-dd");
-            view.IsEdit = true;
-        }
-        private void DeleteSelectedPerson(object? sender, EventArgs e)
-        {
-            try
-            {
-                var person = (PersonModel)personsBindingSource.Current;
-                repository.Delete(person.Id);
-                view.IsSuccessful = true;
-                LoadAllPersonList();
-            }
-            catch (Exception ex)
-            {
-                view.IsSuccessful = false;
-                view.Message = $"An error occurred: {ex.Message}";
-                Console.WriteLine($"Error details: {ex}");
+            _view.IsSuccessful = true;
+            _view.Message = _view.IsEdit ? "Kayıt güncellendi." : "Yeni kayıt eklendi.";
 
-            }
+            RefreshCompanyList();
+            ClearForm();
         }
-        private void SavePerson(object? sender, EventArgs e)
+        catch (Exception ex)
         {
-            var model = new PersonModel();
-            model.PersonName = view.PersonName;
-            model.StreetName = view.StreetName;
-            model.BuildingApt = view.BuildingApt;
-            model.CompanyName = view.CompanyName;
-            model.PhoneNumber = view.PhoneNumber;
-            model.Email = view.Email;
-            model.UpdateDate = DateTime.Now;
-            try
-            {
-                new Common.ModelDataValidation().Validate(model);
+            _view.IsSuccessful = false;
+            _view.Message = $"Kayıt hatası: {ex.Message}";
+        }
+    }
 
-                if (view.IsEdit)
-                {
-                    if (int.TryParse(view.PersonID, out int id))
-                    {
-                        model.Id = id;
-                        repository.Update(model);
-                    }
-                    else
-                    {
-                        view.IsSuccessful = false;
-                        view.Message = "Güncelleme için geçersiz bir ID";
-                        return;
-                    }
-                }
-                else
-                {
-                    model.RegisterDate = DateTime.Now;
-                    repository.Add(model);
-                }
+    private void OnCancel(object? sender, EventArgs e)
+    {
+        ClearForm();
+    }
 
-                view.IsSuccessful = true;
-                LoadAllPersonList();
-                CleanViewFields();
-            }
-            catch (Exception ex)
-            {
-                view.IsSuccessful = false;
-                view.Message = $"Error: {ex.Message}";
-            }
-        }
-        private void CleanViewFields()
-        {
-            view.PersonID = string.Empty;
-            view.PersonName = string.Empty;
-            view.StreetName = string.Empty;
-            view.BuildingApt = string.Empty;
-            view.CompanyName = string.Empty;
-            view.PhoneNumber = string.Empty;
-            view.Email = string.Empty;
-            view.RegisterDate = string.Empty;
-            view.UpdateDate = string.Empty;
-        }
-        private void CancelAction(object? sender, EventArgs e)
-        {
-            CleanViewFields();
-        }
+    private void RefreshCompanyList()
+    {
+        _personList.Clear();
+        foreach (var item in _overviewRepo.GetAll())
+            _personList.Add(item);
+    }
+
+    private void ClearForm()
+    {
+        _view.PersonID = "";
+        _view.PersonName = "";
+        _view.StreetName = "";
+        _view.BuildingApt = "";
+        _view.PhoneNumber = "";
+        _view.Email = "";
+        _view.IsEdit = false;
+    }
+
+    private void LoadStreetComboBox()
+    {
+        var streets = _streetRepo.GetAll()
+                                 .Select(s => s.Street)
+                                 .Distinct()
+                                 .ToList();
+        _view.SetStreetComboBox(streets);
     }
 }

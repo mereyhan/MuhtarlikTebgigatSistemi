@@ -1,4 +1,6 @@
-﻿namespace MuhtarlikTebgigatSistemi.Views
+﻿using System.Windows.Forms;
+
+namespace MuhtarlikTebgigatSistemi.Views
 {
     partial class DocumentView
     {
@@ -28,6 +30,7 @@
         /// </summary>
         private void InitializeComponent()
         {
+            DataGridViewCellStyle dataGridViewCellStyle1 = new DataGridViewCellStyle();
             label1 = new Label();
             formBorderPanel = new Panel();
             btnClose = new Button();
@@ -40,26 +43,23 @@
             txtSearch = new TextBox();
             label2 = new Label();
             TabPageDocDetail = new TabPage();
-            label9 = new Label();
-            txtDeliveryDate = new TextBox();
-            label8 = new Label();
+            chkUpdate = new CheckBox();
+            dtpUpdate = new DateTimePicker();
+            comboReceiver = new ComboBox();
+            comboStreet = new ComboBox();
+            comboCompany = new ComboBox();
+            comboPerson = new ComboBox();
+            comboDocType = new ComboBox();
             txtApt = new TextBox();
             label7 = new Label();
-            label6 = new Label();
             label5 = new Label();
-            label4 = new Label();
             label3 = new Label();
-            txtDeliveredBy = new TextBox();
-            txtRegDate = new TextBox();
-            txtStreetName = new TextBox();
-            txtCompanyName = new TextBox();
-            txtPersonName = new TextBox();
             btnCancel = new Button();
             btnSave = new Button();
-            txtDocType = new TextBox();
-            txtDocId = new TextBox();
+            lblDocId = new Label();
             documentType = new Label();
             documentID = new Label();
+            chkCompany = new CheckBox();
             formBorderPanel.SuspendLayout();
             tabControl1.SuspendLayout();
             TabPageDocList.SuspendLayout();
@@ -75,9 +75,9 @@
             label1.Location = new Point(55, 1);
             label1.Margin = new Padding(4, 0, 4, 0);
             label1.Name = "label1";
-            label1.Size = new Size(131, 28);
+            label1.Size = new Size(81, 28);
             label1.TabIndex = 0;
-            label1.Text = "DOCUMENTS";
+            label1.Text = "Evraklar";
             // 
             // formBorderPanel
             // 
@@ -136,7 +136,7 @@
             TabPageDocList.Padding = new Padding(4, 3, 4, 3);
             TabPageDocList.Size = new Size(792, 387);
             TabPageDocList.TabIndex = 0;
-            TabPageDocList.Text = "Document List";
+            TabPageDocList.Text = "Evrak Listesi";
             TabPageDocList.UseVisualStyleBackColor = true;
             // 
             // btnDelete
@@ -146,7 +146,7 @@
             btnDelete.Name = "btnDelete";
             btnDelete.Size = new Size(75, 23);
             btnDelete.TabIndex = 6;
-            btnDelete.Text = "Delete";
+            btnDelete.Text = "Sil";
             btnDelete.UseVisualStyleBackColor = true;
             // 
             // btnUpdate
@@ -156,7 +156,7 @@
             btnUpdate.Name = "btnUpdate";
             btnUpdate.Size = new Size(75, 23);
             btnUpdate.TabIndex = 5;
-            btnUpdate.Text = "Update";
+            btnUpdate.Text = "Güncelle";
             btnUpdate.UseVisualStyleBackColor = true;
             // 
             // btnAdd
@@ -166,7 +166,7 @@
             btnAdd.Name = "btnAdd";
             btnAdd.Size = new Size(75, 23);
             btnAdd.TabIndex = 4;
-            btnAdd.Text = "Add";
+            btnAdd.Text = "Ekle";
             btnAdd.UseVisualStyleBackColor = true;
             // 
             // dataGridView
@@ -175,10 +175,20 @@
             dataGridView.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.Fill;
             dataGridView.BackgroundColor = SystemColors.Control;
             dataGridView.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            dataGridViewCellStyle1.Alignment = DataGridViewContentAlignment.MiddleLeft;
+            dataGridViewCellStyle1.BackColor = SystemColors.Window;
+            dataGridViewCellStyle1.Font = new Font("Arial", 9F);
+            dataGridViewCellStyle1.ForeColor = SystemColors.ControlText;
+            dataGridViewCellStyle1.Format = "d";
+            dataGridViewCellStyle1.NullValue = null;
+            dataGridViewCellStyle1.SelectionBackColor = SystemColors.Highlight;
+            dataGridViewCellStyle1.SelectionForeColor = SystemColors.HighlightText;
+            dataGridViewCellStyle1.WrapMode = DataGridViewTriState.False;
+            dataGridView.DefaultCellStyle = dataGridViewCellStyle1;
             dataGridView.Location = new Point(9, 89);
             dataGridView.Margin = new Padding(4, 3, 4, 3);
             dataGridView.Name = "dataGridView";
-            dataGridView.Size = new Size(694, 275);
+            dataGridView.Size = new Size(774, 275);
             dataGridView.TabIndex = 3;
             // 
             // txtSearch
@@ -187,40 +197,37 @@
             txtSearch.Location = new Point(9, 32);
             txtSearch.Margin = new Padding(4, 3, 4, 3);
             txtSearch.Name = "txtSearch";
-            txtSearch.Size = new Size(694, 21);
+            txtSearch.Size = new Size(775, 21);
             txtSearch.TabIndex = 1;
             // 
             // label2
             // 
             label2.AutoSize = true;
-            label2.Font = new Font("Segoe UI", 12F);
+            label2.Font = new Font("Arial", 12F);
             label2.Location = new Point(9, 8);
             label2.Margin = new Padding(4, 0, 4, 0);
             label2.Name = "label2";
-            label2.Size = new Size(133, 21);
+            label2.Size = new Size(62, 18);
             label2.TabIndex = 0;
-            label2.Text = "Search Document";
+            label2.Text = "Sorgula";
             // 
             // TabPageDocDetail
             // 
-            TabPageDocDetail.Controls.Add(label9);
-            TabPageDocDetail.Controls.Add(txtDeliveryDate);
-            TabPageDocDetail.Controls.Add(label8);
+            TabPageDocDetail.Controls.Add(chkCompany);
+            TabPageDocDetail.Controls.Add(chkUpdate);
+            TabPageDocDetail.Controls.Add(dtpUpdate);
+            TabPageDocDetail.Controls.Add(comboReceiver);
+            TabPageDocDetail.Controls.Add(comboStreet);
+            TabPageDocDetail.Controls.Add(comboCompany);
+            TabPageDocDetail.Controls.Add(comboPerson);
+            TabPageDocDetail.Controls.Add(comboDocType);
             TabPageDocDetail.Controls.Add(txtApt);
             TabPageDocDetail.Controls.Add(label7);
-            TabPageDocDetail.Controls.Add(label6);
             TabPageDocDetail.Controls.Add(label5);
-            TabPageDocDetail.Controls.Add(label4);
             TabPageDocDetail.Controls.Add(label3);
-            TabPageDocDetail.Controls.Add(txtDeliveredBy);
-            TabPageDocDetail.Controls.Add(txtRegDate);
-            TabPageDocDetail.Controls.Add(txtStreetName);
-            TabPageDocDetail.Controls.Add(txtCompanyName);
-            TabPageDocDetail.Controls.Add(txtPersonName);
             TabPageDocDetail.Controls.Add(btnCancel);
             TabPageDocDetail.Controls.Add(btnSave);
-            TabPageDocDetail.Controls.Add(txtDocType);
-            TabPageDocDetail.Controls.Add(txtDocId);
+            TabPageDocDetail.Controls.Add(lblDocId);
             TabPageDocDetail.Controls.Add(documentType);
             TabPageDocDetail.Controls.Add(documentID);
             TabPageDocDetail.Location = new Point(4, 24);
@@ -229,42 +236,73 @@
             TabPageDocDetail.Padding = new Padding(4, 3, 4, 3);
             TabPageDocDetail.Size = new Size(792, 387);
             TabPageDocDetail.TabIndex = 1;
-            TabPageDocDetail.Text = "Document Detail";
+            TabPageDocDetail.Text = "Evrak Detayları";
             TabPageDocDetail.UseVisualStyleBackColor = true;
             // 
-            // label9
+            // chkUpdate
             // 
-            label9.AutoSize = true;
-            label9.Font = new Font("Segoe UI", 12F);
-            label9.Location = new Point(50, 209);
-            label9.Margin = new Padding(4, 0, 4, 0);
-            label9.Name = "label9";
-            label9.Size = new Size(94, 21);
-            label9.TabIndex = 24;
-            label9.Text = "Teslim Tarihi";
+            chkUpdate.AutoSize = true;
+            chkUpdate.Location = new Point(544, 161);
+            chkUpdate.Name = "chkUpdate";
+            chkUpdate.Size = new Size(15, 14);
+            chkUpdate.TabIndex = 32;
+            chkUpdate.UseVisualStyleBackColor = true;
             // 
-            // txtDeliveryDate
+            // dtpUpdate
             // 
-            txtDeliveryDate.Location = new Point(195, 209);
-            txtDeliveryDate.Margin = new Padding(4, 3, 4, 3);
-            txtDeliveryDate.Name = "txtDeliveryDate";
-            txtDeliveryDate.Size = new Size(162, 21);
-            txtDeliveryDate.TabIndex = 23;
+            dtpUpdate.CustomFormat = "dd.MM.yyyy";
+            dtpUpdate.Format = DateTimePickerFormat.Custom;
+            dtpUpdate.Location = new Point(377, 158);
+            dtpUpdate.Name = "dtpUpdate";
+            dtpUpdate.Size = new Size(162, 21);
+            dtpUpdate.TabIndex = 31;
+            dtpUpdate.Value = new DateTime(2025, 6, 22, 9, 20, 57, 0);
             // 
-            // label8
+            // comboReceiver
             // 
-            label8.AutoSize = true;
-            label8.Font = new Font("Segoe UI", 12F);
-            label8.Location = new Point(50, 184);
-            label8.Margin = new Padding(4, 0, 4, 0);
-            label8.Name = "label8";
-            label8.Size = new Size(85, 21);
-            label8.TabIndex = 22;
-            label8.Text = "Kayıt Tarihi";
+            comboReceiver.FormattingEnabled = true;
+            comboReceiver.Location = new Point(208, 157);
+            comboReceiver.Name = "comboReceiver";
+            comboReceiver.Size = new Size(162, 23);
+            comboReceiver.TabIndex = 29;
+            // 
+            // comboStreet
+            // 
+            comboStreet.FormattingEnabled = true;
+            comboStreet.Location = new Point(208, 128);
+            comboStreet.Name = "comboStreet";
+            comboStreet.Size = new Size(162, 23);
+            comboStreet.TabIndex = 28;
+            // 
+            // comboCompany
+            // 
+            comboCompany.FormattingEnabled = true;
+            comboCompany.Location = new Point(376, 99);
+            comboCompany.Name = "comboCompany";
+            comboCompany.Size = new Size(162, 23);
+            comboCompany.TabIndex = 27;
+            comboCompany.Text = "Firma";
+            // 
+            // comboPerson
+            // 
+            comboPerson.FormattingEnabled = true;
+            comboPerson.Location = new Point(208, 99);
+            comboPerson.Name = "comboPerson";
+            comboPerson.Size = new Size(162, 23);
+            comboPerson.TabIndex = 26;
+            comboPerson.Text = "Kişi";
+            // 
+            // comboDocType
+            // 
+            comboDocType.FormattingEnabled = true;
+            comboDocType.Location = new Point(208, 70);
+            comboDocType.Name = "comboDocType";
+            comboDocType.Size = new Size(162, 23);
+            comboDocType.TabIndex = 25;
             // 
             // txtApt
             // 
-            txtApt.Location = new Point(195, 158);
+            txtApt.Location = new Point(377, 129);
             txtApt.Margin = new Padding(4, 3, 4, 3);
             txtApt.Name = "txtApt";
             txtApt.Size = new Size(162, 21);
@@ -273,157 +311,97 @@
             // label7
             // 
             label7.AutoSize = true;
-            label7.Font = new Font("Segoe UI", 12F);
-            label7.Location = new Point(50, 234);
+            label7.Font = new Font("Arial", 12F);
+            label7.Location = new Point(101, 158);
             label7.Margin = new Padding(4, 0, 4, 0);
             label7.Name = "label7";
-            label7.Size = new Size(99, 21);
+            label7.Size = new Size(100, 18);
             label7.TabIndex = 20;
             label7.Text = "Teslim Edilen";
-            // 
-            // label6
-            // 
-            label6.AutoSize = true;
-            label6.Font = new Font("Segoe UI", 12F);
-            label6.Location = new Point(50, 158);
-            label6.Margin = new Padding(4, 0, 4, 0);
-            label6.Name = "label6";
-            label6.Size = new Size(40, 21);
-            label6.TabIndex = 19;
-            label6.Text = "Bina";
             // 
             // label5
             // 
             label5.AutoSize = true;
-            label5.Font = new Font("Segoe UI", 12F);
-            label5.Location = new Point(50, 133);
+            label5.Font = new Font("Arial", 12F);
+            label5.Location = new Point(149, 129);
             label5.Margin = new Padding(4, 0, 4, 0);
             label5.Name = "label5";
-            label5.Size = new Size(52, 21);
+            label5.Size = new Size(50, 18);
             label5.TabIndex = 18;
-            label5.Text = "Sokak";
-            // 
-            // label4
-            // 
-            label4.AutoSize = true;
-            label4.Font = new Font("Segoe UI", 12F);
-            label4.Location = new Point(50, 108);
-            label4.Margin = new Padding(4, 0, 4, 0);
-            label4.Name = "label4";
-            label4.Size = new Size(50, 21);
-            label4.TabIndex = 17;
-            label4.Text = "Firma";
+            label5.Text = "Adres";
             // 
             // label3
             // 
             label3.AutoSize = true;
-            label3.Font = new Font("Segoe UI", 12F);
-            label3.Location = new Point(50, 82);
+            label3.Font = new Font("Arial", 12F);
+            label3.Location = new Point(165, 100);
             label3.Margin = new Padding(4, 0, 4, 0);
             label3.Name = "label3";
-            label3.Size = new Size(39, 21);
+            label3.Size = new Size(36, 18);
             label3.TabIndex = 16;
-            label3.Text = "İsim";
-            // 
-            // txtDeliveredBy
-            // 
-            txtDeliveredBy.Location = new Point(195, 234);
-            txtDeliveredBy.Margin = new Padding(4, 3, 4, 3);
-            txtDeliveredBy.Name = "txtDeliveredBy";
-            txtDeliveredBy.Size = new Size(162, 21);
-            txtDeliveredBy.TabIndex = 14;
-            // 
-            // txtRegDate
-            // 
-            txtRegDate.Location = new Point(195, 184);
-            txtRegDate.Margin = new Padding(4, 3, 4, 3);
-            txtRegDate.Name = "txtRegDate";
-            txtRegDate.Size = new Size(162, 21);
-            txtRegDate.TabIndex = 13;
-            // 
-            // txtStreetName
-            // 
-            txtStreetName.Location = new Point(195, 133);
-            txtStreetName.Margin = new Padding(4, 3, 4, 3);
-            txtStreetName.Name = "txtStreetName";
-            txtStreetName.Size = new Size(162, 21);
-            txtStreetName.TabIndex = 12;
-            // 
-            // txtCompanyName
-            // 
-            txtCompanyName.Location = new Point(195, 108);
-            txtCompanyName.Margin = new Padding(4, 3, 4, 3);
-            txtCompanyName.Name = "txtCompanyName";
-            txtCompanyName.Size = new Size(162, 21);
-            txtCompanyName.TabIndex = 11;
-            // 
-            // txtPersonName
-            // 
-            txtPersonName.Location = new Point(195, 82);
-            txtPersonName.Margin = new Padding(4, 3, 4, 3);
-            txtPersonName.Name = "txtPersonName";
-            txtPersonName.Size = new Size(162, 21);
-            txtPersonName.TabIndex = 10;
+            label3.Text = "Alıcı";
             // 
             // btnCancel
             // 
-            btnCancel.Location = new Point(211, 271);
+            btnCancel.Location = new Point(376, 213);
             btnCancel.Margin = new Padding(4, 3, 4, 3);
             btnCancel.Name = "btnCancel";
-            btnCancel.Size = new Size(75, 23);
+            btnCancel.Size = new Size(100, 30);
             btnCancel.TabIndex = 9;
-            btnCancel.Text = "Cancel";
+            btnCancel.Text = "İptal";
             btnCancel.UseVisualStyleBackColor = true;
             // 
             // btnSave
             // 
-            btnSave.Location = new Point(91, 271);
+            btnSave.Location = new Point(207, 213);
             btnSave.Margin = new Padding(4, 3, 4, 3);
             btnSave.Name = "btnSave";
-            btnSave.Size = new Size(75, 23);
+            btnSave.Size = new Size(100, 30);
             btnSave.TabIndex = 8;
-            btnSave.Text = "Save";
+            btnSave.Text = "Kayıt";
             btnSave.UseVisualStyleBackColor = true;
             // 
-            // txtDocType
+            // lblDocId
             // 
-            txtDocType.Location = new Point(195, 57);
-            txtDocType.Margin = new Padding(4, 3, 4, 3);
-            txtDocType.Name = "txtDocType";
-            txtDocType.Size = new Size(162, 21);
-            txtDocType.TabIndex = 6;
-            // 
-            // txtDocId
-            // 
-            txtDocId.Location = new Point(195, 32);
-            txtDocId.Margin = new Padding(4, 3, 4, 3);
-            txtDocId.Name = "txtDocId";
-            txtDocId.ReadOnly = true;
-            txtDocId.Size = new Size(162, 21);
-            txtDocId.TabIndex = 4;
-            txtDocId.Text = "0";
+            lblDocId.AutoSize = true;
+            lblDocId.Font = new Font("Arial", 12F);
+            lblDocId.Location = new Point(208, 44);
+            lblDocId.Margin = new Padding(4, 3, 4, 3);
+            lblDocId.Name = "lblDocId";
+            lblDocId.Size = new Size(17, 18);
+            lblDocId.TabIndex = 4;
+            lblDocId.Text = "0";
             // 
             // documentType
             // 
             documentType.AutoSize = true;
-            documentType.Font = new Font("Segoe UI", 12F);
-            documentType.Location = new Point(50, 57);
+            documentType.Font = new Font("Arial", 12F);
+            documentType.Location = new Point(117, 71);
             documentType.Margin = new Padding(4, 0, 4, 0);
             documentType.Name = "documentType";
-            documentType.Size = new Size(84, 21);
+            documentType.Size = new Size(82, 18);
             documentType.TabIndex = 2;
             documentType.Text = "Evrak Türü";
             // 
             // documentID
             // 
             documentID.AutoSize = true;
-            documentID.Font = new Font("Segoe UI", 12F);
-            documentID.Location = new Point(50, 32);
+            documentID.Font = new Font("Arial", 12F);
+            documentID.Location = new Point(129, 44);
             documentID.Margin = new Padding(4, 0, 4, 0);
             documentID.Name = "documentID";
-            documentID.Size = new Size(73, 21);
+            documentID.Size = new Size(72, 18);
             documentID.TabIndex = 0;
             documentID.Text = "Evrak No";
+            // 
+            // chkCompany
+            // 
+            chkCompany.AutoSize = true;
+            chkCompany.Location = new Point(544, 104);
+            chkCompany.Name = "chkCompany";
+            chkCompany.Size = new Size(15, 14);
+            chkCompany.TabIndex = 33;
+            chkCompany.UseVisualStyleBackColor = true;
             // 
             // DocumentView
             // 
@@ -463,25 +441,22 @@
         private TextBox txtSearch;
         private Label label2;
         private Button btnSave;
-        private TextBox txtDocType;
-        private TextBox txtDocId;
+        private Label lblDocId;
         private Label documentType;
         private Label documentID;
         private Button btnCancel;
         private Button btnClose;
         private Label label5;
-        private Label label4;
         private Label label3;
-        private TextBox txtDeliveredBy;
-        private TextBox txtRegDate;
-        private TextBox txtStreetName;
-        private TextBox txtCompanyName;
-        private TextBox txtPersonName;
         private Label label7;
-        private Label label6;
-        private Label label8;
         private TextBox txtApt;
-        private Label label9;
-        private TextBox txtDeliveryDate;
+        private ComboBox comboDocType;
+        private ComboBox comboCompany;
+        private ComboBox comboPerson;
+        private ComboBox comboReceiver;
+        private ComboBox comboStreet;
+        private CheckBox chkUpdate;
+        private DateTimePicker dtpUpdate;
+        private CheckBox chkCompany;
     }
 }

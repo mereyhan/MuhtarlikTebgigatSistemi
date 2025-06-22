@@ -1,4 +1,5 @@
-﻿namespace MuhtarlikTebgigatSistemi.Views.Interfaces
+﻿
+namespace MuhtarlikTebgigatSistemi.Views.Interfaces
 {
     public interface IPersonView
     {
@@ -7,17 +8,15 @@
         string PersonName { get; set; }
         string StreetName { get; set; }
         string BuildingApt { get; set; }
-        string CompanyName { get; set; }
-        string PhoneNumber { get; set; }
-        string Email { get; set; }
-        string RegisterDate { get; set; }
-        string UpdateDate { get; set; }
+        string? PhoneNumber { get; set; }
+        string? Email { get; set; }
 
         // Properties - Validations
         string SearchValue { get; set; }
         bool IsEdit { get; set; }
         bool IsSuccessful { get; set; }
         string Message { get; set; }
+        string? UpdateDate { get; }
 
         // Events
         event EventHandler SearchEvent;
@@ -30,6 +29,7 @@
 
         // Methods
         void SetPersonListBindingSource(BindingSource documentList);
+        void SetStreetComboBox(List<string> streets);
         void Show();
     }
 }

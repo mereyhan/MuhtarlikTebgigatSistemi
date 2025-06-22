@@ -1,21 +1,21 @@
-﻿namespace MuhtarlikTebgigatSistemi.Views.Interfaces
+﻿using System;
+using System.Windows.Forms;
+
+namespace MuhtarlikTebgigatSistemi.Views.Interfaces
 {
     public interface IDocTypeView
     {
-        // Properties - Fields
-        string DocTypeID { get; set; }
+        // Properties
+        string DocumentTypeID { get; set; }
         string DocumentType { get; set; }
-        string RegisterDate { get; set; }
         string UpdateDate { get; set; }
 
-        // Properties - Validations
         string SearchValue { get; set; }
         bool IsEdit { get; set; }
         bool IsSuccessful { get; set; }
         string Message { get; set; }
 
         // Events
-        event EventHandler SearchTextChanged;
         event EventHandler SearchEvent;
         event EventHandler AddEvent;
         event EventHandler UpdateEvent;
@@ -23,8 +23,9 @@
         event EventHandler SaveEvent;
         event EventHandler CancelEvent;
 
+
         // Methods
-        void SetDocTypeListBindingSource(BindingSource documentList);
+        void SetDocTypeListBindingSource(BindingSource docTypesBindingSource);
         void Show();
     }
 }

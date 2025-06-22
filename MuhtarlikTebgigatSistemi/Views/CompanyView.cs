@@ -97,14 +97,29 @@ namespace MuhtarlikTebgigatSistemi.Views
         }
 
         public string CompanyID { get => txtCompanyId.Text; set => txtCompanyId.Text = value; }
-        public string CompanyName { get => txtCompanyName.Text; set => txtCompanyName.Text = value; }
-        public string StreetName { get => txtStreetName.Text; set => txtStreetName.Text = value; }
+        public string MyCompanyName { get => txtCompanyName.Text; set => txtCompanyName.Text = value; }
+        public string StreetName { get => cmbStreet.Text; set => cmbStreet.Text = value; }
         public string BuildingApt { get => txtApt.Text; set => txtApt.Text = value; }
-        public string PersonName { get => txtPersonName.Text; set => txtPersonName.Text = value; }
         public string PhoneNumber { get => txtPhone.Text; set => txtPhone.Text = value; }
         public string Email { get => txtEmail.Text; set => txtEmail.Text = value; }
-        public string RegisterDate { get => txtRegisterDate.Text; set => txtRegisterDate.Text = value; }
-        public string UpdateDate { get => txtUpdateDate.Text; set => txtUpdateDate.Text = value; }
+        public string UpdateDate
+        {
+            get => chkUpdate.Checked ? dtpUpdate.Value.ToString("yyyy-MM-dd") : "";
+            set
+            {
+                if (string.IsNullOrWhiteSpace(value))
+                {
+                    chkUpdate.Checked = false;
+                    dtpUpdate.Enabled = false;
+                }
+                else
+                {
+                    chkUpdate.Checked = true;
+                    dtpUpdate.Enabled = true;
+                    dtpUpdate.Value = DateTime.Parse(value);
+                }
+            }
+        }
 
 
         public string SearchValue { get => txtSearch.Text; set => txtSearch.Text = value; }
@@ -125,8 +140,13 @@ namespace MuhtarlikTebgigatSistemi.Views
             dataGridView.DataSource = companyList;
         }
 
+        public void SetStreetComboBox(List<string> streetNames)
+        {
+            cmbStreet.DataSource = streetNames;
+        }
+
         private static CompanyView instance;
-        public static CompanyView GetInstace(Form parentContainer)
+        public static CompanyView GetInstance(Form parentContainer)
         {
             if (instance == null || instance.IsDisposed)
             {

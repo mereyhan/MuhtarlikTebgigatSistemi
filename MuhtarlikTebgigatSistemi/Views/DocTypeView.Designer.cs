@@ -41,15 +41,14 @@
             label2 = new Label();
             TabPageDocTypeDetail = new TabPage();
             label9 = new Label();
-            txtUpdateDate = new TextBox();
-            label8 = new Label();
             label3 = new Label();
-            txtRegisterDate = new TextBox();
             txtDocumentType = new TextBox();
             btnCancel = new Button();
             btnSave = new Button();
             txtDocTypeId = new TextBox();
             documentID = new Label();
+            dtpUpdate = new DateTimePicker();
+            chkUpdate = new CheckBox();
             formBorderPanel.SuspendLayout();
             tabControl1.SuspendLayout();
             TabPageDocTypeList.SuspendLayout();
@@ -190,11 +189,10 @@
             // 
             // TabPageDocTypeDetail
             // 
+            TabPageDocTypeDetail.Controls.Add(chkUpdate);
+            TabPageDocTypeDetail.Controls.Add(dtpUpdate);
             TabPageDocTypeDetail.Controls.Add(label9);
-            TabPageDocTypeDetail.Controls.Add(txtUpdateDate);
-            TabPageDocTypeDetail.Controls.Add(label8);
             TabPageDocTypeDetail.Controls.Add(label3);
-            TabPageDocTypeDetail.Controls.Add(txtRegisterDate);
             TabPageDocTypeDetail.Controls.Add(txtDocumentType);
             TabPageDocTypeDetail.Controls.Add(btnCancel);
             TabPageDocTypeDetail.Controls.Add(btnSave);
@@ -212,54 +210,27 @@
             // 
             label9.AutoSize = true;
             label9.Font = new Font("Segoe UI", 12F);
-            label9.Location = new Point(243, 145);
+            label9.Location = new Point(139, 107);
             label9.Margin = new Padding(4, 0, 4, 0);
             label9.Name = "label9";
             label9.Size = new Size(133, 21);
             label9.TabIndex = 44;
             label9.Text = "Güncelleme Tarihi";
             // 
-            // txtUpdateDate
-            // 
-            txtUpdateDate.Location = new Point(388, 145);
-            txtUpdateDate.Margin = new Padding(4, 3, 4, 3);
-            txtUpdateDate.Name = "txtUpdateDate";
-            txtUpdateDate.Size = new Size(162, 23);
-            txtUpdateDate.TabIndex = 43;
-            // 
-            // label8
-            // 
-            label8.AutoSize = true;
-            label8.Font = new Font("Segoe UI", 12F);
-            label8.Location = new Point(243, 120);
-            label8.Margin = new Padding(4, 0, 4, 0);
-            label8.Name = "label8";
-            label8.Size = new Size(85, 21);
-            label8.TabIndex = 42;
-            label8.Text = "Kayıt Tarihi";
-            // 
             // label3
             // 
             label3.AutoSize = true;
             label3.Font = new Font("Segoe UI", 12F);
-            label3.Location = new Point(243, 91);
+            label3.Location = new Point(139, 78);
             label3.Margin = new Padding(4, 0, 4, 0);
             label3.Name = "label3";
             label3.Size = new Size(84, 21);
             label3.TabIndex = 36;
             label3.Text = "Evrak Türü";
             // 
-            // txtRegisterDate
-            // 
-            txtRegisterDate.Location = new Point(388, 120);
-            txtRegisterDate.Margin = new Padding(4, 3, 4, 3);
-            txtRegisterDate.Name = "txtRegisterDate";
-            txtRegisterDate.Size = new Size(162, 23);
-            txtRegisterDate.TabIndex = 34;
-            // 
             // txtDocumentType
             // 
-            txtDocumentType.Location = new Point(388, 91);
+            txtDocumentType.Location = new Point(284, 78);
             txtDocumentType.Margin = new Padding(4, 3, 4, 3);
             txtDocumentType.Name = "txtDocumentType";
             txtDocumentType.Size = new Size(162, 23);
@@ -287,7 +258,7 @@
             // 
             // txtDocTypeId
             // 
-            txtDocTypeId.Location = new Point(388, 62);
+            txtDocTypeId.Location = new Point(284, 49);
             txtDocTypeId.Margin = new Padding(4, 3, 4, 3);
             txtDocTypeId.Name = "txtDocTypeId";
             txtDocTypeId.ReadOnly = true;
@@ -299,12 +270,28 @@
             // 
             documentID.AutoSize = true;
             documentID.Font = new Font("Segoe UI", 12F);
-            documentID.Location = new Point(243, 62);
+            documentID.Location = new Point(139, 49);
             documentID.Margin = new Padding(4, 0, 4, 0);
             documentID.Name = "documentID";
             documentID.Size = new Size(58, 21);
             documentID.TabIndex = 25;
             documentID.Text = "Tür No";
+            // 
+            // dtpUpdate
+            // 
+            dtpUpdate.Location = new Point(284, 107);
+            dtpUpdate.Name = "dtpUpdate";
+            dtpUpdate.Size = new Size(200, 23);
+            dtpUpdate.TabIndex = 45;
+            // 
+            // chkUpdate
+            // 
+            chkUpdate.AutoSize = true;
+            chkUpdate.Location = new Point(490, 113);
+            chkUpdate.Name = "chkUpdate";
+            chkUpdate.Size = new Size(15, 14);
+            chkUpdate.TabIndex = 46;
+            chkUpdate.UseVisualStyleBackColor = true;
             // 
             // DocTypeView
             // 
@@ -341,14 +328,13 @@
         private TextBox txtSearch;
         private Label label2;
         private Label label9;
-        private TextBox txtUpdateDate;
-        private Label label8;
         private Label label3;
-        private TextBox txtRegisterDate;
         private Button btnCancel;
         private Button btnSave;
         private TextBox txtDocTypeId;
         private Label documentID;
         private TextBox txtDocumentType;
+        private CheckBox chkUpdate;
+        private DateTimePicker dtpUpdate;
     }
 }

@@ -1,8 +1,17 @@
 ﻿using MuhtarlikTebgigatSistemi.Views.Interfaces;
+using System;
+using System.Collections.Generic;
+using System.ComponentModel;
+using System.Data;
+using System.Drawing;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+using System.Windows.Forms;
 
 namespace MuhtarlikTebgigatSistemi.Views
 {
-    public partial class PersonView : Form, IPersonView
+    public partial class UserView : Form, IUserView
     {
         private string message;
         private bool isSuccessful;
@@ -11,11 +20,12 @@ namespace MuhtarlikTebgigatSistemi.Views
         private bool isTimerRunning = false;
         private System.Windows.Forms.Timer searchDelayTimer;
 
-        public PersonView()
+        public UserView()
         {
             InitializeComponent();
+
             AssociateAndRaiseViewEvents();
-            tabControl1.TabPages.Remove(TabPagePersonDetail);
+            tabControl1.TabPages.Remove(TabPageStreetDetail);
             btnClose.Click += delegate { this.Close(); };
         }
 
@@ -53,22 +63,22 @@ namespace MuhtarlikTebgigatSistemi.Views
             btnAdd.Click += delegate
             {
                 AddEvent?.Invoke(this, EventArgs.Empty);
-                tabControl1.TabPages.Remove(TabPagePersonList);
-                tabControl1.TabPages.Add(TabPagePersonDetail);
-                TabPagePersonDetail.Text = "Evrak Ekle";
+                tabControl1.TabPages.Remove(TabPageStreetList);
+                tabControl1.TabPages.Add(TabPageStreetDetail);
+                TabPageStreetDetail.Text = "Add new street";
             };
             // Update selected document
-            btnUpdate.Click += delegate
-            {
-                UpdateEvent?.Invoke(this, EventArgs.Empty);
-                tabControl1.TabPages.Remove(TabPagePersonList);
-                tabControl1.TabPages.Add(TabPagePersonDetail);
-                TabPagePersonDetail.Text = "Evrak Güncelle";
-            };
+            //btnUpdate.Click += delegate
+            //{
+            //    UpdateEvent?.Invoke(this, EventArgs.Empty);
+            //    tabControl1.TabPages.Remove(TabPageStreetList);
+            //    tabControl1.TabPages.Add(TabPageStreetDetail);
+            //    TabPageStreetDetail.Text = "Update street";
+            //};
             // Delete selected document
             btnDelete.Click += delegate
             {
-                var result = MessageBox.Show("Evrak silinsin mi?", "Warning",
+                var result = MessageBox.Show("Are you sure you want to delete the selected street?", "Warning",
                     MessageBoxButtons.YesNo, MessageBoxIcon.Warning);
                 if (result == DialogResult.Yes)
                 {
@@ -82,8 +92,8 @@ namespace MuhtarlikTebgigatSistemi.Views
                 SaveEvent?.Invoke(this, EventArgs.Empty);
                 if (IsSuccessful)
                 {
-                    tabControl1.TabPages.Remove(TabPagePersonDetail);
-                    tabControl1.TabPages.Add(TabPagePersonList);
+                    tabControl1.TabPages.Remove(TabPageStreetDetail);
+                    tabControl1.TabPages.Add(TabPageStreetList);
                 }
                 if (!string.IsNullOrWhiteSpace(Message)) { MessageBox.Show(Message); }
             };
@@ -91,35 +101,15 @@ namespace MuhtarlikTebgigatSistemi.Views
             btnCancel.Click += delegate
             {
                 CancelEvent?.Invoke(this, EventArgs.Empty);
-                tabControl1.TabPages.Remove(TabPagePersonDetail);
-                tabControl1.TabPages.Add(TabPagePersonList);
+                tabControl1.TabPages.Remove(TabPageStreetDetail);
+                tabControl1.TabPages.Add(TabPageStreetList);
             };
         }
 
-        public string PersonID { get => txtPersonId.Text; set => txtPersonId.Text = value; }
-        public string PersonName { get => txtPersonName.Text; set => txtPersonName.Text = value; }
-        public string StreetName { get => cmbStreet.Text; set => cmbStreet.Text = value; }
-        public string BuildingApt { get => txtApt.Text; set => txtApt.Text = value; }
-        public string PhoneNumber { get => txtPhone.Text; set => txtPhone.Text = value; }
-        public string Email { get => txtEmail.Text; set => txtEmail.Text = value; }
-        public string UpdateDate
-        {
-            get => chkUpdate.Checked ? dtpUpdate.Value.ToString("yyyy-MM-dd") : "";
-            set
-            {
-                if (string.IsNullOrWhiteSpace(value))
-                {
-                    chkUpdate.Checked = false;
-                    dtpUpdate.Enabled = false;
-                }
-                else
-                {
-                    chkUpdate.Checked = true;
-                    dtpUpdate.Enabled = true;
-                    dtpUpdate.Value = DateTime.Parse(value);
-                }
-            }
-        }
+        public string UserID { get => txtUserId.Text; set => txtUserId.Text = value; }
+        public string UserName { get => txtUser.Text; set => txtUser.Text = value; }
+        public string Password { get => txtPassword.Text; set => txtPassword.Text = value; }
+        public string Role { get => txtRole.Text; set => txtRole.Text = value; }
 
         public string SearchValue { get => txtSearch.Text; set => txtSearch.Text = value; }
         public bool IsEdit { get => isEdit; set => isEdit = value; }
@@ -133,26 +123,22 @@ namespace MuhtarlikTebgigatSistemi.Views
         public event EventHandler DeleteEvent;
         public event EventHandler SaveEvent;
         public event EventHandler CancelEvent;
+        private static UserView instance;
 
-        public void SetPersonListBindingSource(BindingSource personList)
+        public void SetUserListBindingSource(BindingSource userList)
         {
-            dataGridView.DataSource = personList;
+            dataGridView.DataSource = userList;
         }
 
-        public void SetStreetComboBox(List<string> streetNames)
-        {
-            cmbStreet.DataSource = streetNames;
-        }
-
-        private static PersonView instance;
-        public static PersonView GetInstance(Form parentContainer)
+        public static UserView GetInstace(Form parentContainer)
         {
             if (instance == null || instance.IsDisposed)
             {
-                instance = new PersonView();
+                instance = new UserView();
                 instance.MdiParent = parentContainer;
                 instance.FormBorderStyle = FormBorderStyle.None;
                 instance.Dock = DockStyle.Fill;
+                instance.Show();
             }
             else
             {

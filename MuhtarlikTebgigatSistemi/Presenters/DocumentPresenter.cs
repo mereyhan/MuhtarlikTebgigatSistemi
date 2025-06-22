@@ -1,149 +1,211 @@
 ﻿using MuhtarlikTebgigatSistemi.Model;
+using MuhtarlikTebgigatSistemi.Repository;
 using MuhtarlikTebgigatSistemi.Views;
+using System.ComponentModel;
 
-namespace MuhtarlikTebgigatSistemi.Presenters
+namespace MuhtarlikTebgigatSistemi.Presenters;
+
+public class DocumentPresenter
 {
-    public class DocumentPresenter
+    private readonly IDocumentView _view;
+    private readonly DocumentRepository _repository;
+    private readonly DocumentOverviewRepository _overviewRepo;
+    private readonly StreetRepository _streetRepo;
+    private readonly PersonRepository _personRepo;
+    private readonly CompanyRepository _companyRepo;
+    private readonly DocumentTypeRepository _docTypeRepo;
+
+    private readonly BindingList<DocumentOverviewModel> _documentList;
+    private readonly BindingSource _bindingSource;
+
+    public DocumentPresenter(
+        IDocumentView view,
+        DocumentRepository repository,
+        DocumentOverviewRepository overviewRepo,
+        StreetRepository streetRepo,
+        PersonRepository personRepo,
+        CompanyRepository companyRepo,
+        DocumentTypeRepository docTypeRepo)
     {
-        // Fields
-        private IDocumentView view;
-        private IRepository<DocumentModel> repository;
-        private BindingSource documentsBindingSource;
-        private IEnumerable<DocumentModel> documentList;
+        _view = view;
+        _repository = repository;
+        _overviewRepo = overviewRepo;
+        _streetRepo = streetRepo;
+        _personRepo = personRepo;
+        _companyRepo = companyRepo;
+        _docTypeRepo = docTypeRepo;
 
-        // Constructor
-        public DocumentPresenter(IDocumentView _view, IRepository<DocumentModel> _repository)
+        _bindingSource = new BindingSource();
+        _documentList = new BindingList<DocumentOverviewModel>(_overviewRepo.GetAll().ToList());
+
+        _bindingSource.DataSource = _documentList;
+        _view.DisplayDocuments(_documentList);
+
+        SubscribeToEvents();
+    }
+
+    private void SubscribeToEvents()
+    {
+        _view.LoadAll += (s, e) => RefreshDocumentList();
+        _view.SaveEvent += OnSave;
+        _view.SearchTextChanged += OnSearch;
+        _view.AddEvent += (s, e) => { ClearForm(); _view.IsEdit = false; };
+        _view.UpdateEvent += OnUpdate;
+        _view.DeleteEvent += OnDelete;
+        _view.CancelEvent += (s, e) => ClearForm();
+    }
+
+    private void OnSave(object? sender, EventArgs e)
+    {
+        var input = _view.NewDocumentInput;
+
+        try
         {
-            this.view = _view;
-            this.repository = _repository;
-            this.documentsBindingSource = new BindingSource();
+            int docTypeId = _docTypeRepo.GetOrCreate(input.DocumentType);
+            int streetId = _streetRepo.GetOrCreate(input.Street);
 
-            // Associate and raise view events
-            this.view.SearchEvent += SearchDocument;
-            this.view.AddEvent += AddNewDocument;
-            this.view.UpdateEvent += UpdateSelectedDocument;
-            this.view.DeleteEvent += DeleteSelectedDocument;
-            this.view.SaveEvent += SaveDocument;
-            this.view.CancelEvent += CancelAction;
+            int? personId = null;
+            int? companyId = null;
+            int? receiverId = null;
 
-            // Set document binding source
-            this.view.SetDocumentListBindingSource(documentsBindingSource);
-
-            // Load documents to binding source
-            LoadAllDocumentList();
-
-            // Show view
-            this.view.Show();
-        }
-
-        // Methods
-        private void LoadAllDocumentList()
-        {
-            documentList = repository.GetAll();
-            documentsBindingSource.DataSource = documentList; // Binding source is updated
-        }
-        private void SearchDocument(object? sender, EventArgs e)
-        {
-            bool emptyValue = string.IsNullOrWhiteSpace(this.view.SearchValue);
-            if (emptyValue == false)
-                documentList = repository.GetByValue(this.view.SearchValue);
+            if (input.IsCompany)
+            {
+                var company = new CompanyModel
+                {
+                    CompanyName = input.Name,
+                    StreetId = streetId,
+                    Building = input.Building
+                };
+                companyId = _companyRepo.GetOrCreate(company);
+            }
             else
-                documentList = repository.GetAll();
-
-            documentsBindingSource.DataSource = documentList;
-        }
-        private void AddNewDocument(object? sender, EventArgs e)
-        {
-            view.IsEdit = false;
-        }
-        private void UpdateSelectedDocument(object? sender, EventArgs e)
-        {
-            var document = (DocumentModel)documentsBindingSource.Current;
-            view.DocumentID = document.Id.ToString();
-            view.DocumentType = document.Type;
-            view.PersonName = document.PersonName;
-            view.CompanyName = document.CompanyName;
-            view.StreetName = document.StreetName;
-            view.BuildingApt = document.BuildingApt;
-            view.RegistrationDate = document.RegistrationDate.ToString("yyyy-MM-dd");
-            view.DeliveredBy = document.DeliveredBy;
-            view.IsEdit = true;
-        }
-        private void DeleteSelectedDocument(object? sender, EventArgs e)
-        {
-            try
             {
-                var document = (DocumentModel)documentsBindingSource.Current;
-                repository.Delete(document.Id);
-                view.IsSuccessful = true;
-                LoadAllDocumentList();
-            }
-            catch (Exception ex)
-            {
-                view.IsSuccessful = false;
-                view.Message = $"An error occurred: {ex.Message}";
-                Console.WriteLine($"Error details: {ex}");
-
-            }
-        }
-        private void SaveDocument(object? sender, EventArgs e)
-        {
-            var model = new DocumentModel();
-            model.Type = view.DocumentType;
-            model.PersonName = view.PersonName;
-            model.CompanyName = view.CompanyName;
-            model.StreetName = view.StreetName;
-            model.BuildingApt = view.BuildingApt;
-            model.DeliveryDate = DateTime.Now;
-            model.DeliveredBy = view.DeliveredBy;
-            try
-            {
-                new Common.ModelDataValidation().Validate(model);
-
-                if (view.IsEdit)
+                var person = new PersonModel
                 {
-                    if (int.TryParse(view.DocumentID, out int id))
-                    {
-                        model.Id = id;
-                        repository.Update(model);
-                    }
-                    else
-                    {
-                        view.IsSuccessful = false;
-                        view.Message = "Güncelleme için geçersiz bir ID";
-                        return;
-                    }
-                }
-                else
-                {
-                    model.RegistrationDate = DateTime.Now;
-                    repository.Add(model);
-                }
+                    PersonName = input.Name,
+                    StreetId = streetId,
+                    Building = input.Building
+                };
+                personId = _personRepo.GetOrCreate(person);
+            }
 
-                view.IsSuccessful = true;
-                LoadAllDocumentList();
-                CleanViewFields();
-            }
-            catch (Exception ex)
+            if (!string.IsNullOrWhiteSpace(input.Receiver))
             {
-                view.IsSuccessful = false;
-                view.Message = $"Error: {ex.Message}";
+                var receiver = new PersonModel
+                {
+                    PersonName = input.Receiver,
+                    StreetId = 0,
+                    Building = ""
+                };
+                receiverId = _personRepo.GetOrCreate(receiver);
             }
+
+            var document = new DocumentModel
+            {
+                DocumentTypeId = docTypeId,
+                PersonId = personId,
+                CompanyId = companyId,
+                ReceiverId = receiverId,
+                UpdateDate = string.IsNullOrWhiteSpace(input.UpdateDate) ? null : DateTime.Parse(input.UpdateDate)
+            };
+
+            if (_view.IsEdit && int.TryParse(_view.DocumentID, out int docId))
+            {
+                document.DocumentId = docId;
+                _repository.Update(document);
+            }
+            else
+            {
+                _repository.AddAndReturnId(document);
+            }
+
+            _view.IsSuccessful = true;
+            _view.Message = "Kayıt başarıyla kaydedildi.";
+            RefreshDocumentList();
+            ClearForm();
         }
-        private void CleanViewFields()
+        catch (Exception ex)
         {
-            view.DocumentID = string.Empty;
-            view.DocumentType = string.Empty;
-            view.PersonName = string.Empty;
-            view.CompanyName = string.Empty;
-            view.StreetName = string.Empty;
-            view.BuildingApt = string.Empty;
-            view.RegistrationDate = string.Empty;
-            view.DeliveredBy = string.Empty;
+            _view.IsSuccessful = false;
+            _view.Message = $"Hata: {ex.Message}";
         }
-        private void CancelAction(object? sender, EventArgs e)
+    }
+
+    private void OnUpdate(object? sender, EventArgs e)
+    {
+        if (_bindingSource.Current is not DocumentOverviewModel selected)
+            return;
+        //MessageBox.Show("1");
+        var full = _repository.GetById(selected.DocumentId);
+        if (full == null)
         {
-            CleanViewFields();
+            _view.IsSuccessful = false;
+            _view.Message = "Kayıt bulunamadı.";
+            return;
         }
+        //MessageBox.Show("2");
+        _view.DocumentID = full.DocumentId.ToString();
+        //MessageBox.Show("3");
+        _view.DocumentType = _docTypeRepo.GetById(full.DocumentTypeId)?.DocumentType ?? "";
+        //MessageBox.Show("4");
+        _view.StreetName = "";
+        //MessageBox.Show("5");
+        _view.Apt = "";
+        //MessageBox.Show("6");
+        _view.UpdateDate = full.UpdateDate?.ToString("yyyy-MM-dd") ?? "";
+        //MessageBox.Show("7");
+        _view.ReceiverName = _personRepo.GetById(full.ReceiverId ?? 0)?.PersonName ?? "";
+        //MessageBox.Show("8");
+        _view.IsCompany = full.CompanyId.HasValue;
+        //MessageBox.Show("9");
+
+        _view.IsEdit = true;
+    }
+
+    private void OnDelete(object? sender, EventArgs e)
+    {
+        if (_bindingSource.Current is not DocumentOverviewModel selected)
+            return;
+
+        try
+        {
+            _repository.Delete(selected.DocumentId);
+            _view.IsSuccessful = true;
+            _view.Message = "Kayıt silindi.";
+            RefreshDocumentList();
+        }
+        catch (Exception ex)
+        {
+            _view.IsSuccessful = false;
+            _view.Message = $"Hata: {ex.Message}";
+        }
+    }
+
+    private void OnSearch(object? sender, EventArgs e)
+    {
+        string value = _view.SearchValue?.Trim() ?? "";
+        var filtered = _overviewRepo.Search(value);
+        _documentList.Clear();
+        foreach (var item in filtered)
+            _documentList.Add(item);
+    }
+
+    private void ClearForm()
+    {
+        _view.DocumentID = "";
+        _view.DocumentType = "";
+        _view.StreetName = "";
+        _view.Apt = "";
+        _view.UpdateDate = null;
+        _view.ReceiverName = "";
+        _view.IsCompany = false;
+        _view.IsEdit = false;
+    }
+
+    private void RefreshDocumentList()
+    {
+        _documentList.Clear();
+        foreach (var item in _overviewRepo.GetAll())
+            _documentList.Add(item);
     }
 }

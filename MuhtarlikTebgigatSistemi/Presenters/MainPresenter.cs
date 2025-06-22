@@ -1,66 +1,88 @@
-﻿using MuhtarlikTebgigatSistemi._Repository;
-using MuhtarlikTebgigatSistemi.Model;
-using MuhtarlikTebgigatSistemi.Views;
+﻿using MuhtarlikTebgigatSistemi.Presenters;
+using MuhtarlikTebgigatSistemi.Repository;
 using MuhtarlikTebgigatSistemi.Views.Interfaces;
+using MuhtarlikTebgigatSistemi.Views;
 
-namespace MuhtarlikTebgigatSistemi.Presenters
+namespace MuhtarlikTebgigatSistemi.Presenter;
+
+public class MainPresenter
 {
-    public class MainPresenter
+    private readonly IMainView _mainForm;
+    private readonly string _cs;
+
+    public MainPresenter(IMainView mainView, string connectionString)
     {
-        private IMainView mainView;
-        private readonly string sqliteConnectionString;
+        _mainForm = mainView;
+        _cs = connectionString;
 
-        public MainPresenter(IMainView mainView, string sqliteConnectionString)
-        {
-            this.mainView = mainView;
-            this.sqliteConnectionString = sqliteConnectionString;
-            this.mainView.ShowDocumentView += ShowDocumentView;
-            this.mainView.ShowDocTypeView += ShowDocTypeView;
-            this.mainView.ShowStreetView += ShowStreetView;
-            this.mainView.ShowPersonView += ShowPersonView;
-            this.mainView.ShowCompanyView += ShowCompanyView;
-        }
+        _mainForm.ShowDocumentView += OnShowDocumentView;
+        _mainForm.ShowDocTypeView += OnShowDocTypeView;
+        _mainForm.ShowStreetView += OnShowStreetView;
+        _mainForm.ShowPersonView += OnShowPersonView;
+        _mainForm.ShowCompanyView += OnShowCompanyView;
+    }
 
-        private void CloseOtherMdiChilds()
-        {
-            foreach (Form child in ((MainView)mainView).MdiChildren)
-                child.Close();
-        }
+    private void OnShowDocumentView(object? sender, EventArgs e)
+    {
+        CloseOtherMdiChilds();
+        var view = DocumentView.GetInstance((MainView)_mainForm);
 
-        private void ShowDocumentView(object? sender, EventArgs e)
-        {
-            CloseOtherMdiChilds();
-            IDocumentView view = DocumentView.GetInstace((MainView)mainView);
-            IRepository<DocumentModel> repository = new DocumentRepository(sqliteConnectionString);
-            new DocumentPresenter(view, repository);
-        }
-        private void ShowDocTypeView(object? sender, EventArgs e)
-        {
-            CloseOtherMdiChilds();
-            IDocTypeView view = DocTypeView.GetInstace((MainView)mainView);
-            IRepository<DocTypeModel> repository = new DocTypeRepository(sqliteConnectionString);
-            new DocTypePresenter(view, repository);
-        }
-        private void ShowStreetView(object? sender, EventArgs e)
-        {
-            CloseOtherMdiChilds();
-            IStreetView view = StreetView.GetInstace((MainView)mainView);
-            IRepository<StreetModel> repository = new StreetRepository(sqliteConnectionString);
-            new StreetPresenter(view, repository);
-        }
-        private void ShowPersonView(object? sender, EventArgs e)
-        {
-            CloseOtherMdiChilds();
-            IPersonView view = PersonView.GetInstace((MainView)mainView);
-            IRepository<PersonModel> repository = new PersonRepository(sqliteConnectionString);
-            new PersonPresenter(view, repository);
-        }
-        private void ShowCompanyView(object? sender, EventArgs e)
-        {
-            CloseOtherMdiChilds();
-            ICompanyView view = CompanyView.GetInstace((MainView)mainView);
-            IRepository<CompanyModel> repository = new CompanyRepository(sqliteConnectionString);
-            new CompanyPresenter(view, repository);
-        }
+        var docRepo = new DocumentRepository(_cs);
+        var overviewRepo = new DocumentOverviewRepository(_cs);
+        var streetRepo = new StreetRepository(_cs);
+        var personRepo = new PersonRepository(_cs);
+        var companyRepo = new CompanyRepository(_cs);
+        var docTypeRepo = new DocumentTypeRepository(_cs);
+
+        new DocumentPresenter(view, docRepo, overviewRepo, streetRepo, personRepo, companyRepo, docTypeRepo);
+    }
+
+    private void OnShowDocTypeView(object? sender, EventArgs e)
+    {
+        CloseOtherMdiChilds();
+        var view = DocTypeView.GetInstace((MainView)_mainForm);
+        var repo = new DocumentTypeRepository(_cs);
+        new DocumentTypePresenter(view, repo);
+    }
+
+    private void OnShowStreetView(object? sender, EventArgs e)
+    {
+        CloseOtherMdiChilds();
+        var view = StreetView.GetInstance((MainView)_mainForm);
+        var repo = new StreetRepository(_cs);
+        new StreetPresenter(view, repo);
+    }
+
+    private void OnShowPersonView(object? sender, EventArgs e)
+    {
+        CloseOtherMdiChilds();
+        //MessageBox.Show("1");
+        var view = PersonView.GetInstance((MainView)_mainForm);
+        //MessageBox.Show("2");
+        var repo = new PersonRepository(_cs);
+
+        //MessageBox.Show("3"); 
+        var overviewRepo = new PersonOverviewRepository(_cs);
+
+        //MessageBox.Show("4"); 
+        var streetRepo = new StreetRepository(_cs);
+        //MessageBox.Show("5"); 
+        new PersonPresenter(view, repo, overviewRepo, streetRepo);
+    }
+
+    private void OnShowCompanyView(object? sender, EventArgs e)
+    {
+        CloseOtherMdiChilds();
+        var view = CompanyView.GetInstance((MainView)_mainForm);
+        var repo = new CompanyRepository(_cs);
+        var overviewRepo = new CompanyOverviewRepository(_cs);
+        var streetRepo = new StreetRepository(_cs);
+        new CompanyPresenter(view, repo, overviewRepo, streetRepo);
+    }
+    
+    private void CloseOtherMdiChilds()
+    {
+        foreach (Form child in ((MainView)_mainForm).MdiChildren)
+            child.Close();
     }
 }

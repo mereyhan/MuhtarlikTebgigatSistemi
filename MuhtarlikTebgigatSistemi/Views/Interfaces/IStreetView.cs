@@ -5,7 +5,6 @@
         // Properties - Fields
         string StreetID { get; set; }
         string StreetName { get; set; }
-        string RegisterDate { get; set; }
         string UpdateDate { get; set; }
 
         // Properties - Validations

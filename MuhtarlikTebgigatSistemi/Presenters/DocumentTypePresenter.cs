@@ -5,24 +5,24 @@ using System.ComponentModel;
 
 namespace MuhtarlikTebgigatSistemi.Presenters;
 
-public class StreetPresenter
+public class DocumentTypePresenter
 {
-    private readonly IStreetView _view;
-    private readonly StreetRepository _repository;
+    private readonly IDocTypeView _view;
+    private readonly DocumentTypeRepository _repository;
 
-    private readonly BindingList<StreetModel> _streets;
+    private readonly BindingList<DocumentTypeModel> _docTypes;
     private readonly BindingSource _bindingSource;
 
-    public StreetPresenter(IStreetView view, StreetRepository repository)
+    public DocumentTypePresenter(IDocTypeView view, DocumentTypeRepository repository)
     {
         _view = view;
         _repository = repository;
 
         _bindingSource = new BindingSource();
-        _streets = new BindingList<StreetModel>(_repository.GetAll().ToList());
-        _bindingSource.DataSource = _streets;
+        _docTypes = new BindingList<DocumentTypeModel>(_repository.GetAll().ToList());
+        _bindingSource.DataSource = _docTypes;
 
-        _view.SetStreetListBindingSource(_bindingSource);
+        _view.SetDocTypeListBindingSource(_bindingSource);
 
         SubscribeToEvents();
         _view.Show();
@@ -41,9 +41,9 @@ public class StreetPresenter
     private void OnSearch(object? sender, EventArgs e)
     {
         var result = _repository.Search(_view.SearchValue.Trim());
-        _streets.Clear();
+        _docTypes.Clear();
         foreach (var item in result)
-            _streets.Add(item);
+            _docTypes.Add(item);
     }
 
     private void OnAdd(object? sender, EventArgs e)
@@ -52,9 +52,20 @@ public class StreetPresenter
         ClearViewFields();
     }
 
+    private void OnUpdate(object? sender, EventArgs e)
+    {
+        if (_bindingSource.Current is not DocumentTypeModel selected)
+            return;
+
+        _view.DocumentTypeID = selected.DocumentTypeId.ToString();
+        _view.DocumentType = selected.DocumentType;
+        _view.UpdateDate = selected.UpdateDate?.ToString("yyyy-MM-dd") ?? "";
+        _view.IsEdit = true;
+    }
+
     private void OnDelete(object? sender, EventArgs e)
     {
-        if (!int.TryParse(_view.StreetID, out int id))
+        if (!int.TryParse(_view.DocumentTypeID, out int id))
         {
             _view.IsSuccessful = false;
             _view.Message = "Geçerli bir ID girilmedi.";
@@ -67,48 +78,35 @@ public class StreetPresenter
         RefreshList();
     }
 
-    private void OnUpdate(object? sender, EventArgs e)
-    {
-        if (_bindingSource.Current is not StreetModel selected) { 
-        MessageBox.Show("Seçili öğe bulunamadı!");
-        return;
-        }
-        
-
-        _view.StreetID = selected.StreetId.ToString();
-        _view.StreetName = selected.Street;
-        _view.UpdateDate = selected.UpdateDate?.ToString("yyyy-MM-dd") ?? "";
-        _view.IsEdit = true;
-    }
-
-
-
     private void OnSave(object? sender, EventArgs e)
     {
         try
         {
-            var model = new StreetModel
+            var model = new DocumentTypeModel
             {
-                StreetId = int.TryParse(_view.StreetID, out int id) ? id : 0,
-                Street = _view.StreetName,
-                UpdateDate = string.IsNullOrWhiteSpace(_view.UpdateDate)
-                    ? (DateTime?)null
-                    : DateTime.Parse(_view.UpdateDate) // Burada boş string gelirse null atanacak
+                DocumentTypeId = int.TryParse(_view.DocumentTypeID, out int id) ? id : 0,
+                DocumentType = _view.DocumentType,
+                UpdateDate = DateTime.TryParse(_view.UpdateDate, out DateTime upd) ? upd : null
             };
 
-            if (string.IsNullOrWhiteSpace(model.Street))
+            if (string.IsNullOrWhiteSpace(model.DocumentType))
             {
                 _view.IsSuccessful = false;
-                _view.Message = "Sokak adı boş olamaz.";
+                _view.Message = "Tür adı boş olamaz.";
                 return;
             }
 
             if (_view.IsEdit)
+            {
                 _repository.Update(model);
+            }
             else
+            {
                 _repository.Add(model);
+            }
 
             _view.IsSuccessful = true;
+            _view.Message = "Kayıt başarıyla kaydedildi.";
             RefreshList();
             ClearViewFields();
         }
@@ -119,7 +117,6 @@ public class StreetPresenter
         }
     }
 
-
     private void OnCancel(object? sender, EventArgs e)
     {
         ClearViewFields();
@@ -127,16 +124,16 @@ public class StreetPresenter
 
     private void ClearViewFields()
     {
-        _view.StreetID = "";
-        _view.StreetName = "";
+        _view.DocumentTypeID = "";
+        _view.DocumentType = "";
         _view.UpdateDate = "";
         _view.IsEdit = false;
     }
 
     private void RefreshList()
     {
-        _streets.Clear();
+        _docTypes.Clear();
         foreach (var item in _repository.GetAll())
-            _streets.Add(item);
+            _docTypes.Add(item);
     }
 }

@@ -1,6 +1,6 @@
 ﻿namespace MuhtarlikTebgigatSistemi.Views
 {
-    partial class StreetView
+    partial class UserView
     {
         /// <summary>
         /// Required designer variable.
@@ -34,21 +34,21 @@
             tabControl1 = new TabControl();
             TabPageStreetList = new TabPage();
             btnDelete = new Button();
-            btnUpdate = new Button();
             btnAdd = new Button();
             dataGridView = new DataGridView();
             txtSearch = new TextBox();
             label2 = new Label();
             TabPageStreetDetail = new TabPage();
-            chkUpdate = new CheckBox();
-            dtpUpdate = new DateTimePicker();
+            txtUserId = new TextBox();
+            lbl1 = new Label();
             label9 = new Label();
+            txtUser = new TextBox();
             btnCancel = new Button();
             btnSave = new Button();
-            txtStreetName = new TextBox();
-            txtStreetId = new TextBox();
+            txtPassword = new TextBox();
             lbl2 = new Label();
-            lbl1 = new Label();
+            txtRole = new TextBox();
+            label3 = new Label();
             formBorderPanel.SuspendLayout();
             tabControl1.SuspendLayout();
             TabPageStreetList.SuspendLayout();
@@ -66,7 +66,7 @@
             formBorderPanel.Margin = new Padding(4, 3, 4, 3);
             formBorderPanel.Name = "formBorderPanel";
             formBorderPanel.Size = new Size(800, 35);
-            formBorderPanel.TabIndex = 2;
+            formBorderPanel.TabIndex = 3;
             // 
             // btnClose
             // 
@@ -94,9 +94,9 @@
             label1.Location = new Point(55, 1);
             label1.Margin = new Padding(4, 0, 4, 0);
             label1.Name = "label1";
-            label1.Size = new Size(110, 28);
+            label1.Size = new Size(142, 28);
             label1.TabIndex = 0;
-            label1.Text = "SOKAKLAR";
+            label1.Text = "KULLANICILAR";
             // 
             // tabControl1
             // 
@@ -107,12 +107,11 @@
             tabControl1.Name = "tabControl1";
             tabControl1.SelectedIndex = 0;
             tabControl1.Size = new Size(800, 415);
-            tabControl1.TabIndex = 3;
+            tabControl1.TabIndex = 4;
             // 
             // TabPageStreetList
             // 
             TabPageStreetList.Controls.Add(btnDelete);
-            TabPageStreetList.Controls.Add(btnUpdate);
             TabPageStreetList.Controls.Add(btnAdd);
             TabPageStreetList.Controls.Add(dataGridView);
             TabPageStreetList.Controls.Add(txtSearch);
@@ -127,23 +126,13 @@
             // 
             // btnDelete
             // 
-            btnDelete.Location = new Point(175, 59);
+            btnDelete.Location = new Point(92, 59);
             btnDelete.Margin = new Padding(4, 3, 4, 3);
             btnDelete.Name = "btnDelete";
             btnDelete.Size = new Size(75, 23);
             btnDelete.TabIndex = 13;
             btnDelete.Text = "Kaldır";
             btnDelete.UseVisualStyleBackColor = true;
-            // 
-            // btnUpdate
-            // 
-            btnUpdate.Location = new Point(92, 59);
-            btnUpdate.Margin = new Padding(4, 3, 4, 3);
-            btnUpdate.Name = "btnUpdate";
-            btnUpdate.Size = new Size(75, 23);
-            btnUpdate.TabIndex = 12;
-            btnUpdate.Text = "Güncelle";
-            btnUpdate.UseVisualStyleBackColor = true;
             // 
             // btnAdd
             // 
@@ -161,43 +150,44 @@
             dataGridView.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.Fill;
             dataGridView.BackgroundColor = SystemColors.ButtonHighlight;
             dataGridView.ColumnHeadersHeightSizeMode = DataGridViewColumnHeadersHeightSizeMode.AutoSize;
-            dataGridView.Location = new Point(9, 89);
+            dataGridView.Location = new Point(12, 92);
             dataGridView.Margin = new Padding(4, 3, 4, 3);
             dataGridView.Name = "dataGridView";
-            dataGridView.Size = new Size(774, 275);
+            dataGridView.Size = new Size(694, 275);
             dataGridView.TabIndex = 10;
             // 
             // txtSearch
             // 
             txtSearch.Anchor = AnchorStyles.Top | AnchorStyles.Left | AnchorStyles.Right;
-            txtSearch.Location = new Point(9, 32);
+            txtSearch.Location = new Point(12, 35);
             txtSearch.Margin = new Padding(4, 3, 4, 3);
             txtSearch.Name = "txtSearch";
-            txtSearch.Size = new Size(774, 21);
+            txtSearch.Size = new Size(694, 23);
             txtSearch.TabIndex = 8;
             // 
             // label2
             // 
             label2.AutoSize = true;
             label2.Font = new Font("Segoe UI", 12F);
-            label2.Location = new Point(8, 9);
+            label2.Location = new Point(11, 12);
             label2.Margin = new Padding(4, 0, 4, 0);
             label2.Name = "label2";
-            label2.Size = new Size(83, 21);
+            label2.Size = new Size(138, 21);
             label2.TabIndex = 7;
-            label2.Text = "Sokak arat";
+            label2.Text = "Kullanıcıları Listele";
             // 
             // TabPageStreetDetail
             // 
-            TabPageStreetDetail.Controls.Add(chkUpdate);
-            TabPageStreetDetail.Controls.Add(dtpUpdate);
+            TabPageStreetDetail.Controls.Add(txtRole);
+            TabPageStreetDetail.Controls.Add(label3);
+            TabPageStreetDetail.Controls.Add(txtUserId);
+            TabPageStreetDetail.Controls.Add(lbl1);
             TabPageStreetDetail.Controls.Add(label9);
+            TabPageStreetDetail.Controls.Add(txtUser);
             TabPageStreetDetail.Controls.Add(btnCancel);
             TabPageStreetDetail.Controls.Add(btnSave);
-            TabPageStreetDetail.Controls.Add(txtStreetName);
-            TabPageStreetDetail.Controls.Add(txtStreetId);
+            TabPageStreetDetail.Controls.Add(txtPassword);
             TabPageStreetDetail.Controls.Add(lbl2);
-            TabPageStreetDetail.Controls.Add(lbl1);
             TabPageStreetDetail.Location = new Point(4, 24);
             TabPageStreetDetail.Name = "TabPageStreetDetail";
             TabPageStreetDetail.Padding = new Padding(3);
@@ -206,104 +196,113 @@
             TabPageStreetDetail.Text = "Street Detail";
             TabPageStreetDetail.UseVisualStyleBackColor = true;
             // 
-            // chkUpdate
+            // txtUserId
             // 
-            chkUpdate.AutoSize = true;
-            chkUpdate.Location = new Point(504, 112);
-            chkUpdate.Name = "chkUpdate";
-            chkUpdate.Size = new Size(15, 14);
-            chkUpdate.TabIndex = 46;
-            chkUpdate.UseVisualStyleBackColor = true;
+            txtUserId.Location = new Point(381, 53);
+            txtUserId.Margin = new Padding(4, 3, 4, 3);
+            txtUserId.Name = "txtUserId";
+            txtUserId.ReadOnly = true;
+            txtUserId.Size = new Size(162, 23);
+            txtUserId.TabIndex = 46;
+            txtUserId.Text = "0";
             // 
-            // dtpUpdate
+            // lbl1
             // 
-            dtpUpdate.Location = new Point(298, 108);
-            dtpUpdate.Name = "dtpUpdate";
-            dtpUpdate.Size = new Size(200, 21);
-            dtpUpdate.TabIndex = 45;
+            lbl1.AutoSize = true;
+            lbl1.Font = new Font("Segoe UI", 12F);
+            lbl1.Location = new Point(237, 55);
+            lbl1.Margin = new Padding(4, 0, 4, 0);
+            lbl1.Name = "lbl1";
+            lbl1.Size = new Size(93, 21);
+            lbl1.TabIndex = 45;
+            lbl1.Text = "Kullanıcı No";
             // 
             // label9
             // 
             label9.AutoSize = true;
             label9.Font = new Font("Segoe UI", 12F);
-            label9.Location = new Point(153, 108);
+            label9.Location = new Point(236, 80);
             label9.Margin = new Padding(4, 0, 4, 0);
             label9.Name = "label9";
-            label9.Size = new Size(133, 21);
+            label9.Size = new Size(95, 21);
             label9.TabIndex = 44;
-            label9.Text = "Güncelleme Tarihi";
+            label9.Text = "Kullanıcı Adı";
+            // 
+            // txtUser
+            // 
+            txtUser.Location = new Point(381, 82);
+            txtUser.Margin = new Padding(4, 3, 4, 3);
+            txtUser.Name = "txtUser";
+            txtUser.Size = new Size(162, 23);
+            txtUser.TabIndex = 43;
             // 
             // btnCancel
             // 
-            btnCancel.Location = new Point(327, 173);
+            btnCancel.Location = new Point(394, 190);
             btnCancel.Margin = new Padding(4, 3, 4, 3);
             btnCancel.Name = "btnCancel";
-            btnCancel.Size = new Size(100, 30);
+            btnCancel.Size = new Size(75, 23);
             btnCancel.TabIndex = 30;
             btnCancel.Text = "Cancel";
             btnCancel.UseVisualStyleBackColor = true;
             // 
             // btnSave
             // 
-            btnSave.Location = new Point(215, 173);
+            btnSave.Location = new Point(274, 190);
             btnSave.Margin = new Padding(4, 3, 4, 3);
             btnSave.Name = "btnSave";
-            btnSave.Size = new Size(100, 30);
+            btnSave.Size = new Size(75, 23);
             btnSave.TabIndex = 29;
             btnSave.Text = "Save";
             btnSave.UseVisualStyleBackColor = true;
             // 
-            // txtStreetName
+            // txtPassword
             // 
-            txtStreetName.Location = new Point(298, 81);
-            txtStreetName.Margin = new Padding(4, 3, 4, 3);
-            txtStreetName.Name = "txtStreetName";
-            txtStreetName.Size = new Size(200, 21);
-            txtStreetName.TabIndex = 28;
-            // 
-            // txtStreetId
-            // 
-            txtStreetId.Location = new Point(298, 56);
-            txtStreetId.Margin = new Padding(4, 3, 4, 3);
-            txtStreetId.Name = "txtStreetId";
-            txtStreetId.ReadOnly = true;
-            txtStreetId.Size = new Size(200, 21);
-            txtStreetId.TabIndex = 27;
-            txtStreetId.Text = "0";
+            txtPassword.Location = new Point(381, 111);
+            txtPassword.Margin = new Padding(4, 3, 4, 3);
+            txtPassword.Name = "txtPassword";
+            txtPassword.Size = new Size(162, 23);
+            txtPassword.TabIndex = 28;
             // 
             // lbl2
             // 
             lbl2.AutoSize = true;
             lbl2.Font = new Font("Segoe UI", 12F);
-            lbl2.Location = new Point(153, 81);
+            lbl2.Location = new Point(236, 109);
             lbl2.Margin = new Padding(4, 0, 4, 0);
             lbl2.Name = "lbl2";
-            lbl2.Size = new Size(79, 21);
+            lbl2.Size = new Size(42, 21);
             lbl2.TabIndex = 26;
-            lbl2.Text = "Sokak Adı";
+            lbl2.Text = "Şifre";
             // 
-            // lbl1
+            // txtRole
             // 
-            lbl1.AutoSize = true;
-            lbl1.Font = new Font("Segoe UI", 12F);
-            lbl1.Location = new Point(153, 56);
-            lbl1.Margin = new Padding(4, 0, 4, 0);
-            lbl1.Name = "lbl1";
-            lbl1.Size = new Size(77, 21);
-            lbl1.TabIndex = 25;
-            lbl1.Text = "Sokak No";
+            txtRole.Location = new Point(381, 140);
+            txtRole.Margin = new Padding(4, 3, 4, 3);
+            txtRole.Name = "txtRole";
+            txtRole.Size = new Size(162, 23);
+            txtRole.TabIndex = 48;
             // 
-            // StreetView
+            // label3
+            // 
+            label3.AutoSize = true;
+            label3.Font = new Font("Segoe UI", 12F);
+            label3.Location = new Point(236, 138);
+            label3.Margin = new Padding(4, 0, 4, 0);
+            label3.Name = "label3";
+            label3.Size = new Size(33, 21);
+            label3.TabIndex = 47;
+            label3.Text = "Rol";
+            // 
+            // UserView
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
-            BackColor = Color.White;
             ClientSize = new Size(800, 450);
             Controls.Add(tabControl1);
             Controls.Add(formBorderPanel);
-            Font = new Font("Arial", 9F);
-            Name = "StreetView";
-            Text = "StreetView";
+            Name = "UserView";
+            Text = "UserView";
             formBorderPanel.ResumeLayout(false);
             formBorderPanel.PerformLayout();
             tabControl1.ResumeLayout(false);
@@ -322,30 +321,21 @@
         private Label label1;
         private TabControl tabControl1;
         private TabPage TabPageStreetList;
-        private TabPage TabPageStreetDetail;
         private Button btnDelete;
-        private Button btnUpdate;
         private Button btnAdd;
         private DataGridView dataGridView;
         private TextBox txtSearch;
         private Label label2;
+        private TabPage TabPageStreetDetail;
         private Label label9;
-        private TextBox txtApt;
-        private Label label7;
-        private Label label6;
-        private Label label5;
-        private Label label4;
-        private Label label3;
-        private TextBox txtDeliveredBy;
-        private TextBox txtStreetName;
-        private TextBox txtCompanyName;
-        private TextBox txtPersonName;
+        private TextBox txtUser;
         private Button btnCancel;
         private Button btnSave;
+        private TextBox txtPassword;
         private Label lbl2;
-        private DateTimePicker dtpUpdate;
-        private TextBox txtStreetId;
+        private TextBox txtUserId;
         private Label lbl1;
-        private CheckBox chkUpdate;
+        private TextBox txtRole;
+        private Label label3;
     }
 }

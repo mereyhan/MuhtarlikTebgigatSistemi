@@ -29,6 +29,7 @@
         private void InitializeComponent()
         {
             panelSideMenu = new Panel();
+            btnUsers = new Button();
             button7 = new Button();
             button6 = new Button();
             btnCompanies = new Button();
@@ -46,6 +47,7 @@
             // 
             panelSideMenu.AutoScroll = true;
             panelSideMenu.BackColor = Color.Maroon;
+            panelSideMenu.Controls.Add(btnUsers);
             panelSideMenu.Controls.Add(button7);
             panelSideMenu.Controls.Add(button6);
             panelSideMenu.Controls.Add(btnCompanies);
@@ -60,6 +62,24 @@
             panelSideMenu.Name = "panelSideMenu";
             panelSideMenu.Size = new Size(250, 561);
             panelSideMenu.TabIndex = 0;
+            // 
+            // btnUsers
+            // 
+            btnUsers.Dock = DockStyle.Top;
+            btnUsers.FlatAppearance.BorderSize = 0;
+            btnUsers.FlatAppearance.MouseOverBackColor = Color.Red;
+            btnUsers.FlatStyle = FlatStyle.Flat;
+            btnUsers.Font = new Font("Arial", 12F);
+            btnUsers.ForeColor = SystemColors.Control;
+            btnUsers.ImageAlign = ContentAlignment.MiddleLeft;
+            btnUsers.Location = new Point(0, 460);
+            btnUsers.Name = "btnUsers";
+            btnUsers.Padding = new Padding(10, 0, 0, 0);
+            btnUsers.Size = new Size(250, 45);
+            btnUsers.TabIndex = 8;
+            btnUsers.Text = "Kullanıcı Tablosu";
+            btnUsers.TextAlign = ContentAlignment.MiddleLeft;
+            btnUsers.UseVisualStyleBackColor = true;
             // 
             // button7
             // 
@@ -129,7 +149,7 @@
             btnPersons.Padding = new Padding(10, 0, 0, 0);
             btnPersons.Size = new Size(250, 45);
             btnPersons.TabIndex = 4;
-            btnPersons.Text = "Kullanıcı Bilgileri";
+            btnPersons.Text = "Kişi Bilgileri";
             btnPersons.TextAlign = ContentAlignment.MiddleLeft;
             btnPersons.UseVisualStyleBackColor = true;
             // 
@@ -251,5 +271,6 @@
         private Button btnPersons;
         private Button btnDocTypes;
         private Button btnStreets;
+        private Button btnUsers;
     }
 }

@@ -5,7 +5,6 @@ namespace MuhtarlikTebgigatSistemi.Views
 {
     public partial class StreetView : Form, IStreetView
     {
-
         private string message;
         private bool isSuccessful;
         private bool isEdit;
@@ -17,23 +16,23 @@ namespace MuhtarlikTebgigatSistemi.Views
         {
             InitializeComponent();
 
+            searchDelayTimer = new System.Windows.Forms.Timer { Interval = 300 };
+
             AssociateAndRaiseViewEvents();
+
             tabControl1.TabPages.Remove(TabPageStreetDetail);
+
             btnClose.Click += delegate { this.Close(); };
         }
 
         private void AssociateAndRaiseViewEvents()
         {
-            // Search document
             txtSearch.TextChanged += (s, e) =>
             {
                 searchDelayTimer.Stop();
                 searchDelayTimer.Start();
             };
-            searchDelayTimer = new System.Windows.Forms.Timer
-            {
-                Interval = 300
-            };
+
             searchDelayTimer.Tick += (s, e) =>
             {
                 if (!isTimerRunning)
@@ -52,26 +51,26 @@ namespace MuhtarlikTebgigatSistemi.Views
                 if (e.KeyCode == Keys.Enter)
                     SearchEvent?.Invoke(this, EventArgs.Empty);
             };
-            // Add new document
+
             btnAdd.Click += delegate
             {
                 AddEvent?.Invoke(this, EventArgs.Empty);
                 tabControl1.TabPages.Remove(TabPageStreetList);
                 tabControl1.TabPages.Add(TabPageStreetDetail);
-                TabPageStreetDetail.Text = "Add new street";
+                TabPageStreetDetail.Text = "Ekle";
             };
-            // Update selected document
+
             btnUpdate.Click += delegate
             {
                 UpdateEvent?.Invoke(this, EventArgs.Empty);
                 tabControl1.TabPages.Remove(TabPageStreetList);
                 tabControl1.TabPages.Add(TabPageStreetDetail);
-                TabPageStreetDetail.Text = "Update street";
+                TabPageStreetDetail.Text = "Güncelle";
             };
-            // Delete selected document
+
             btnDelete.Click += delegate
             {
-                var result = MessageBox.Show("Are you sure you want to delete the selected street?", "Warning",
+                var result = MessageBox.Show("Evrak silinsin mi?", "Warning",
                     MessageBoxButtons.YesNo, MessageBoxIcon.Warning);
                 if (result == DialogResult.Yes)
                 {
@@ -79,7 +78,7 @@ namespace MuhtarlikTebgigatSistemi.Views
                     if (!string.IsNullOrWhiteSpace(Message)) { MessageBox.Show(Message); }
                 }
             };
-            // Save document
+
             btnSave.Click += delegate
             {
                 SaveEvent?.Invoke(this, EventArgs.Empty);
@@ -90,21 +89,57 @@ namespace MuhtarlikTebgigatSistemi.Views
                 }
                 if (!string.IsNullOrWhiteSpace(Message)) { MessageBox.Show(Message); }
             };
-            // Cancel action
+
             btnCancel.Click += delegate
             {
                 CancelEvent?.Invoke(this, EventArgs.Empty);
                 tabControl1.TabPages.Remove(TabPageStreetDetail);
                 tabControl1.TabPages.Add(TabPageStreetList);
             };
+
+            chkUpdate.CheckedChanged += (s, e) =>
+            {
+                dtpUpdate.Enabled = chkUpdate.Checked;
+            };
         }
 
-        public string StreetID { get => txtStreetId.Text; set => txtStreetId.Text = value; }
-        public string StreetName { get => txtStreetName.Text; set => txtStreetName.Text = value; }
-        public string RegisterDate { get => txtRegisterDate.Text; set => txtRegisterDate.Text = value; }
-        public string UpdateDate { get => txtUpdateDate.Text; set => txtUpdateDate.Text = value; }
+        public string StreetID
+        {
+            get => txtStreetId.Text;
+            set => txtStreetId.Text = value;
+        }
 
-        public string SearchValue { get => txtSearch.Text; set => txtSearch.Text = value; }
+        public string StreetName
+        {
+            get => txtStreetName.Text;
+            set => txtStreetName.Text = value;
+        }
+
+        public string UpdateDate
+        {
+            get => chkUpdate.Checked ? dtpUpdate.Value.ToString("yyyy-MM-dd") : "";
+            set
+            {
+                if (string.IsNullOrWhiteSpace(value))
+                {
+                    chkUpdate.Checked = false;
+                    dtpUpdate.Enabled = false;
+                }
+                else
+                {
+                    chkUpdate.Checked = true;
+                    dtpUpdate.Enabled = true;
+                    dtpUpdate.Value = DateTime.Parse(value);
+                }
+            }
+        }
+
+        public string SearchValue
+        {
+            get => txtSearch.Text;
+            set => txtSearch.Text = value;
+        }
+
         public bool IsEdit { get => isEdit; set => isEdit = value; }
         public bool IsSuccessful { get => isSuccessful; set => isSuccessful = value; }
         public string Message { get => message; set => message = value; }
@@ -115,14 +150,15 @@ namespace MuhtarlikTebgigatSistemi.Views
         public event EventHandler DeleteEvent;
         public event EventHandler SaveEvent;
         public event EventHandler CancelEvent;
+
         private static StreetView instance;
 
-        public void SetStreetListBindingSource(BindingSource StreetList)
+        public void SetStreetListBindingSource(BindingSource streetList)
         {
-            dataGridView.DataSource = StreetList;
+            dataGridView.DataSource = streetList;
         }
 
-        public static StreetView GetInstace(Form parentContainer)
+        public static StreetView GetInstance(Form parentContainer)
         {
             if (instance == null || instance.IsDisposed)
             {
@@ -139,5 +175,14 @@ namespace MuhtarlikTebgigatSistemi.Views
             }
             return instance;
         }
+
+        public void ClearFields()
+        {
+            txtStreetId.Text = "";
+            txtStreetName.Text = "";
+            chkUpdate.Checked = false;
+            dtpUpdate.Value = DateTime.Today;
+        }
     }
+
 }

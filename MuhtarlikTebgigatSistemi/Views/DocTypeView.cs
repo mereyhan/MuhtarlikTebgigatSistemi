@@ -14,6 +14,8 @@ namespace MuhtarlikTebgigatSistemi.Views
         public DocTypeView()
         {
             InitializeComponent();
+
+            searchDelayTimer = new System.Windows.Forms.Timer { Interval = 300 }; 
             AssociateAndRaiseViewEvents();
             tabControl1.TabPages.Remove(TabPageDocTypeDetail);
             btnClose.Click += delegate { this.Close(); };
@@ -64,6 +66,7 @@ namespace MuhtarlikTebgigatSistemi.Views
                 tabControl1.TabPages.Remove(TabPageDocTypeList);
                 tabControl1.TabPages.Add(TabPageDocTypeDetail);
                 TabPageDocTypeDetail.Text = "Update document";
+                dtpUpdate.Enabled = chkUpdate.Checked;
             };
             // Delete selected document
             btnDelete.Click += delegate
@@ -96,15 +99,31 @@ namespace MuhtarlikTebgigatSistemi.Views
             };
         }
 
-        public string DocTypeID { get => txtDocTypeId.Text; set => txtDocTypeId.Text = value; }
         public string DocumentType { get => txtDocumentType.Text; set => txtDocumentType.Text = value; }
-        public string RegisterDate { get => txtRegisterDate.Text; set => txtRegisterDate.Text = value; }
-        public string UpdateDate { get => txtUpdateDate.Text; set => txtUpdateDate.Text = value; }
+        public string UpdateDate
+        {
+            get => chkUpdate.Checked ? dtpUpdate.Value.ToString("yyyy-MM-dd") : "";
+            set
+            {
+                if (string.IsNullOrWhiteSpace(value))
+                {
+                    chkUpdate.Checked = false;
+                    dtpUpdate.Enabled = false;
+                }
+                else
+                {
+                    chkUpdate.Checked = true;
+                    dtpUpdate.Enabled = true;
+                    dtpUpdate.Value = DateTime.Parse(value);
+                }
+            }
+        }
 
         public string SearchValue { get => txtSearch.Text; set => txtSearch.Text = value; }
         public bool IsEdit { get => isEdit; set => isEdit = value; }
         public bool IsSuccessful { get => isSuccessful; set => isSuccessful = value; }
         public string Message { get => message; set => message = value; }
+        public string DocumentTypeID { get => txtDocTypeId.Text; set => txtDocTypeId.Text = value; }
 
         public event EventHandler SearchEvent;
         public event EventHandler SearchTextChanged;

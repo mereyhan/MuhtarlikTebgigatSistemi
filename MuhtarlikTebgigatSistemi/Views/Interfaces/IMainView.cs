@@ -7,8 +7,6 @@
         event EventHandler ShowStreetView;
         event EventHandler ShowPersonView;
         event EventHandler ShowCompanyView;
-
-        event EventHandler ShowOwnerView;
-        event EventHandler ShowAdminView;
+        event EventHandler ShowUserView;
     }
 }

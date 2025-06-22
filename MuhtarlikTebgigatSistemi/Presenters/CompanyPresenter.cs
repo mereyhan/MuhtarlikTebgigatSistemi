@@ -1,151 +1,194 @@
 ﻿using MuhtarlikTebgigatSistemi.Model;
+using MuhtarlikTebgigatSistemi.Repository;
 using MuhtarlikTebgigatSistemi.Views.Interfaces;
+using System.ComponentModel;
 
-namespace MuhtarlikTebgigatSistemi.Presenters
+namespace MuhtarlikTebgigatSistemi.Presenters;
+
+public class CompanyPresenter
 {
-    public class CompanyPresenter
+    private readonly ICompanyView _view;
+    private readonly CompanyRepository _companyRepo;
+    private readonly CompanyOverviewRepository _overviewRepo;
+    private readonly StreetRepository _streetRepo;
+
+    private readonly BindingList<CompanyOverviewModel> _companyList;
+    private readonly BindingSource _bindingSource;
+
+    public CompanyPresenter(
+        ICompanyView view,
+        CompanyRepository companyRepo,
+        CompanyOverviewRepository overviewRepo,
+        StreetRepository streetRepo)
     {
-        // Fields
-        private ICompanyView view;
-        private IRepository<CompanyModel> repository;
-        private BindingSource companyBindingSource;
-        private IEnumerable<CompanyModel> companyList;
+        _view = view;
+        _companyRepo = companyRepo;
+        _overviewRepo = overviewRepo;
+        _streetRepo = streetRepo;
 
-        // Constructor
-        public CompanyPresenter(ICompanyView _view, IRepository<CompanyModel> _repository)
+        _bindingSource = new BindingSource();
+        _companyList = new BindingList<CompanyOverviewModel>(_overviewRepo.GetAll().ToList());
+
+        _bindingSource.DataSource = _companyList;
+        _view.SetCompanyListBindingSource(_bindingSource);
+
+        SubscribeToEvents();
+
+        _view.Show();
+    }
+
+    private void SubscribeToEvents()
+    {
+        _view.SearchEvent += OnSearch;
+        _view.SearchTextChanged += OnSearch;
+        _view.AddEvent += OnAdd;
+        _view.UpdateEvent += OnUpdate;
+        _view.DeleteEvent += OnDelete;
+        _view.SaveEvent += OnSave;
+        _view.CancelEvent += OnCancel;
+        LoadStreetComboBox();
+    }
+
+    private void OnSearch(object? sender, EventArgs e)
+    {
+        var query = _view.SearchValue?.Trim().ToLower() ?? "";
+
+        var result = string.IsNullOrWhiteSpace(query)
+            ? _overviewRepo.GetAll()
+            : _overviewRepo.Search(query)
+                  .Select(c => new CompanyOverviewModel
+                  {
+                      CompanyId = c.CompanyId,
+                      CompanyName = c.CompanyName,
+                      Building = c.Building,
+                      Email = c.Email,
+                      Phone = c.Phone,
+                      RegisterDate = c.RegisterDate,
+                      UpdateDate = c.UpdateDate,
+                      StreetName = c.StreetName
+                  });
+
+        _companyList.Clear();
+        foreach (var item in result)
+            _companyList.Add(item);
+    }
+
+    private void OnAdd(object? sender, EventArgs e)
+    {
+        _view.IsEdit = false;
+    }
+
+    private void OnUpdate(object? sender, EventArgs e)
+    {
+        if (_bindingSource.Current is not CompanyOverviewModel selected)
+            return;
+
+        var model = _companyRepo.GetAll().FirstOrDefault(x => x.CompanyId == selected.CompanyId);
+        if (model == null)
         {
-            this.view = _view;
-            this.repository = _repository;
-            this.companyBindingSource = new BindingSource();
-
-            // Associate and raise view events
-            this.view.SearchEvent += SearchCompany;
-            this.view.AddEvent += AddNewCompany;
-            this.view.UpdateEvent += UpdateSelectedCompany;
-            this.view.DeleteEvent += DeleteSelectedCompany;
-            this.view.SaveEvent += SaveCompany;
-            this.view.CancelEvent += CancelAction;
-
-            // Set dompany binding source
-            this.view.SetCompanyListBindingSource(companyBindingSource);
-
-            // Load dompanys to binding source
-            LoadAllCompanyList();
-
-            // Show view
-            this.view.Show();
+            _view.IsSuccessful = false;
+            _view.Message = "Kayıt bulunamadı.";
+            return;
         }
 
-        // Methods
-        private void LoadAllCompanyList()
-        {
-            companyList = repository.GetAll();
-            companyBindingSource.DataSource = companyList; // Binding source is updated
-        }
-        private void SearchCompany(object? sender, EventArgs e)
-        {
-            bool emptyValue = string.IsNullOrWhiteSpace(this.view.SearchValue);
-            if (emptyValue == false)
-                companyList = repository.GetByValue(this.view.SearchValue);
-            else
-                companyList = repository.GetAll();
+        _view.CompanyID = model.CompanyId.ToString();
+        _view.MyCompanyName = model.CompanyName;
+        _view.StreetName = _streetRepo.GetById(model.StreetId)?.Street ?? "";
+        _view.BuildingApt = model.Building;
+        _view.PhoneNumber = model.Phone;
+        _view.Email = model.Email;
 
-            companyBindingSource.DataSource = companyList;
-        }
-        private void AddNewCompany(object? sender, EventArgs e)
-        {
-            view.IsEdit = false;
-        }
-        private void UpdateSelectedCompany(object? sender, EventArgs e)
-        {
-            var company = (CompanyModel)companyBindingSource.Current;
-            view.CompanyID= company.Id.ToString();
-            view.CompanyName = company.CompanyName;
-            view.StreetName = company.StreetName;
-            view.BuildingApt = company.BuildingApt;
-            view.PersonName = company.PersonName;
-            view.PhoneNumber = company.PhoneNumber;
-            view.Email = company.Email;
-            view.RegisterDate = company.RegisterDate.ToString("yyyy-MM-dd");
-            view.UpdateDate = company.UpdateDate.ToString("yyyy-MM-dd");
-            view.IsEdit = true;
-        }
-        private void DeleteSelectedCompany(object? sender, EventArgs e)
-        {
-            try
-            {
-                var company = (CompanyModel)companyBindingSource.Current;
-                repository.Delete(company.Id);
-                view.IsSuccessful = true;
-                LoadAllCompanyList();
-            }
-            catch (Exception ex)
-            {
-                view.IsSuccessful = false;
-                view.Message = $"An error occurred: {ex.Message}";
-                Console.WriteLine($"Error details: {ex}");
+        _view.IsEdit = true;
+    }
 
-            }
-        }
-        private void SaveCompany(object? sender, EventArgs e)
+    private void OnDelete(object? sender, EventArgs e)
+    {
+        if (!int.TryParse(_view.CompanyID, out int id))
         {
-            var model = new CompanyModel();
-            model.CompanyName = view.CompanyName;
-            model.StreetName = view.StreetName;
-            model.BuildingApt = view.BuildingApt;
-            model.PersonName = view.PersonName;
-            model.PhoneNumber = view.PhoneNumber;
-            model.Email = view.Email;
-            model.UpdateDate = DateTime.Now;
-            try
-            {
-                new Common.ModelDataValidation().Validate(model);
+            _view.IsSuccessful = false;
+            _view.Message = "Geçerli bir ID girilmedi.";
+            return;
+        }
 
-                if (view.IsEdit)
-                {
-                    if (int.TryParse(view.CompanyID, out int id))
-                    {
-                        model.Id = id;
-                        repository.Update(model);
-                    }
-                    else
-                    {
-                        view.IsSuccessful = false;
-                        view.Message = "Güncelleme için geçersiz bir ID";
-                        return;
-                    }
-                }
-                else
-                {
-                    model.RegisterDate = DateTime.Now;
-                    repository.Add(model);
-                }
-
-                view.IsSuccessful = true;
-                LoadAllCompanyList();
-                CleanViewFields();
-            }
-            catch (Exception ex)
-            {
-                view.IsSuccessful = false;
-                view.Message = $"Error: {ex.Message}";
-            }
-        }
-        private void CleanViewFields()
+        try
         {
-            view.CompanyID = string.Empty;
-            view.CompanyName = string.Empty;
-            view.StreetName = string.Empty;
-            view.BuildingApt = string.Empty;
-            view.PersonName = string.Empty;
-            view.PhoneNumber = string.Empty;
-            view.Email = string.Empty;
-            view.RegisterDate = string.Empty;
-            view.UpdateDate = string.Empty;
+            _companyRepo.Delete(id);
+            _view.IsSuccessful = true;
+            _view.Message = "Kayıt silindi.";
+            RefreshCompanyList();
         }
-        private void CancelAction(object? sender, EventArgs e)
+        catch (Exception ex)
         {
-            CleanViewFields();
+            _view.IsSuccessful = false;
+            _view.Message = $"Silme hatası: {ex.Message}";
         }
     }
+
+    private void OnSave(object? sender, EventArgs e)
+    {
+        try
+        {
+            int streetId = _streetRepo.GetOrCreate(_view.StreetName.Trim());
+
+            var model = new CompanyModel
+            {
+                CompanyId = int.TryParse(_view.CompanyID, out int id) ? id : 0,
+                CompanyName = _view.MyCompanyName.Trim(),
+                StreetId = streetId,
+                Building = _view.BuildingApt.Trim(),
+                Phone = _view.PhoneNumber?.Trim(),
+                Email = _view.Email?.Trim(),
+                UpdateDate = string.IsNullOrWhiteSpace(_view.UpdateDate) ? (DateTime?)null : DateTime.Parse(_view.UpdateDate)
+            };
+
+            if (_view.IsEdit)
+                _companyRepo.Update(model);
+            else
+                _companyRepo.AddAndReturnId(model);
+
+            _view.IsSuccessful = true;
+            _view.Message = _view.IsEdit ? "Kayıt güncellendi." : "Yeni kayıt eklendi.";
+
+            RefreshCompanyList();
+            ClearForm();
+        }
+        catch (Exception ex)
+        {
+            _view.IsSuccessful = false;
+            _view.Message = $"Kayıt hatası: {ex.Message}";
+        }
+    }
+
+    private void OnCancel(object? sender, EventArgs e)
+    {
+        ClearForm();
+    }
+
+    private void RefreshCompanyList()
+    {
+        _companyList.Clear();
+        foreach (var item in _overviewRepo.GetAll())
+            _companyList.Add(item);
+    }
+
+    private void ClearForm()
+    {
+        _view.CompanyID = "";
+        _view.MyCompanyName = "";
+        _view.StreetName = "";
+        _view.BuildingApt = "";
+        _view.PhoneNumber = "";
+        _view.Email = "";
+        _view.IsEdit = false;
+    }
+
+    private void LoadStreetComboBox()
+    {
+        var streets = _streetRepo.GetAll()
+                                 .Select(s => s.Street)
+                                 .Distinct()
+                                 .ToList();
+        _view.SetStreetComboBox(streets);
+    }
+
 }
